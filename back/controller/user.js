@@ -1,6 +1,8 @@
 const express = require('express')
 const passport = require('passport')
 const User = require('../schema/schemaUser')
+const Scripts = require('../schema/schemaScript')
+const Services = require('../schema/schemaService')
 
 function auth(req, res, next) {
     console.log("try")
@@ -92,5 +94,14 @@ module.exports = function(app) {
             .catch(err => {
                 return res.status(500).json({ ok: true })
             })
+    })
+    app.get('/scripts', auth, async function(req, res) {
+        try {
+            let scripts = await User.findById(req.user.id).select("-_id scripts").populate("scripts", "name img");
+            return res.status(200).json({ scripts: scripts })
+        } catch (e) {
+            return res.status(500).json({ error: e })
+        }
+
     })
 }

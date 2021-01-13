@@ -47,7 +47,20 @@ services:
             ME_CONFIG_MONGODB_ADMINPASSWORD: adpass
         networks:
                 - back_net
+    mongo-seed:
+        image: mongo
+        links:
+            - mongo
+        volumes:
+            - ./db-seed:/db-seed
+        command:
+            /db-seed/import.sh
+        depends_on:
+            - mongo
+        networks:
+            - back_net
 networks:
     back_net:
 volumes:
     db-data:
+    db-seed:

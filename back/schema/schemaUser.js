@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
+const { Account } = require('./schemaAccount')
+const { Script } = require('./schemaScript')
 
-const userSchema = mongoose.Schema({
+const schemaUser = mongoose.Schema({
     username: {
         type: String,
         required: true,
@@ -21,31 +23,18 @@ const userSchema = mongoose.Schema({
         type: String,
         required: false
     },
-    assignments: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Assignment"
+    accounts: [{
+        type: mongoose.Types.ObjectId,
+        ref: "Account"
     }],
-    date: {
-        type: Date,
-        default: Date.now
+    scripts: {
+        type: mongoose.Types.ObjectId,
+        refs: "Script",
     },
-    courses: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Course"
-    }],
-    owned_courses: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Course"
-    }],
-    owned_assignments: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Assignment"
-    }],
-    teacher: [{
-        type: Boolean,
-        req: true
-    }]
-
+    img: {
+        type: String,
+        require: false
+    }
 });
 
-module.exports = User = mongoose.model("User", userSchema);
+module.exports = User = mongoose.model("User", schemaUser);
