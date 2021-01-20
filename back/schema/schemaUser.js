@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const { Account } = require('./schemaAccount')
 const { Script } = require('./schemaScript')
+const { Trigger } = require('./schemaTrigger')
 
 const schemaUser = mongoose.Schema({
     username: {
@@ -27,10 +28,10 @@ const schemaUser = mongoose.Schema({
         type: mongoose.Types.ObjectId,
         ref: "Account"
     }],
-    scripts: {
+    scripts: [{
         type: mongoose.Types.ObjectId,
         refs: "Script",
-    },
+    }],
     img: {
         type: String,
         require: false

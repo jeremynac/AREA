@@ -1,10 +1,11 @@
 //Définition des modules
+require('module-alias/register')
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const process = require('process');
 const app = express();
-const passport = require("./controller/auth_passport");
+const passport = require("./controller/user/auth_passport");
 const cors = require("cors")
     // const session = require('session')
 
@@ -78,13 +79,13 @@ app.use(express.urlencoded({ extended: true }));
 // Controllers:
 
 const routerUser = express.Router();
-const routerQuestion = express.Router();
-const routerAssignement = express.Router();
-const routerAnswerSheet = express.Router();
-const routerCourse = express.Router();
+const routerScript = express.Router();
+const routerAction = express.Router();
+const routerReaction = express.Router();
+const routerService = express.Router();
 
 app.use("/user", routerUser);
-require(__dirname + "/controller/user")(routerUser);
+require(__dirname + "/controller/user/user")(routerUser);
 
 app.use((req, res, next) => {
     console.log("hello")
@@ -97,4 +98,16 @@ app.use((req, res, next) => {
     }
 })
 
-app.listen(process.env.PORT, () => console.log(`Listening on port ${process.env.PORT}`));
+app.use("/script", routerScript);
+require("./controller/script/script")(routerScript);
+
+app.use("/action", routerAction);
+require("./controller/action/action")(routerAction);
+
+app.use("/reaction", routerReaction);
+require("./controller/reaction/reaction")(routerReaction);
+
+app.use("/service", routerService);
+require("./controller/service")(routerService);
+
+app.listen(8080) //process.env.PORT, () => console.log(`Listening on port ${process.env.PORT}`));

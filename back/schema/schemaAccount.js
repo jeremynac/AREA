@@ -1,10 +1,15 @@
 const mongoose = require("mongoose");
 const { Service } = require('./schemaService')
+const { User } = require('./schemaUser')
 
 const schemaAccount = mongoose.Schema({
     service: {
         type: mongoose.Types.ObjectId,
         ref: "Service"
+    },
+    user: {
+        type: mongoose.Types.ObjectId,
+        ref: "User"
     },
     access_token: {
         type: String,

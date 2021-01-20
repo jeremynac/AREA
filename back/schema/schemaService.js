@@ -7,14 +7,19 @@ const schemaService = mongoose.Schema({
         type: String,
         required: true,
     },
-    actions: {
+    account: {
+        type: Boolean,
+        require: false,
+        default: false
+    },
+    actions: [{
         type: mongoose.Types.ObjectId,
         ref: "Action"
-    },
-    reactions: {
+    }],
+    reactions: [{
         type: mongoose.Types.ObjectId,
         ref: "Reaction"
-    },
+    }],
     img: {
         type: String,
         require: true

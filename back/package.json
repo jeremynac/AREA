@@ -14,6 +14,7 @@
         "express": "^4.16.2",
         "express-session": "^1.17.1",
         "googleapis": "^39.2.0",
+        "module-alias": "^2.2.2",
         "mongoose": "^5.0.7",
         "node-gmail-api": "^1.0.0",
         "package.json": "^2.0.1",
@@ -24,5 +25,15 @@
         "request": "^2.88.2",
         "session": "^0.1.0",
         "uuid": "^8.3.1"
+    },
+    "_moduleAliases": {
+        "@schemas": "schema",
+        "@controller": "controller",
+        "@account": "services/user/account",
+        "@script": "services/script",
+        "@action": "services/action",
+        "@reaction": "services/reaction",
+        "@activation": "services/activation",
+        "@user": "services/user"
     }
 }

@@ -11,10 +11,6 @@ const schemaAction = mongoose.Schema({
         type: String,
         require: true
     },
-    type: {
-        type: String,
-        require: true
-    },
     service: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Service"
