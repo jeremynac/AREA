@@ -3,11 +3,14 @@ services:
     front:
         container_name: front
         build: ./front
+        tty: true
         depends_on:
             - back
         ports:
-            - "3000:3000"
+            - "8080:8080"
         restart: on-failure
+        networks:
+            - front_net
     back:
         container_name: back
         build: ./back
@@ -15,13 +18,14 @@ services:
             - mongo
         networks:
             - back_net
+            - front_net
         environment:
-            PORT: 8080
+            PORT: 8084
             MONGO_USER: admin
             MONGO_PASSWORD: adpass
             MONGO_HOST: mongo
         ports:
-            - "8080:8080"
+            - "8084:8084"
         restart: on-failure
     mongo:
         container_name: mongo
@@ -61,6 +65,7 @@ services:
             - back_net
 networks:
     back_net:
+    front_net:
 volumes:
     db-data:
     db-seed:

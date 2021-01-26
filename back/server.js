@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const process = require('process');
 const app = express();
-const passport = require("./controller/user/auth_passport");
+const passport = require("@user/auth_passport");
 const cors = require("cors")
     // const session = require('session')
 
@@ -21,7 +21,7 @@ app.use(bodyParser.json())
 
 app.use(
     cors({
-        origin: "http://localhost:3000", // allow to server to accept request from different origin
+        origin: "http://localhost:8080", // allow to server to accept request from different origin
         methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
         credentials: true, // allow session cookie from browser to pass through
     })
@@ -41,16 +41,20 @@ app.use(require('express-session')({
 app.use(passport.initialize());
 app.use(passport.session()); // Required for persistent login sessions (optional, but recommended)
 app.use(function(req, res, next) {
-    res.setHeader(
-        "Access-Control-Allow-Headers",
-        "X-Requested-With,content-type"
-    );
+    // res.setHeader('Access-Control-Allow-Origin', '*');
+    // res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type,Accept, Authortization');
+    // res.setHeader('Acces-Control-Allow-Methods','GET, POST, PATCH, DELETE');
     // res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+    // res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+    res.setHeader("Access-Control-Allow-Origin", "http://localhost:8080");
+
     res.setHeader(
         "Access-Control-Allow-Methods",
         "GET, POST, OPTIONS, PUT, PATCH, DELETE"
     );
+    // res.setHeader('Access-Control-Allow-Origin', '*');
+    // res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type,Accept, Authortization');
+    // res.setHeader('Acces-Control-Allow-Methods','GET, POST, PATCH, DELETE');
     res.setHeader("Access-Control-Allow-Credentials", true);
     next();
 });
@@ -83,9 +87,10 @@ const routerScript = express.Router();
 const routerAction = express.Router();
 const routerReaction = express.Router();
 const routerService = express.Router();
+const routerAuth = express.Router();
 
-app.use("/user", routerUser);
-require(__dirname + "/controller/user/user")(routerUser);
+app.use("/auth", routerAuth);
+require("@controller/auth")(routerAuth);
 
 app.use((req, res, next) => {
     console.log("hello")
@@ -98,16 +103,19 @@ app.use((req, res, next) => {
     }
 })
 
+app.use("/user", routerUser);
+require("@controller/user")(routerUser);
+
 app.use("/script", routerScript);
-require("./controller/script/script")(routerScript);
+require("@controller/script")(routerScript);
 
 app.use("/action", routerAction);
-require("./controller/action/action")(routerAction);
+require("@controller/action")(routerAction);
 
 app.use("/reaction", routerReaction);
-require("./controller/reaction/reaction")(routerReaction);
+require("@controller/reaction")(routerReaction);
 
 app.use("/service", routerService);
-require("./controller/service")(routerService);
+require("@controller/service")(routerService);
 
-app.listen(8080) //process.env.PORT, () => console.log(`Listening on port ${process.env.PORT}`));
+app.listen(process.env.PORT) //process.env.PORT, () => console.log(`Listening on port ${process.env.PORT}`));

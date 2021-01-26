@@ -25,6 +25,6 @@ async function checkAction(user_id, action_id) {
 }
 
 module.exports = {
-    updateAction,
+    activateAction,
     checkAction
 }

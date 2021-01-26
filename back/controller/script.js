@@ -1,7 +1,7 @@
 const express = require('express')
 const User = require('@schemas/schemaUser')
 const Script = require('@schemas/schemaScript')
-const { createScript } = require('@controller/script/script_functions')
+const { createScript } = require('@script/script_functions')
 
 module.exports = function(app) {
     app.get('/all', async(req, res) => {

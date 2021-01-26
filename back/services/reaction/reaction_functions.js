@@ -25,6 +25,6 @@ async function checkReaction(user_id, reaction_id) {
 }
 
 module.exports = {
-    launchReaction,
+    activateReaction,
     checkReaction
 }

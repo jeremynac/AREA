@@ -1,6 +1,6 @@
 const passport = require('passport');
 const LocalStrategy = require("passport-local").Strategy;
-const User = require("@controller/schema/schemaUser");
+const User = require("@schemas/schemaUser");
 
 const LocalSignInStrategy = new LocalStrategy((username, password, done) => {
     User.findOne({ username: username })
