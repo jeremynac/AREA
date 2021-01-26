@@ -28,7 +28,7 @@ const LocalSignUpStrategy = new LocalStrategy({ passReqToCallback: true }, funct
             console.log("found", user)
             if (!user) {
                 console.log("sign up")
-                const newUser = User({ username, password, firstname: req.body.firstname, lastname: req.body.lastname, teacher: req.body.teacher })
+                const newUser = new User({ username, password, firstname: req.body.firstname, lastname: req.body.lastname, teacher: req.body.teacher })
                 console.log("signed up")
                 newUser.save().then(user => { return done(null, user) }).catch(e => {
                     return done(e, null)

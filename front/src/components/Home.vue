@@ -8,11 +8,15 @@
     <b-button @click="google" variant="pink">
         login google
     </b-button>
+    <!-- <window-portal>
+    </window-portal> -->
   </div>
 </template>
 
 <script>
+// import WindowPortal from './WindowPortal.vue';
   export default {
+  // components: { WindowPortal },
     name: 'home',
     data() {
       return {
@@ -21,20 +25,21 @@
     },
     methods: {
       async fb() {
-        await this.axios.get(process.env.VUE_APP_SERVER_URL + '/' + process.env.VUE_APP_FBLOGIN_PATH )
-                    .then(res=>{
-                        console.log(res.data);
-                        this.html_view = res.data
-                      })
-                    .catch(e=>console.log(e))
+        window.open(process.env.VUE_APP_SERVER_URL + '/' + process.env.VUE_APP_FBLOGIN_PATH )
+                    // .then(res=>{
+                    //     console.log(res.data);
+                    //     this.html_view = res.data
+                    //   })
+                    // .catch(e=>console.log(e))
       },
       async google() {
-        await this.axios.get(process.env.VUE_APP_SERVER_URL + '/auth/go-login' )
-                    .then(res=>{
-                        console.log(res.data);
-                        this.html_view = res.data
-                      })
-                    .catch(e=>console.log(e))
+        window.open(process.env.VUE_APP_SERVER_URL + '/auth/go-login')
+      //               .then(res=>{
+      //                   console.log(res.data);
+      //                   this.html_view = res.data
+      //                 })
+      //               .catch(e=>console.log(e))
+      // }
       }
     }
   }

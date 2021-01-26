@@ -1,5 +1,7 @@
 var passport = require('passport');
-var GoogleStrategy = require('passport-google-oauth20').Strategy;
+var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+const User = require('@schemas/schemaUser')
+const { processAccount } = require('@account/account_functions')
 
 // Use the GoogleStrategy within Passport.
 //   Strategies in passport require a `verify` function, which accept
@@ -11,11 +13,11 @@ const GoStrategy = new GoogleStrategy({
         callbackURL: "http://localhost:8084/auth/google/callback",
         passReqToCallback: true,
     },
-    function(token, tokenSecret, profile, done) {
-        console.log("access token: ", token);
-        User.findOrCreate({ googleId: profile.id }, function(err, user) {
-            return done(err, user);
-        });
+    async function(req, accessToken, refreshToken, profile, cb) {
+        let processed = await processAccount(req, 'google', { access_token: accessToken, refresh_token: refreshToken, profile: profile._json });
+        console.log('ok', processed)
+        let user = await User.findById(processed.user_id)
+        return cb(null, user, { value: processed.new_account })
     }
 );
 

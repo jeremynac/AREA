@@ -3,8 +3,7 @@ const User = require('@schemas/schemaUser')
 const Script = require('@schemas/schemaScript')
 const Services = require('@schemas/schemaService')
 const Action = require('@schemas/schemaAction')
-const { checkAction, activateAction } = require('@action/action_functions')
-const { checkReaction } = require('@reaction/reaction_functions')
+const { activateAction } = require('@action/action_functions')
 
 async function activate() {
     await activateUsers();
@@ -35,7 +34,7 @@ async function activateUserScripts(user_id) {
             user.scripts.map(
                 (script) => {
                     if (script.activated) {
-                        return activateScript(script._id, accounts)
+                        return activateScript(script._id, user.accounts)
                     }
                 }
             )
@@ -56,8 +55,8 @@ async function activateUserScripts(user_id) {
 
 async function activateScript(script_id, accounts) {
     try {
-        let script = await Script.findById(script_id).populate('action', 'type').populate('reaction', 'type')
-        let action_happened = await activateAction(accounts, script.action_parameters, script.action.type)
+        let script = await Script.findById(script_id).populate('action', 'service').populate('reaction', 'service')
+        let action_happened = await activateAction(accounts, script.action_parameters, script.variables, script.action.type)
         if (action_happened) {
             await activateReaction(accounts, script.reaction_parameters, script.reaction.type)
             return true

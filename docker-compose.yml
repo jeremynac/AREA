@@ -4,8 +4,6 @@ services:
         container_name: front
         build: ./front
         tty: true
-        depends_on:
-            - back
         ports:
             - "8080:8080"
         restart: on-failure

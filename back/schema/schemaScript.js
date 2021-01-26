@@ -2,13 +2,15 @@ const mongoose = require("mongoose");
 const { Service } = require('./schemaService')
 const { Action } = require('./schemaAction')
 const { Reaction } = require('./schemaReaction')
-const { Trigger } = require('./schemaTrigger')
-const { Consequence } = require('./schemaConsequence')
 
 const schemaScript = mongoose.Schema({
     name: {
         type: String,
         required: true,
+    },
+    variables: {
+        type: Object,
+        require: false
     },
     action_parameters: {
         type: Object

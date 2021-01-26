@@ -26,7 +26,7 @@ async function createScript(req) {
     let user_id = req.user._id
     console.log('ok')
     if (checkAction(user_id, action_id) && checkReaction(user_id, reaction_id)) {
-        let script = await new Script({
+        let script = new Script({
             name: req.body.name,
             action: action_id,
             reaction: reaction_id,

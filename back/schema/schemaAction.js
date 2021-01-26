@@ -7,6 +7,10 @@ const schemaAction = mongoose.Schema({
         type: String,
         require: true
     },
+    type: {
+        type: String,
+        require: true
+    },
     description: {
         type: String,
         require: true
@@ -17,7 +21,7 @@ const schemaAction = mongoose.Schema({
     },
     img: {
         type: String,
-        require: true
+        require: false
     }
 });
 

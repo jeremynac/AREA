@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { Strategy } = require("passport");
 const { Action } = require('./schemaAction')
 const { Reaction } = require('./schemaReaction')
 
@@ -6,6 +7,10 @@ const schemaService = mongoose.Schema({
     name: {
         type: String,
         required: true,
+    },
+    type: {
+        type: String,
+        require: true
     },
     account: {
         type: Boolean,
@@ -22,7 +27,7 @@ const schemaService = mongoose.Schema({
     }],
     img: {
         type: String,
-        require: true
+        require: false
     }
 });
 

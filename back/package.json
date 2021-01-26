@@ -13,6 +13,7 @@
         "cors": "^2.8.5",
         "express": "^4.16.2",
         "express-session": "^1.17.1",
+        "generate-password": "^1.6.0",
         "googleapis": "^39.2.0",
         "module-alias": "^2.2.2",
         "mongoose": "^5.0.7",
@@ -33,11 +34,14 @@
     "_moduleAliases": {
         "@schemas": "schema",
         "@controller": "controller",
-        "@account": "services/user/account",
-        "@script": "services/script",
-        "@action": "services/action",
-        "@reaction": "services/reaction",
-        "@activation": "services/activation",
-        "@user": "services/user"
+        "@account": "methods/user/account",
+        "@script": "methods/script",
+        "@action": "methods/action",
+        "@action_triggers": "methods/action/action_triggers",
+        "@reaction": "methods/reaction",
+        "@activation": "methods/activation",
+        "@user": "methods/user",
+        "@service": "methods/service",
+        "@services": "methods/service/services"
     }
 }
