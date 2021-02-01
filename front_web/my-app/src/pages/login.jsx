@@ -55,6 +55,8 @@ export default function SignInSide() {
   const history = useHistory();
 
   const navigateTo = () => history.push('/register');
+  const navigateToHome = () => history.push('/Homepage');
+
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
@@ -100,6 +102,7 @@ export default function SignInSide() {
               variant="contained"
               color="primary"
               className={classes.submit}
+              onClick={navigateToHome}
             >
               Sign In
             </Button>

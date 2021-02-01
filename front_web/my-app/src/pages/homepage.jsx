@@ -27,8 +27,8 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import NotificationsIcon from '@material-ui/icons/Notifications';
+import { ImRss ,ImLibrary, ImFacebook2, ImOnedrive, ImMail4, ImClock2 } from "react-icons/im";
 
-import DraftsIcon from '@material-ui/icons/Notifications';
 
 
 const drawerWidth = 240;
@@ -110,27 +110,17 @@ export default function PersistentDrawerLeft() {
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
-  const handleChange = (event) => {
-    setAuth(event.target.checked);
-  };
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
-  const handleMobileMenuClose = () => {
-    setMobileMoreAnchorEl(null);
-  };
+  const handleChange = (event) => { setAuth(event.target.checked); };
 
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-    handleMobileMenuClose();
-  };
+  const handleDrawerOpen = () => { setOpen(true); };
 
-  const handleProfileMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
+  const handleDrawerClose = () => { setOpen(false); };
+
+  const handleMobileMenuClose = () => { setMobileMoreAnchorEl(null); };
+
+  const handleMenuClose = () => { setAnchorEl(null); handleMobileMenuClose(); };
+
+  const handleProfileMenuOpen = (event) => {  setAnchorEl(event.currentTarget); };
 
   const menuId = 'primary-search-account-menu';
   //Profile drop down menu
@@ -159,7 +149,6 @@ export default function PersistentDrawerLeft() {
         })}
       >
         <Toolbar>
-        
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -183,11 +172,7 @@ export default function PersistentDrawerLeft() {
                 <NotificationsIcon />
               </Badge>
             </IconButton>
-            <IconButton
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
+            <IconButton edge="end" aria-label="account of current user" aria-controls={menuId} aria-haspopup="true"
               onClick={handleProfileMenuOpen}
               color="inherit"
             >
@@ -214,26 +199,29 @@ export default function PersistentDrawerLeft() {
         <Divider />
       <List component="nav" aria-label="main mailbox folders">
         <ListItem button>
-          <ListItemIcon>
-            <InboxIcon />
-          </ListItemIcon>
-          <ListItemText primary="Inbox" />
+          <ListItemIcon> <ImLibrary /> </ListItemIcon>
+          <ListItemText primary="Epitech" />
         </ListItem>
         <ListItem button>
-          <ListItemIcon>
-            <DraftsIcon />
-          </ListItemIcon>
-          <ListItemText primary="Drafts" />
+          <ListItemIcon> <ImFacebook2 /> </ListItemIcon>
+          <ListItemText primary="Facebook" />
         </ListItem>
-      </List>
-      <Divider />
-      <List component="nav" aria-label="secondary mailbox folders">
         <ListItem button>
-          <ListItemText primary="Trash" />
+          <ListItemIcon> <ImRss /> </ListItemIcon>
+          <ListItemText primary="RSS" />
         </ListItem>
-        <ListItemLink href="#simple-list">
-          <ListItemText primary="Spam" />
-        </ListItemLink>
+        <ListItem button>
+          <ListItemIcon> <ImOnedrive /> </ListItemIcon>
+          <ListItemText primary="OneDrive" />
+        </ListItem>
+        <ListItem button>
+          <ListItemIcon> <ImMail4 /> </ListItemIcon>
+          <ListItemText primary="Outlook" />
+        </ListItem>
+        <ListItem button>
+          <ListItemIcon> <ImClock2 /> </ListItemIcon>
+          <ListItemText primary="Timer" />
+        </ListItem>
       </List>
       </Drawer>
       <main

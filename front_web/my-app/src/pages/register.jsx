@@ -55,7 +55,7 @@ export default function SignInSide() {
   const classes = useStyles();
   const history = useHistory();
 
-  const navigateTo = () => history.push('/login');
+  const navigateTo = () => history.push('/');
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
@@ -136,7 +136,7 @@ export default function SignInSide() {
             <Grid container>
               <Grid item xs >
                 <Link href="#" variant="body2" onClick={navigateTo}>
-                  Login Page
+                  Login
                 </Link>
               </Grid>
             </Grid>
