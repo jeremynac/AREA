@@ -24,6 +24,10 @@ services:
             MONGO_HOST: mongo
         ports:
             - "8084:8084"
+        env_file:
+            - back/.env
+        volumes:
+          - ./back/src:/app/src
         restart: on-failure
     mongo:
         container_name: mongo

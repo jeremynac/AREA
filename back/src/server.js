@@ -1,5 +1,6 @@
 //Définition des modules
 require('module-alias/register')
+require('dotenv').config()
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");

@@ -11,6 +11,7 @@
         "cookie-parser": "^1.4.5",
         "cookie-session": "^1.4.0",
         "cors": "^2.8.5",
+        "dotenv": "^8.2.0",
         "express": "^4.16.2",
         "express-session": "^1.17.1",
         "generate-password": "^1.6.0",
@@ -33,17 +34,17 @@
         "uuid": "^8.3.1"
     },
     "_moduleAliases": {
-        "@schemas": "schema",
-        "@controller": "controller",
-        "@methods": "methods",
-        "@account": "methods/user/account",
-        "@script": "methods/script",
-        "@action": "methods/action",
-        "@action_triggers": "methods/action/action_triggers",
-        "@reaction": "methods/reaction",
-        "@activation": "methods/activation",
-        "@user": "methods/user",
-        "@service": "methods/service",
-        "@services": "methods/service/services"
+        "@schemas": "src/schema",
+        "@controller": "src/controller",
+        "@methods": "src/methods",
+        "@account": "src/methods/user/account",
+        "@script": "src/methods/script",
+        "@action": "src/methods/action",
+        "@action_triggers": "src/methods/action/action_triggers",
+        "@reaction": "src/methods/reaction",
+        "@activation": "src/methods/activation",
+        "@user": "src/methods/user",
+        "@service": "src/methods/service",
+        "@services": "src/methods/service/services"
     }
 }

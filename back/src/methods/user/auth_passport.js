@@ -29,7 +29,7 @@ passport.use('facebook', FBStrategy)
 
 passport.use('google', GoStrategy)
 
-passport.use('twitter', TTStrategy)
-    // passport.use(GoStrategy)
+// passport.use('twitter', TTStrategy)
+// passport.use(GoStrategy)
 
 module.exports = passport;
