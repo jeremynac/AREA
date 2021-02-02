@@ -9,8 +9,9 @@ const { checkReaction } = require('@reaction/reaction_functions')
 async function addScriptUser(script_id, user_id) {
     try {
         let user = await User.findById(user_id)
+        let script = await Script.findById(script_id)
         console.log(user)
-        user.scripts.push(script_id)
+        user.scripts.push(script)
         await user.save().then().catch(e => console.log(e))
         return true
     } catch {
@@ -34,8 +35,8 @@ async function createScript(req) {
             reaction_parameters: r_parameters
         })
         console.log('ok')
-        await addScriptUser(script._id, user_id)
         await script.save().then().catch()
+        await addScriptUser(script._id, user_id)
         return script
     } else {
         console.log('ko')

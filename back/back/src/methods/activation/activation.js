@@ -11,6 +11,7 @@ async function activate() {
 
 async function activateUsers() {
     let users = await User.find().select()
+    console.log("activating all users")
     await Promise.allSettled(
         users.map(
             (user_id) => {
@@ -29,12 +30,14 @@ async function activateUsers() {
 
 async function activateUserScripts(user_id) {
     try {
-        let user = await User.findById(user_id).select('accounts scripts').populate('accounts').populate('scripts', 'activated')
+        let user = await User.findById(user_id).select('username accounts scripts').populate('accounts').populate('scripts', 'activated')
+        console.log("activating all scripts for user", user.username, user.scripts)
         Promise.allSettled(
             user.scripts.map(
                 (script) => {
+                    console.log("activating script for user", user.username, "script activated", script.activated)
                     if (script.activated) {
-                        return activateScript(script._id, user.accounts)
+                        return activateScript(script._id, user.accoundots)
                     }
                 }
             )
@@ -56,15 +59,18 @@ async function activateUserScripts(user_id) {
 async function activateScript(script_id, accounts) {
     try {
         let script = await Script.findById(script_id).populate('action', 'service').populate('reaction', 'service')
+        console.log("activating script", script.name, "with action", script.action._id, "and reaction", script.reaction._id);
         let action_happened = await activateAction(accounts, script.action_parameters, script.variables, script.action.type)
         if (action_happened) {
+            console.log("action happened, activating reaction")
             await activateReaction(accounts, script.reaction_parameters, script.reaction.type)
             return true
         } else {
+            console.log("action did not happen")
             return false
         }
     } catch (e) {
-        console.log(e)
+        console.log("error", e)
         return false
     }
 }
