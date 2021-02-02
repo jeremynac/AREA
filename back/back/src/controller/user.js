@@ -54,7 +54,6 @@ module.exports = function(app) {
     })
     app.get('/scripts', auth, async function(req, res) {
         try {
-
             let user = await User.findById(req.user._id).select("-_id scripts").populate("scripts", "name img");
             return res.status(200).json({ scripts: user })
         } catch (e) {

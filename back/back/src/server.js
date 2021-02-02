@@ -95,7 +95,7 @@ app.use("/auth", routerAuth);
 require("@controller/auth")(routerAuth);
 
 app.use((req, res, next) => {
-    console.log("hello", req)
+    console.log("hello")
     if (req.isAuthenticated()) {
         console.log("yes")
         next()
