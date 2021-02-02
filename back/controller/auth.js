@@ -101,4 +101,48 @@ module.exports = function(app) {
             }
         })(req, res)
     })
+
+    app.get('/tt-login', passport.authenticate('twitter'))
+
+    // app.get('/google/callback', async(req, res, next) => {
+    //     console.log('google callback', req.query)
+    //     passport.authenticate('google', { successRedirect: '/', failureRedirect: '/login' })(req, res, next)
+    // })
+
+    // app.get('/google/callback', passport.authenticate('google', {
+    //         scope: ['email', 'profile']
+    //     }, { session: false }),
+    //     function(req, res) {
+    //         return res.status(200).json({
+    //             ok: "OK"
+    //         })
+    //     }
+
+    // )
+    app.get('/twitter/callback', (req, res) => {
+        passport.authenticate('twitter', (err, user, new_account) => {
+            console.log('okok', new_account)
+            try {
+                if (err) {
+                    console.log("err")
+                    return res.status(400).json({ errors: err })
+                } else if (!user) {
+                    console.log("added account")
+                    return res.status(200).json({ new_account: new_account.value, new_user: false })
+                } else {
+                    console.log("connected or added account", user)
+                    console.log('okokok')
+                    req.logIn(user, function(err) {
+                        console.log(err)
+                    })
+                    console.log("err", user)
+                    console.log("connected or added account", user)
+                    return res.status(200).json({ new_account: new_account.value, new_user: true });
+                }
+            } catch (e) {
+                console.log(e)
+                return res.status(400).json({ errors: err })
+            }
+        })(req, res)
+    })
 }

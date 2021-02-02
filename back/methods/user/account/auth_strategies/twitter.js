@@ -1,11 +1,11 @@
 var express = require('express');
 var passport = require('passport');
-var Strategy = require('passport-facebook').Strategy;
+var Strategy = require('passport-twitter').Strategy;
 
-const FBStrategy = new Strategy({
-    clientID: process.env.FACEBOOK_CLIENT_ID,
-    clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
-    callbackURL: process.env.SERVER_URL + process.env.FACEBOOK_CALLBACK
+const TTStrategy = new Strategy({
+    consumerKey: TWITTER_CLIENT_ID,
+    consumerSecret: TWITTER_CLIENT_SECRET,
+    callbackURL: process.env.TWITTER_CALLBACK
 }, async(accessToken, refreshToken, profile, cb) => {
     console.log(accessToken, refreshToken, profile)
         // In this example, the user's Facebook profile is supplied as the user
@@ -16,4 +16,4 @@ const FBStrategy = new Strategy({
     return cb(null, profile);
 });
 
-module.exports = FBStrategy
+module.exports = TTStrategy

@@ -2,7 +2,8 @@ const passport = require('passport');
 const User = require("@schemas/schemaUser");
 const { LocalSignInStrategy, LocalSignUpStrategy } = require('@account/auth_strategies/local');
 const FBStrategy = require('@account/auth_strategies/facebook');
-const GoStrategy = require('@account/auth_strategies/google')
+const GoStrategy = require('@account/auth_strategies/google');
+const TTStrategy = require('@account/auth_strategies/twitter');
 
 passport.serializeUser(function(user, done) {
     console.log('serialize', user)
@@ -26,8 +27,9 @@ passport.use('local-sign_up', LocalSignUpStrategy)
 
 passport.use('facebook', FBStrategy)
 
-// passport.use('google', GoStrategy)
+passport.use('google', GoStrategy)
 
-passport.use(GoStrategy)
+passport.use('twitter', TTStrategy)
+    // passport.use(GoStrategy)
 
 module.exports = passport;

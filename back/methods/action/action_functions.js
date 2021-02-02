@@ -25,7 +25,7 @@ async function filterAction(account, parameters, script_vars, action_type) {
 }
 
 async function checkAction(user_id, action_type) {
-    let action = await Action.findById(action_id).select('service').populate('service', 'account')
+    let action = await Action.find({ type: action_type }).select('service').populate('service', 'account')
     if (action) {
         return checkConnected(user_id, action.service._id, action.service.account)
     } else {

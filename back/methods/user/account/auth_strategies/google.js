@@ -3,14 +3,10 @@ var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const User = require('@schemas/schemaUser')
 const { processAccount } = require('@account/account_functions')
 
-// Use the GoogleStrategy within Passport.
-//   Strategies in passport require a `verify` function, which accept
-//   credentials (in this case, a token, tokenSecret, and Google profile), and
-//   invoke a callback with a user object.
 const GoStrategy = new GoogleStrategy({
-        clientID: '981693314082-f1pl5dsdqpmanurdvkl308g526g8jiic.apps.googleusercontent.com',
-        clientSecret: 'kad3xaBRgTuNNFD4BepPf_Lh',
-        callbackURL: "http://localhost:8084/auth/google/callback",
+        clientID: process.env.GOOGLE_CLIENT_ID,
+        clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+        callbackURL: process.env.SERVER_URL + process.env.GOOGLE_CALLBACK,
         passReqToCallback: true,
     },
     async function(req, accessToken, refreshToken, profile, cb) {
