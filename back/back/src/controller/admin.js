@@ -5,7 +5,7 @@ const Scripts = require('@schemas/schemaScript')
 const Services = require('@schemas/schemaService')
 const { activate } = require('@activation/activation')
 
-function auth_admin(req, res, next) {
+async function auth_admin(req, res, next) {
     console.log("try")
     console.log(req.user)
     console.log(req.session)
@@ -21,7 +21,7 @@ function auth_admin(req, res, next) {
 }
 
 module.exports = function(app) {
-    app.get('/activate', auth_admin, (req, res) => {
+    app.get('/activate', auth_admin, async(req, res) => {
         try {
             await activate()
             return res.status(200).json("success activate")

@@ -89,6 +89,7 @@ const routerAction = express.Router();
 const routerReaction = express.Router();
 const routerService = express.Router();
 const routerAuth = express.Router();
+const routerAdmin = express.Router();
 
 app.use("/auth", routerAuth);
 require("@controller/auth")(routerAuth);
@@ -103,6 +104,9 @@ app.use((req, res, next) => {
         return res.status(400).json({ error: "not authenticated" })
     }
 })
+
+app.use('/admin', routerAdmin);
+require('@controller/admin')(routerAdmin);
 
 app.use("/user", routerUser);
 require("@controller/user")(routerUser);
