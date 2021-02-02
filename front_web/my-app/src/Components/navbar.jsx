@@ -29,7 +29,6 @@ import CardActions from '@material-ui/core/CardActions';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { ImRss ,ImLibrary, ImFacebook2, ImOnedrive, ImMail4, ImClock2 } from "react-icons/im";
 import {useHistory} from "react-router-dom";
-import NavigationBar from "../Components/navbar";
 
 
 
@@ -112,11 +111,25 @@ export default function PersistentDrawerLeft() {
 
 
   const isMenuOpen = Boolean(anchorEl);
+  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
-
+  const handleChange = (event) => { setAuth(event.target.checked); };
+  const handleDrawerOpen = () => { setOpen(true); };
+  const handleDrawerClose = () => { setOpen(false); };
   const handleMobileMenuClose = () => { setMobileMoreAnchorEl(null); };
-
   const handleMenuClose = () => { setAnchorEl(null); handleMobileMenuClose(); };
+  const handleProfileMenuOpen = (event) => {  setAnchorEl(event.currentTarget); };
+
+  const navigateToEpitech = () => history.push('/Epitech');
+  const navigateToFacebook = () => history.push('/Facebook');
+  const navigateToRSS = () => history.push('/RSS');
+  const navigateToOneDrive = () => history.push('/OneDrive');
+  const navigateToOutlook = () => history.push('/Outlook');
+  const navigateToTimer = () => history.push('/Timer');
+
+
+
+
 
 
 
@@ -140,39 +153,88 @@ export default function PersistentDrawerLeft() {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <NavigationBar />
-      <main
-        className={clsx(classes.content, {
-          [classes.contentShift]: open,
+      <AppBar
+        position="fixed"
+        className={clsx(classes.appBar, {
+          [classes.appBarShift]: open,
         })}
       >
-        <div className={classes.drawerHeader} />
-        <Grid container spacing={1}>
-        <Grid container item xs={12} spacing={3}>
-          <Card className={classes.root}>
-            <CardContent>
-              <Typography className={classes.title} color="textSecondary" gutterBottom>
-                Word of the Day
-              </Typography>
-              <Typography variant="h5" component="h2">
-                be{bull}nev{bull}o{bull}lent
-              </Typography>
-              <Typography className={classes.pos} color="textSecondary">
-                adjective
-              </Typography>
-              <Typography variant="body2" component="p">
-                well meaning and kindly.
-                <br />
-                {'"a benevolent smile"'}
-              </Typography>
-            </CardContent>
-            <CardActions>
-              <Button size="small">Learn More</Button>
-            </CardActions>
-          </Card>
-        </Grid>
-      </Grid>
-      </main>
+        <Toolbar>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            onClick={handleDrawerOpen}
+            edge="start"
+            className={clsx(classes.menuButton, open && classes.hide)}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6">
+            AREA
+          </Typography>
+          <div className={classes.toolbarButtons}>
+          <IconButton aria-label="show 4 new mails" color="inherit">
+              <Badge badgeContent={4} color="secondary">
+                <MailIcon />
+              </Badge>
+            </IconButton>
+            <IconButton aria-label="show 17 new notifications" color="inherit">
+              <Badge badgeContent={17} color="secondary">
+                <NotificationsIcon />
+              </Badge>
+            </IconButton>
+            <IconButton edge="end" aria-label="account of current user" aria-controls={menuId} aria-haspopup="true"
+              onClick={handleProfileMenuOpen}
+              color="inherit"
+            >
+              <AccountCircle />
+            </IconButton>
+          </div>
+        </Toolbar>
+      </AppBar>
+      {renderMenu}
+      <Drawer
+        className={classes.drawer}
+        variant="persistent"
+        anchor="left"
+        open={open}
+        classes={{
+          paper: classes.drawerPaper,
+        }}
+      >
+        <div className={classes.drawerHeader}>
+          <IconButton onClick={handleDrawerClose}>
+            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+          </IconButton>
+        </div>
+        <Divider />
+      <List component="nav" aria-label="main mailbox folders">
+        <ListItem button onClick={navigateToEpitech} >
+          <ListItemIcon> <ImLibrary /> </ListItemIcon>
+          <ListItemText primary="Epitech" />
+        </ListItem>
+        <ListItem button onClick={navigateToFacebook} >
+          <ListItemIcon> <ImFacebook2 /> </ListItemIcon>
+          <ListItemText primary="Facebook" />
+        </ListItem>
+        <ListItem button onClick={navigateToRSS} >
+          <ListItemIcon> <ImRss /> </ListItemIcon>
+          <ListItemText primary="RSS" />
+        </ListItem>
+        <ListItem button onClick={navigateToOneDrive} >
+          <ListItemIcon> <ImOnedrive /> </ListItemIcon>
+          <ListItemText primary="OneDrive" />
+        </ListItem>
+        <ListItem button onClick={navigateToOutlook} >
+          <ListItemIcon> <ImMail4 /> </ListItemIcon>
+          <ListItemText primary="Outlook" />
+        </ListItem>
+        <ListItem button onClick={navigateToTimer} >
+          <ListItemIcon> <ImClock2 /> </ListItemIcon>
+          <ListItemText primary="Timer" />
+        </ListItem>
+      </List>
+      </Drawer>
     </div>
   );
 }
