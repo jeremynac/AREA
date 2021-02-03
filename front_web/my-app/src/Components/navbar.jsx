@@ -15,17 +15,11 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import Button from '@material-ui/core/Button';
 import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import Grid from '@material-ui/core/Grid';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { ImRss ,ImLibrary, ImFacebook2, ImOnedrive, ImMail4, ImClock2 } from "react-icons/im";
 import {useHistory} from "react-router-dom";
@@ -111,7 +105,6 @@ export default function PersistentDrawerLeft() {
 
 
   const isMenuOpen = Boolean(anchorEl);
-  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
   const handleChange = (event) => { setAuth(event.target.checked); };
   const handleDrawerOpen = () => { setOpen(true); };
@@ -126,12 +119,6 @@ export default function PersistentDrawerLeft() {
   const navigateToOneDrive = () => history.push('/OneDrive');
   const navigateToOutlook = () => history.push('/Outlook');
   const navigateToTimer = () => history.push('/Timer');
-
-
-
-
-
-
 
   const menuId = 'primary-search-account-menu';
   //Profile drop down menu

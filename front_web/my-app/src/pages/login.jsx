@@ -4,7 +4,7 @@ import { FormControlLabel, Paper, Avatar, Checkbox, Box, Link, Typography, Grid 
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import {useHistory} from "react-router-dom";
 
-
+// import { login, register } from '../auth/requests'
 
 function Copyright() {
   return (
@@ -56,6 +56,9 @@ export default function SignInSide() {
 
   const navigateTo = () => history.push('/register');
   const navigateToHome = () => history.push('/Homepage');
+  //const signin = () => {
+  //    login()
+  //}
 
   return (
     <Grid container component="main" className={classes.root}>
@@ -103,6 +106,7 @@ export default function SignInSide() {
               color="primary"
               className={classes.submit}
               onClick={navigateToHome}
+              //onClick={signin}
             >
               Sign In
             </Button>

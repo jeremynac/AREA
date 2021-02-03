@@ -1,20 +1,8 @@
 import React from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Typography from '@material-ui/core/Typography';
-import ListItem from '@material-ui/core/ListItem';
-import Button from '@material-ui/core/Button';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
-import Grid from '@material-ui/core/Grid';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
-import {useHistory} from "react-router-dom";
+import {CssBaseline,Typography,Button,Grid,Card,CardContent,CardActions} from '@material-ui/core';
 import NavigationBar from "../Components/navbar";
-
-
 
 const drawerWidth = 240;
 
@@ -78,48 +66,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function ListItemLink(props) {
-  return <ListItem button component="a" {...props} />;
-}
-
 export default function PersistentDrawerLeft() {
   const classes = useStyles();
-  const history = useHistory();
 
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [auth, setAuth] = React.useState(true);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const bull = <span className={classes.bullet}>•</span>;
 
-
-  const isMenuOpen = Boolean(anchorEl);
-
-
-  const handleMobileMenuClose = () => { setMobileMoreAnchorEl(null); };
-
-  const handleMenuClose = () => { setAnchorEl(null); handleMobileMenuClose(); };
-
-
-
-  const menuId = 'primary-search-account-menu';
   //Profile drop down menu
 
-  const renderMenu = (
-    <Menu
-      anchorEl={anchorEl}
-      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-      id={menuId}
-      keepMounted
-      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-      open={isMenuOpen}
-      onClose={handleMenuClose}
-    >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-    </Menu>
-  );
   return (
     <div className={classes.root}>
       <CssBaseline />
