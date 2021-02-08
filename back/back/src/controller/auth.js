@@ -145,4 +145,8 @@ module.exports = function(app) {
             }
         })(req, res)
     })
+
+    app.get('/intra', function(req, res) {
+        res.redirect('https://intra.epitech.eu/admin/autolog')
+    })
 }

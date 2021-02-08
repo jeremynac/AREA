@@ -22,9 +22,9 @@ module.exports = function(app) {
     })
     app.post('/create', async(req, res) => {
         try {
-            let script = await createScript(req)
-            if (script) {
-                return res.status(200).json({ script: script })
+            let script_id = await createScript(req)
+            if (script_id) {
+                return res.status(200).json({ script: script_id })
             } else {
                 return res.status(500).json({ error: 'cannot create script' })
             }

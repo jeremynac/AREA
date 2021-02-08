@@ -13,6 +13,7 @@ async function addScriptUser(script_id, user_id) {
         console.log(user)
         user.scripts.push(script)
         await user.save().then().catch(e => console.log(e))
+        await script.save().then().catch(e => console.log(e))
         return true
     } catch {
         return false
@@ -37,7 +38,7 @@ async function createScript(req) {
         console.log('ok')
         await script.save().then().catch()
         await addScriptUser(script._id, user_id)
-        return script
+        return script._id
     } else {
         console.log('ko')
         return null

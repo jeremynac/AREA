@@ -37,7 +37,7 @@ async function activateUserScripts(user_id) {
                 (script) => {
                     console.log("activating script for user", user.username, "script activated", script.activated)
                     if (script.activated) {
-                        return activateScript(script._id, user.accoundots)
+                        return activateScript(script._id, user.accounts)
                     }
                 }
             )

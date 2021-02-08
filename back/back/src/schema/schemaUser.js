@@ -29,7 +29,7 @@ const schemaUser = mongoose.Schema({
     }],
     scripts: [{
         type: mongoose.Types.ObjectId,
-        refs: "Script",
+        ref: "Script",
     }],
     img: {
         type: String,
