@@ -9,7 +9,9 @@ async function checkConnected(user_id, service_id, need_account) {
     if (!need_account) {
         return true;
     }
+    console.log('check connected', service_id, need_account)
     let account = await Account.findOne({ $and: [{ service: service_id }, { user: user_id }] });
+    console.log(account)
     if (account) {
         return true;
     } else {
@@ -18,7 +20,15 @@ async function checkConnected(user_id, service_id, need_account) {
 }
 
 async function getAccountForService(accounts, service_id) {
-    let account = await accounts.find(a => a.service == service_id);
+    let account = accounts.find(a => {
+        console.log(a.service, service_id, JSON.stringify(a.service), JSON.stringify(service_id), typeof(a.service), typeof(service_id))
+        if (JSON.stringify(a.service) === JSON.stringify(service_id)) {
+            return true
+        } else {
+            return false
+        }
+    });
+    console.log(account, accounts, service_id)
     if (account) {
         return account;
     } else {
@@ -27,6 +37,7 @@ async function getAccountForService(accounts, service_id) {
 }
 
 async function findUserByAccount(service_type, args) {
+    console.log(service_type, args)
     switch (service_type) {
         case 'google':
             return findUserByGoogle(args)
@@ -102,27 +113,27 @@ function parseArgs(args) {
     return new_args //temporary
 }
 
-async function processAccount(req, service_type, args) {
+async function processAccount(user_id, service_type, args) {
     try {
-        console.log(args)
         let parsed_args = parseArgs(args);
-        if (req.isAuthenticated()) {
+        let success, found;
+        if (user_id) {
             console.log('already logged in')
-            if (!findUserByAccount()) { //check that no user already has an account with those credentials
-                await addAccountToUser(req.user._id, service_type, parsed_args);
-                return { user_id: null, new_account: true };
-
+            found = await findUserByAccount(service_type, parsed_args)
+            if (!found) { //check that no user already has an account with those credentials
+                success = await addAccountToUser(user_id, service_type, parsed_args);
+                return { user_id: null, new_account: true, success: success };
             } else {
-                return { user_id: null, new_account: false }
+                return { user_id: null, new_account: false, success: false }
             }
         } else {
             console.log('not logged in')
             let user = await findOrCreateUser(service_type, parsed_args);
             console.log('got user')
             if (user) {
-                return { user_id: user, new_account: false }
+                return { user_id: user, new_account: false, success: true }
             } else {
-                return { user_id: null, new_account: false }
+                return { user_id: null, new_account: false, success: false }
             }
         }
     } catch (e) {

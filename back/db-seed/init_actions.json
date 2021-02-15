@@ -1,6 +1,7 @@
 [{
         "_id": { "$oid": "5fff3620a0efdc70962fefa4" },
         "name": "post posted by",
+        "type": "facebook-post-posted",
         "description": "something is posted",
         "service": "5fff3620c37c77753705f766"
     },

@@ -5,9 +5,10 @@
         "service": "5fff3620c37c77753705f766"
     },
     {
-        "_id": { "$oid": "60018a136c7bd76663a84619" },
-        "name": "dislike post",
-        "description": "dislike something",
-        "service": "5fff3620c37c77753705f766"
+        "_id": { "$oid": "601033c4779c01000abdc6b5" },
+        "type": "do_stuff",
+        "name": "do something",
+        "description": "do something",
+        "service": { "$oid": "601034a8779c01000abdc6b7" }
     }
 ]

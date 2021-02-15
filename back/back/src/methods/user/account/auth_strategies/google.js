@@ -10,7 +10,7 @@ const GoStrategy = new GoogleStrategy({
         passReqToCallback: true,
     },
     async function(req, accessToken, refreshToken, profile, cb) {
-        let processed = await processAccount(req, 'google', { access_token: accessToken, refresh_token: refreshToken, profile: profile._json });
+        let processed = await processAccount(req.query.state, 'google', { access_token: accessToken, refresh_token: refreshToken, profile: profile._json });
         console.log('ok', processed)
         let user = await User.findById(processed.user_id)
         return cb(null, user, { value: processed.new_account })

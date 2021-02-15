@@ -5,7 +5,4 @@ const Services = require('@schemas/schemaService')
 const Reaction = require('@schemas/schemaReaction')
 const Action = require('@schemas/schemaAction')
 
-
-module.exports = {
-
-}
+module.exports = {}

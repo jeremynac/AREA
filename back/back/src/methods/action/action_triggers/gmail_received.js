@@ -6,10 +6,12 @@ const Account = require('@schemas/schemaAccount')
 var Gmail = require('node-gmail-api')
 
 async function checkGmailReceived(account, parameters, script_vars) {
-    let gmail = new Gmail(account.accessToken)
-    let s = gmail.messages('label:inbox', { fields: ['id', 'internalDate', 'labelIds', 'payload'] })
+    console.log(account)
+    let gmail = new Gmail(account.access_token)
+    let i = 0
+    let s = gmail.messages('label:inbox', { fields: ['id', 'internalDate', 'labelIds', 'payload'], max: 10 })
     s.on('data', function(d) {
-        console.log(d.id)
+        console.log(d.payload.headers)
     })
 }
 

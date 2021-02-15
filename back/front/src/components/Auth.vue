@@ -20,6 +20,7 @@
         await this.axios.post(process.env.VUE_APP_SERVER_URL + '/' + process.env.VUE_APP_LOGIN_PATH, {username: process.env.VUE_APP_USERNAME, password: process.env.VUE_APP_PASSWORD})
                     .then(res=>{
                         console.log(res);
+                        localStorage.user_id = res.data.userID
                         this.$router.push('/');
                       })
                     .catch(e=>console.log(e))

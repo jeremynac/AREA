@@ -8,6 +8,12 @@
     <b-button @click="google" variant="pink">
         login google
     </b-button>
+    <b-button @click="office" variant="pink">
+        login office
+    </b-button>
+    <b-button @click="intra" variant="pink">
+        login intra
+    </b-button>
     <!-- <window-portal>
     </window-portal> -->
   </div>
@@ -33,13 +39,13 @@
                     // .catch(e=>console.log(e))
       },
       async google() {
-        window.open(process.env.VUE_APP_SERVER_URL + '/auth/go-login')
-      //               .then(res=>{
-      //                   console.log(res.data);
-      //                   this.html_view = res.data
-      //                 })
-      //               .catch(e=>console.log(e))
-      // }
+        window.open(process.env.VUE_APP_SERVER_URL + '/auth/go-login/' + localStorage.user_id)
+      },
+      async office() {
+        window.open(process.env.VUE_APP_SERVER_URL + '/auth/off-login')
+      },
+      async intra() {
+        window.open(process.env.VUE_APP_SERVER_URL + '/auth/intra')
       }
     }
   }

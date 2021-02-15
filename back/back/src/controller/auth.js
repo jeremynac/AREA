@@ -3,6 +3,7 @@ const passport = require('passport')
 const User = require('@schemas/schemaUser')
 const Scripts = require('@schemas/schemaScript')
 const Services = require('@schemas/schemaService')
+const got = require('got')
 
 module.exports = function(app) {
     app.post('/login', (req, res, next) => {
@@ -15,10 +16,10 @@ module.exports = function(app) {
                 return res.status(401).json({ errors: "wrong pass" })
             } else {
                 req.logIn(user, function(err) {
-                    console.log("err", user)
+                    console.log("ok")
                 })
-                console.log("logged in", user)
-                return res.status(200).json({ userID: user.id, firstname: user.firstname, lastname: user.lastname, teacher: user.teacher });
+                console.log("logged in", user.id)
+                return res.status(200).json({ userID: user.id });
             }
         })(req, res, next)
     })
@@ -56,9 +57,13 @@ module.exports = function(app) {
         passport.authenticate('facebook', { successRedirect: '/', failureRedirect: '/login' });
     })
 
-    app.get('/go-login', passport.authenticate('google', {
-        scope: ['email', 'profile']
-    }))
+    app.get('/go-login/:user_id', async(req, res) => {
+        // console.log(req.params.user_id);
+        passport.authenticate('google', {
+            scope: ['https://www.googleapis.com/auth/gmail.readonly', 'email', 'profile'],
+            state: req.params.user_id
+        })(req, res)
+    })
 
     // app.get('/google/callback', async(req, res, next) => {
     //     console.log('google callback', req.query)
@@ -76,7 +81,7 @@ module.exports = function(app) {
 
     // )
     app.get('/google/callback', (req, res) => {
-        passport.authenticate('google', (err, user, new_account) => {
+        passport.authenticate('google', (err, user, new_account, success) => {
             console.log('okok', new_account)
             try {
                 if (err) {
@@ -146,7 +151,41 @@ module.exports = function(app) {
         })(req, res)
     })
 
-    app.get('/intra', function(req, res) {
-        res.redirect('https://intra.epitech.eu/admin/autolog')
+    app.get('/intra', async function(req, res) {
+        // try {
+        //     // console.log(response)
+        // } catch (e) {
+        //     console.log(e)
+        // }
+    })
+
+    app.get('/off-login', passport.authenticate('office'))
+
+    app.get('/office/callback', (req, res) => {
+        console.log(req)
+        passport.authenticate('office', (err, user, new_account) => {
+            console.log('okok', err, new_account)
+            try {
+                if (err) {
+                    console.log("err")
+                    return res.status(400).json({ errors: err })
+                } else if (!user) {
+                    console.log("added account")
+                    return res.status(200).json({ new_account: new_account.value, new_user: false })
+                } else {
+                    console.log("connected or added account", user)
+                    console.log('okokok')
+                    req.logIn(user, function(err) {
+                        console.log(err)
+                    })
+                    console.log("err", user)
+                    console.log("connected or added account", user)
+                    return res.status(200).json({ new_account: new_account.value, new_user: true });
+                }
+            } catch (e) {
+                console.log(e)
+                return res.status(400).json({ errors: err })
+            }
+        })(req, res)
     })
 }
