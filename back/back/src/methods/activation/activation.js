@@ -64,7 +64,7 @@ async function activateScript(script_id, accounts) {
         let action_happened = await activateAction(accounts, script.action_parameters, script.variables, script.action.type)
         if (action_happened) {
             console.log("action happened, activating reaction")
-            await activateReaction(accounts, script.reaction_parameters, script.reaction.type)
+            await activateReaction(accounts, script.reaction_parameters, script.variables, script.reaction.type)
             return true
         } else {
             console.log("action did not happen")
