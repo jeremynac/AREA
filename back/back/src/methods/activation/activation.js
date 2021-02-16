@@ -4,6 +4,7 @@ const Script = require('@schemas/schemaScript')
 const Services = require('@schemas/schemaService')
 const Action = require('@schemas/schemaAction')
 const { activateAction } = require('@action/action_functions')
+const { activateReaction } = require('@reaction/reaction_functions')
 
 async function activate() {
     await activateUsers();

@@ -51,6 +51,7 @@ async function createAccount(service_type, args) {
     const service = await Service.findOne({ type: service_type }).select()
     let account = new Account({ service: service, access_token: args.access_token, refresh_token: args.refresh_token, authorization_code: args.authorization_code, username: args.email })
         // aaccount.save();
+    await account.save()
     console.log('new account:', account)
     return account;
 }

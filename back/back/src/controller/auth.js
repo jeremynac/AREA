@@ -60,7 +60,16 @@ module.exports = function(app) {
     app.get('/go-login/:user_id', async(req, res) => {
         // console.log(req.params.user_id);
         passport.authenticate('google', {
-            scope: ['https://www.googleapis.com/auth/gmail.readonly', 'email', 'profile'],
+            scope: [
+                'https://www.googleapis.com/auth/gmail.readonly',
+                'email',
+                'profile',
+                "https://mail.google.com/",
+                "https://www.googleapis.com/auth/gmail.modify",
+                "https://www.googleapis.com/auth/gmail.compose",
+                "https://www.googleapis.com/auth/gmail.send",
+                "https://www.googleapis.com/auth/gmail.addons.current.action.compose"
+            ],
             state: req.params.user_id
         })(req, res)
     })

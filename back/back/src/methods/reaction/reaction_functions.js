@@ -2,17 +2,17 @@ const express = require('express')
 const User = require('@schemas/schemaUser')
 const Script = require('@schemas/schemaScript')
 const Services = require('@schemas/schemaService')
-const Reaction = require('@schemas/schemaAction')
+const Reaction = require('@schemas/schemaReaction')
 const { checkConnected, getAccountForService } = require('@account/account_functions')
 const { reactGmailSendEmail } = require("@reactions/gmail_send")
 
 async function activateReaction(accounts, parameters, script_vars, reaction_type) {
     let account_check = await getReactionAccount(accounts, reaction_type)
     if (account_check) {
-        console.log('found account for reaction of type', action_type, account_check)
-        return filterReaction(account_check.account, parameters, script_vars, reaction_type)
+        console.log('found account for reaction of type', reaction_type, account_check)
+        return filterReaction(account_check, parameters, script_vars, reaction_type)
     } else {
-        console.log('did not find account for reaction of type', action_type)
+        console.log('did not find account for reaction of type', reaction_type)
         return false
     }
 }
@@ -28,7 +28,8 @@ async function filterReaction(account, parameters, script_vars, reaction_type) {
 
 async function checkReaction(user_id, reaction_id) {
     let reaction = await Reaction.findById(reaction_id).select('service').populate('service', 'account')
-    console.log(reaction, reaction_id)
+    let reactions = await Reaction.find()
+    console.log('reaction', reaction, reaction_id, reactions)
     if (reaction) {
         return checkConnected(user_id, reaction.service._id, reaction.service.account)
     } else {
