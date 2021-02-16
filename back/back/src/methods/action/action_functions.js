@@ -6,21 +6,21 @@ const Action = require('@schemas/schemaAction')
 const { checkConnected, getAccountForService } = require('@account/account_functions')
 const { checkGmailReceived } = require('@action_triggers/gmail_received')
 
-async function activateAction(accounts, parameters, script_vars, action_type) {
+async function activateAction(accounts, parameters, script_vars, last, action_type) {
     let account_check = await getActionAccount(accounts, action_type)
     if (account_check) {
         console.log('found account for action of type', action_type, account_check)
-        return filterAction(account_check, parameters, script_vars, action_type)
+        return filterAction(account_check, parameters, script_vars, last, action_type)
     } else {
         console.log('did not find account for action of type', action_type)
         return false
     }
 }
 
-async function filterAction(account, parameters, script_vars, action_type) {
+async function filterAction(account, parameters, script_vars, last, action_type) {
     switch (action_type) {
         case 'gmail-mail-received':
-            return checkGmailReceived(account, parameters, script_vars);
+            return checkGmailReceived(account, parameters, script_vars, last);
         default:
             return false;
     }
