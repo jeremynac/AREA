@@ -26,7 +26,7 @@ app.use(cookieparser('stuff', { maxAge: 500, SameSite: false, secure: true, http
 
 app.use(
     cors({
-        origin: "http://localhost:8080", // allow to server to accept request from different origin
+        origin: "http://localhost:3000", //8080", // allow to server to accept request from different origin
         methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
         credentials: true, // allow session cookie from browser to pass through
     })
@@ -50,7 +50,7 @@ app.use(function(req, res, next) {
     // res.setHeader('Acces-Control-Allow-Methods','GET, POST, PATCH, DELETE');
     // res.setHeader("Access-Control-Allow-Origin", "*");
     // res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
-    res.setHeader("Access-Control-Allow-Origin", "http://localhost:8080");
+    res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000"); //8080");
 
     res.setHeader(
         "Access-Control-Allow-Methods",
