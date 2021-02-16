@@ -1,0 +1,43 @@
+[{
+        "_id": { "$oid": "5fff3620c37c77753705f766" },
+        "name": "facebook",
+        "type": "facebook",
+        "account": true,
+        "actions": [{ "$oid": "5fff3620a0efdc70962fefa4" }, { "$oid": "60018a13cab6dd49d2ba5a95" }],
+        "reactions": [{ "$oid": "5fff3620c3a3e2f146ce9aa3" }, { "$oid": "60018a136c7bd76663a84619" }]
+    },
+    {
+        "_id": { "$oid": "601034a8779c01000abdc6b7" },
+        "name": "google",
+        "type": "google",
+        "account": true,
+        "actions": [{ "$oid": "601033c4779c01000abdc6b5" }],
+        "reactions": [{ "$oid": "602ba5c897914b000773055f" }],
+        "parse_map": {
+            "access_token": "access_token",
+            "refresh_token": "refresh_token",
+            "email": "email",
+            "username": "email",
+            "name": "name",
+            "firstname": "given_name",
+            "lastname": "family_name",
+            "id": "sub"
+        }
+    },
+    {
+        "_id": { "$oid": "602bc4fd7233e600087eb9e0" },
+        "name": "discord",
+        "type": "discord",
+        "account": true,
+        "actions": [],
+        "reactions": [],
+        "parse_map": {
+            "access_token": "access_token",
+            "refresh_token": "refresh_token",
+            "email": "_json.email",
+            "username": "_json.email",
+            "name": "username",
+            "id": "id"
+        }
+    }
+]
