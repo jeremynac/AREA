@@ -3,6 +3,7 @@ const LocalStrategy = require("passport-local").Strategy;
 const User = require("@schemas/schemaUser");
 
 const LocalSignInStrategy = new LocalStrategy((username, password, done) => {
+    console.log('login user', username, password)
     User.findOne({ username: username })
         .then(user => {
             console.log("found", user)
