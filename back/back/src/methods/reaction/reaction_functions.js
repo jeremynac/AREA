@@ -4,8 +4,9 @@ const Script = require('@schemas/schemaScript')
 const Services = require('@schemas/schemaService')
 const Reaction = require('@schemas/schemaAction')
 const { checkConnected, getAccountForService } = require('@account/account_functions')
+const { reactGmailSendEmail } = require("@reactions/gmail_send")
 
-async function activateReaction(accounts, parameters, reaction_type) {
+async function activateReaction(accounts, parameters, script_vars, reaction_type) {
     let account_check = await getReactionAccount(accounts, reaction_type)
     if (account_check) {
         console.log('found account for reaction of type', action_type, account_check)
@@ -16,10 +17,12 @@ async function activateReaction(accounts, parameters, reaction_type) {
     }
 }
 
-async function filterReaction(account, parameters, reaction_type) {
+async function filterReaction(account, parameters, script_vars, reaction_type) {
     switch (reaction_type) {
-        // case 'timer':
-        default: return false
+        case 'gmail-send-email':
+            return reactGmailSendEmail(account, parameters, script_vars)
+        default:
+            return false
     }
 }
 

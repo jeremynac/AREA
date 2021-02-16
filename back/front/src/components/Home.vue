@@ -14,6 +14,9 @@
     <b-button @click="intra" variant="pink">
         login intra
     </b-button>
+    <b-button @click="discord" variant="pink">
+        login discord
+    </b-button>
     <!-- <window-portal>
     </window-portal> -->
   </div>
@@ -46,6 +49,9 @@
       },
       async intra() {
         window.open(process.env.VUE_APP_SERVER_URL + '/auth/intra')
+      },
+      async discord() {
+        window.open(process.env.VUE_APP_SERVER_URL + '/auth/di-login/' + localStorage.user_id)
       }
     }
   }

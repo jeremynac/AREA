@@ -3,7 +3,7 @@ const passport = require('passport')
 const User = require('@schemas/schemaUser')
 const Scripts = require('@schemas/schemaScript')
 const Services = require('@schemas/schemaService')
-const got = require('got')
+const axios = require('axios')
 
 module.exports = function(app) {
     app.post('/login', (req, res, next) => {
@@ -188,4 +188,47 @@ module.exports = function(app) {
             }
         })(req, res)
     })
+    var scopes = ['identify', 'email', /* 'connections', (it is currently broken) */ 'guilds', 'guilds.join'];
+    var prompt = 'consent'
+    app.get('/di-login/:user_id', async(req, res) => {
+        // console.log(req.params.user_id);
+        console.log('test')
+        passport.authenticate('discord', {
+            scope: scopes,
+            prompt: prompt,
+            state: req.params.user_id
+        })(req, res)
+    })
+    app.get('/discord/callback',
+        passport.authenticate('discord', (req, res) => {
+            console.log(req)
+                // res.redirect('/secretstuff') // Successful auth
+        })
+    );
+    const customDiStrategy = async(code) => {
+        const clientID = process.env.DISCORD_CLIENT_ID
+        const clientSecret = process.env.DICORD_CLIENT_SECRET
+        data = {
+            'client_id': process.env.DISCORD_CLIENT_ID,
+            'client_secret': process.env.DISCORD_CLIENT_SECRET,
+            'grant_type': 'authorization_code',
+            'code': code,
+            'redirect_uri': process.env.SERVER_URL + process.env.DISCORD_CALLBACK,
+            'scope': 'identify email connections'
+        }
+        headers = {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+        try {
+            axios.post('/oauth2/token', data, {
+                headers: headers
+            }).then(async function(response) {
+                console.log(response.data)
+            }).catch(error => {
+                console.error(error);
+            });
+        } catch (e) {
+            console.log(e)
+        }
+    }
 }

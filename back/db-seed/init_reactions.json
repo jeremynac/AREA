@@ -10,5 +10,12 @@
         "name": "do something",
         "description": "do something",
         "service": { "$oid": "601034a8779c01000abdc6b7" }
+    },
+    {
+        "_id": { "$oid": "602ba5c897914b000773055f" },
+        "type": "gmail-send-email",
+        "name": "send an email",
+        "description": "send an email to someone",
+        "service": { "$oid": "601034a8779c01000abdc6b7" }
     }
 ]

@@ -104,18 +104,25 @@ async function findOrCreateUser(service_type, args) {
     }
 }
 
-function parseArgs(args) {
-    console.log(args.profile)
+async function getParseMap(service_type) {
+    let service = await Service.findOne({ type: service_type }).select('parse_map')
+    console.log(service)
+    let parse_map = service.parse_map
+    return parse_map
+}
+
+async function parseArgs(args, service_type) {
     let new_args = {}
-    new_args.access_token = args.access_token;
-    new_args.refresh_token = args.refresh_token;
-    new_args = Object.assign(new_args, args.profile)
-    return new_args //temporary
+    let parse_map = await getParseMap(service_type)
+    Object.keys(parse_map).forEach(key => {
+        new_args[key] = eval('args.' + parse_map[key])
+    });
+    return new_args
 }
 
 async function processAccount(user_id, service_type, args) {
     try {
-        let parsed_args = parseArgs(args);
+        let parsed_args = await parseArgs(args, service_type);
         let success, found;
         if (user_id) {
             console.log('already logged in')

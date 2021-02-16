@@ -12,6 +12,32 @@
         "type": "google",
         "account": true,
         "actions": [{ "$oid": "601033c4779c01000abdc6b5" }],
-        "reactions": []
+        "reactions": [{ "$oid": "602ba5c897914b000773055f" }],
+        "parse_map": {
+            "access_token": "access_token",
+            "refresh_token": "refresh_token",
+            "email": "email",
+            "username": "email",
+            "name": "name",
+            "firstname": "given_name",
+            "lastname": "family_name",
+            "id": "sub"
+        }
+    },
+    {
+        "_id": { "$oid": "602bc4fd7233e600087eb9e0" },
+        "name": "discord",
+        "type": "discord",
+        "account": true,
+        "actions": [],
+        "reactions": [],
+        "parse_map": {
+            "access_token": "access_token",
+            "refresh_token": "refresh_token",
+            "email": "_json.email",
+            "username": "_json.email",
+            "name": "username",
+            "id": "id"
+        }
     }
 ]
