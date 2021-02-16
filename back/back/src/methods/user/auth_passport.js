@@ -4,9 +4,11 @@ const { LocalSignInStrategy, LocalSignUpStrategy } = require('@account/auth_stra
 const FBStrategy = require('@account/auth_strategies/facebook');
 const GoStrategy = require('@account/auth_strategies/google');
 const TTStrategy = require('@account/auth_strategies/twitter');
+const OfficeStrategy = require('@account/auth_strategies/office365');
+const DiscordStrategy = require('@account/auth_strategies/discord');
 
 passport.serializeUser(function(user, done) {
-    console.log('serialize', user)
+    console.log('serialize', user._id)
     done(null, user._id);
 });
 
@@ -28,6 +30,10 @@ passport.use('local-sign_up', LocalSignUpStrategy)
 passport.use('facebook', FBStrategy)
 
 passport.use('google', GoStrategy)
+
+passport.use('discord', DiscordStrategy)
+
+// passport.use('office', OfficeStrategy)
 
 // passport.use('twitter', TTStrategy)
 // passport.use(GoStrategy)

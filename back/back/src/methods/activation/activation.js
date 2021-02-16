@@ -4,6 +4,7 @@ const Script = require('@schemas/schemaScript')
 const Services = require('@schemas/schemaService')
 const Action = require('@schemas/schemaAction')
 const { activateAction } = require('@action/action_functions')
+const { activateReaction } = require('@reaction/reaction_functions')
 
 async function activate() {
     await activateUsers();
@@ -58,12 +59,13 @@ async function activateUserScripts(user_id) {
 
 async function activateScript(script_id, accounts) {
     try {
-        let script = await Script.findById(script_id).populate('action', 'service').populate('reaction', 'service')
+        let script = await Script.findById(script_id).populate('action', 'service type').populate('reaction', 'service type')
         console.log("activating script", script.name, "with action", script.action._id, "and reaction", script.reaction._id);
+        console.log('action is: ', script.action, '\nreaction is: ', script.reaction);
         let action_happened = await activateAction(accounts, script.action_parameters, script.variables, script.action.type)
         if (action_happened) {
             console.log("action happened, activating reaction")
-            await activateReaction(accounts, script.reaction_parameters, script.reaction.type)
+            await activateReaction(accounts, script.reaction_parameters, script.variables, script.reaction.type)
             return true
         } else {
             console.log("action did not happen")

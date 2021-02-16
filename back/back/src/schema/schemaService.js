@@ -28,6 +28,10 @@ const schemaService = mongoose.Schema({
     img: {
         type: String,
         require: false
+    },
+    parse_map: {
+        type: Object,
+        require: false
     }
 });
 

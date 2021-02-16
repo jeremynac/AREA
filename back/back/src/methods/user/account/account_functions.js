@@ -9,7 +9,9 @@ async function checkConnected(user_id, service_id, need_account) {
     if (!need_account) {
         return true;
     }
+    console.log('check connected', service_id, need_account)
     let account = await Account.findOne({ $and: [{ service: service_id }, { user: user_id }] });
+    console.log(account)
     if (account) {
         return true;
     } else {
@@ -18,7 +20,15 @@ async function checkConnected(user_id, service_id, need_account) {
 }
 
 async function getAccountForService(accounts, service_id) {
-    let account = await accounts.find(a => a.service == service_id);
+    let account = accounts.find(a => {
+        console.log(a.service, service_id, JSON.stringify(a.service), JSON.stringify(service_id), typeof(a.service), typeof(service_id))
+        if (JSON.stringify(a.service) === JSON.stringify(service_id)) {
+            return true
+        } else {
+            return false
+        }
+    });
+    console.log(account, accounts, service_id)
     if (account) {
         return account;
     } else {
@@ -27,6 +37,7 @@ async function getAccountForService(accounts, service_id) {
 }
 
 async function findUserByAccount(service_type, args) {
+    console.log(service_type, args)
     switch (service_type) {
         case 'google':
             return findUserByGoogle(args)
@@ -40,6 +51,7 @@ async function createAccount(service_type, args) {
     const service = await Service.findOne({ type: service_type }).select()
     let account = new Account({ service: service, access_token: args.access_token, refresh_token: args.refresh_token, authorization_code: args.authorization_code, username: args.email })
         // aaccount.save();
+    await account.save()
     console.log('new account:', account)
     return account;
 }
@@ -93,36 +105,43 @@ async function findOrCreateUser(service_type, args) {
     }
 }
 
-function parseArgs(args) {
-    console.log(args.profile)
-    let new_args = {}
-    new_args.access_token = args.access_token;
-    new_args.refresh_token = args.refresh_token;
-    new_args = Object.assign(new_args, args.profile)
-    return new_args //temporary
+async function getParseMap(service_type) {
+    let service = await Service.findOne({ type: service_type }).select('parse_map')
+    console.log(service)
+    let parse_map = service.parse_map
+    return parse_map
 }
 
-async function processAccount(req, service_type, args) {
-    try {
-        console.log(args)
-        let parsed_args = parseArgs(args);
-        if (req.isAuthenticated()) {
-            console.log('already logged in')
-            if (!findUserByAccount()) { //check that no user already has an account with those credentials
-                await addAccountToUser(req.user._id, service_type, parsed_args);
-                return { user_id: null, new_account: true };
+async function parseArgs(args, service_type) {
+    let new_args = {}
+    let parse_map = await getParseMap(service_type)
+    Object.keys(parse_map).forEach(key => {
+        new_args[key] = eval('args.' + parse_map[key])
+    });
+    return new_args
+}
 
+async function processAccount(user_id, service_type, args) {
+    try {
+        let parsed_args = await parseArgs(args, service_type);
+        let success, found;
+        if (user_id) {
+            console.log('already logged in')
+            found = await findUserByAccount(service_type, parsed_args)
+            if (!found) { //check that no user already has an account with those credentials
+                success = await addAccountToUser(user_id, service_type, parsed_args);
+                return { user_id: null, new_account: true, success: success };
             } else {
-                return { user_id: null, new_account: false }
+                return { user_id: null, new_account: false, success: false }
             }
         } else {
             console.log('not logged in')
             let user = await findOrCreateUser(service_type, parsed_args);
             console.log('got user')
             if (user) {
-                return { user_id: user, new_account: false }
+                return { user_id: user, new_account: false, success: true }
             } else {
-                return { user_id: null, new_account: false }
+                return { user_id: null, new_account: false, success: false }
             }
         }
     } catch (e) {

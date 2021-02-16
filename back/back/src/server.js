@@ -4,11 +4,13 @@ require('dotenv').config()
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+const cookieparser = require('cookie-parser')
 const process = require('process');
 const app = express();
 const passport = require("@user/auth_passport");
-const cors = require("cors")
-    // const session = require('session')
+const cors = require("cors");
+const { json } = require('body-parser');
+// const session = require('session')
 
 
 // CONNECT TO DB
@@ -16,6 +18,8 @@ const cors = require("cors")
 app.use(bodyParser.urlencoded({ extended: true }))
     //app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
+app.use(cookieparser('stuff', { maxAge: 500, SameSite: false, secure: true, httpOnly: false }))
+
 
 
 // Init REST API
@@ -38,7 +42,6 @@ app.use(require('express-session')({
         maxAge: 3600000 //1 hour
     }
 }));
-
 app.use(passport.initialize());
 app.use(passport.session()); // Required for persistent login sessions (optional, but recommended)
 app.use(function(req, res, next) {
@@ -122,5 +125,13 @@ require("@controller/reaction")(routerReaction);
 
 app.use("/service", routerService);
 require("@controller/service")(routerService);
+
+app.use((req, res) => {
+    try {} catch (e) {
+        console.log(e)
+        return res.status(401).json({ error: e })
+    }
+    return res.status(400).json({ value: 'nothing happened' })
+})
 
 app.listen(process.env.PORT) //process.env.PORT, () => console.log(`Listening on port ${process.env.PORT}`));
