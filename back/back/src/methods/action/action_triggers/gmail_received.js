@@ -11,8 +11,9 @@ async function checkGmailReceived(account, parameters, script_vars) {
     let i = 0
     let s = gmail.messages('label:inbox', { fields: ['id', 'internalDate', 'labelIds', 'payload'], max: 10 })
     s.on('data', function(d) {
-        console.log(d.payload.headers)
+        // console.log(d.payload.headers)
     })
+    return true
 }
 
 
