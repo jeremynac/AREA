@@ -30,6 +30,11 @@ const schemaScript = mongoose.Schema({
         type: Boolean,
         require: false,
         default: true
+    },
+    last_activation: {
+        type: Number,
+        require: false,
+        default: 0
     }
 });
 

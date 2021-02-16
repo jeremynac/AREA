@@ -5,6 +5,7 @@ const Services = require('@schemas/schemaService')
 const Action = require('@schemas/schemaAction')
 const { activateAction } = require('@action/action_functions')
 const { activateReaction } = require('@reaction/reaction_functions')
+const { analytics } = require('googleapis/build/src/apis/analytics')
 
 async function activate() {
     await activateUsers();
@@ -62,7 +63,9 @@ async function activateScript(script_id, accounts) {
         let script = await Script.findById(script_id).populate('action', 'service type').populate('reaction', 'service type')
         console.log("activating script", script.name, "with action", script.action._id, "and reaction", script.reaction._id);
         console.log('action is: ', script.action, '\nreaction is: ', script.reaction);
-        let action_happened = await activateAction(accounts, script.action_parameters, script.variables, script.action.type)
+        let action_happened = await activateAction(accounts, script.action_parameters, script.variables, script.last_activation, script.action.type)
+        script.last_activation = Math.floor(Date.now() / 1000)
+        await script.save()
         if (action_happened) {
             console.log("action happened, activating reaction")
             await activateReaction(accounts, script.reaction_parameters, script.variables, script.reaction.type)

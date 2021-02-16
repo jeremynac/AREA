@@ -34,7 +34,8 @@ async function createScript(req) {
             action: action_id,
             reaction: reaction_id,
             action_parameters: a_parameters,
-            reaction_parameters: r_parameters
+            reaction_parameters: r_parameters,
+            last_activation: Math.floor(Date.now() / 1000)
         })
         console.log('script has been succesfully created')
         await script.save().then().catch()
