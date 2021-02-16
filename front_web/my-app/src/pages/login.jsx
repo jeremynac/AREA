@@ -4,7 +4,7 @@ import { FormControlLabel, Paper, Avatar, Checkbox, Box, Link, Typography, Grid 
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import {useHistory} from "react-router-dom";
 
-// import { login, register } from '../auth/requests'
+import API from '../auth/requests'
 
 function Copyright() {
   return (
@@ -53,12 +53,15 @@ const useStyles = makeStyles((theme) => ({
 export default function SignInSide() {
   const classes = useStyles();
   const history = useHistory();
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
 
   const navigateTo = () => history.push('/register');
   const navigateToHome = () => history.push('/Homepage');
-  //const signin = () => {
-  //    login()
-  //}
+  const signin = async () => {
+    console.log(username, password)
+     await API.login(username, password)
+  }
 
   return (
     <Grid container component="main" className={classes.root}>
@@ -83,6 +86,7 @@ export default function SignInSide() {
               name="email"
               autoComplete="email"
               autoFocus
+              onChange={(e)=>{setUsername(e.target.value)}}
             />
             <TextField
               variant="outlined"
@@ -94,6 +98,7 @@ export default function SignInSide() {
               type="password"
               id="password"
               autoComplete="current-password"
+              onChange={(e)=>{setPassword(e.target.value)}}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
@@ -105,8 +110,8 @@ export default function SignInSide() {
               variant="contained"
               color="primary"
               className={classes.submit}
-              onClick={navigateToHome}
-              //onClick={signin}
+              // onClick={navigateToHome}
+              onClick={signin}
             >
               Sign In
             </Button>

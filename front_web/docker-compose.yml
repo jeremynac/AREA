@@ -5,6 +5,8 @@ services:
           context : "./my-app"
         tty: true
         volumes:
-          - ./my-app/:/my-app
+          - ./my-app/src/:/my-app/src
         ports:
             - 3000:3000
+        environment:
+          REACT_APP_SERVER_URL: http://area.gen-host.fr:8084

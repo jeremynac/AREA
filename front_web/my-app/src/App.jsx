@@ -5,7 +5,6 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
-
 import Login from './pages/login';
 import Register from './pages/register';
 import HomePage from './pages/homepage';
@@ -15,10 +14,6 @@ import RSS from './pages/RSS';
 import OneDrive from './pages/OneDrive';
 import Outlook from './pages/Outlook';
 import Timer from './pages/Timer';
-
-
-
-
 
 
 function App() {
