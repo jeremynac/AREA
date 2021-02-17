@@ -1,6 +1,4 @@
-import 'package:epicture/pages/ConnectImgur.dart';
 import 'package:flutter/material.dart';
-import 'package:imgur/imgur.dart' as imgur;
 
 // ignore: must_be_immutable
 class SimplePhotoViewProfile extends StatelessWidget {
@@ -58,10 +56,10 @@ class SimplePhotoViewProfile extends StatelessWidget {
 // ignore: must_be_immutable
 class SimplePhotoViewAlbumGalleryImage extends StatelessWidget {
   int index = 0;
-  imgur.GalleryAlbumImage imageNet;
+  //imgur.GalleryAlbumImage imageNet;
 
   SimplePhotoViewAlbumGalleryImage(var input) {
-    this.imageNet = input;
+    //this.imageNet = input;
     debugPrint("Loaded one Image");
   }
 
@@ -81,26 +79,7 @@ class SimplePhotoViewAlbumGalleryImage extends StatelessWidget {
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
           borderOnForeground: true,
           child: Column(
-            children: <Widget>[
-              Padding(padding: EdgeInsets.all(4.0)),
-              Text(
-                imageNet.title,
-                style: TextStyle(fontFamily: 'Ubuntu', color: Colors.white),
-              ),
-              Padding(padding: EdgeInsets.all(6.0)),
-              if (imageNet.images[0].type != "video/mp4")
-                Image.network(
-                  imageNet.images[0].link,
-                  fit: BoxFit.fill,
-                ),
-              if (imageNet.images[0].type == "video/mp4")
-                Image.network(
-                  imageNet.images[0].gifv
-                      .substring(0, imageNet.images[0].gifv.length - 1),
-                  fit: BoxFit.fill,
-                ),
-              UpVoteOptionsLikes(imageNet),
-            ],
+            children: <Widget>[],
           ),
         ),
       ],
@@ -124,9 +103,9 @@ class UpVoteOptionsLikes extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            UpvoteButton(img: imgurImage),
-            DownvoteButton(img: imgurImage),
-            FavButton(img: imgurImage),
+            //UpvoteButton(img: imgurImage),
+            //DownvoteButton(img: imgurImage),
+            //FavButton(img: imgurImage),
           ],
         ),
       ],
@@ -182,14 +161,14 @@ class UpVoteOptionsNoLikes extends StatelessWidget {
                 ),
               ],
             ),
-            FavButton2(img: imgurImage),
+            //FavButton2(img: imgurImage),
           ],
         ),
       ],
     );
   }
 }
-
+/*
 class FavButton2 extends StatefulWidget {
   final imgur.Image img;
   FavButton2({Key key, this.img}) : super(key: key);
@@ -395,3 +374,4 @@ class DownvoteButtonState extends State<StatefulWidget> {
     );
   }
 }
+*/

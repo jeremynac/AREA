@@ -1,11 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import '../widget/popularCardGallery.dart';
-import '../widget/profileCardGallery.dart';
-import '../widget/LikesCard.dart';
-import 'ConnectImgur.dart';
-import 'package:epicture/widget/UploadCart.dart';
-import 'package:epicture/widget/SearchCart.dart';
+import 'BrowseAreas.dart';
+import 'MyReactions.dart';
+import 'MyAreas.dart';
+import 'Profile.dart';
 
 /// This is the stateful widget that the main application instantiates.
 class NavBar extends StatefulWidget {
@@ -22,19 +20,16 @@ class _NavBar extends State<NavBar> {
   var resp;
 
   List<Widget> _widgetOptions = <Widget>[
-    PopularCardGallery(),
-    SearchCart(),
-    UploadPage(),
-    LikesCardGallery(),
-    ProfileCardGallery(),
-    if (!kReleaseMode) ConnectApp(),
+    BrowseAreas(),
+    MyReactions(),
+    MyAreas(),
+    MyProfile()
   ];
   void _onItemTapped(int index) {
     setState(() {
       debugPrint('Selected tab:');
       debugPrint(index.toString());
       debugPrint('Token is currently:');
-      debugPrint(authTokenvar);
       _selectedIndex = index;
     });
   }
@@ -54,20 +49,16 @@ class _NavBar extends State<NavBar> {
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Profile',
-          ),
-          BottomNavigationBarItem(
             icon: Icon(Icons.cloud_upload),
-            label: 'My Images',
+            label: 'Reactions',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.favorite),
-            label: 'My Images',
+            label: 'My Actions',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.account_circle),
-            label: 'My Images',
+            label: 'My Profile',
           ),
         ],
         currentIndex: _selectedIndex,

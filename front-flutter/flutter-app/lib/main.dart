@@ -1,21 +1,20 @@
-import 'pages/NavBar.dart';
-import 'pages/ConnectImgur.dart';
-import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:imgur/imgur.dart' as imgur;
+import 'package:area/constants.dart';
 
-//import 'package:flutter/foundation.dart';
+import 'screens/welcome_screen/WelcomeScreen.dart';
+import 'screens/pages/NavBar.dart';
+import 'package:flutter/material.dart';
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Epicture',
+      title: 'AreaMobile',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.lightBlue,
+        primaryColor: kPrimaryColor,
+        scaffoldBackgroundColor: Colors.white,
       ),
-      home: NavBar(),
+      home: WelcomeScreen(),
     );
   }
 }
@@ -24,15 +23,7 @@ void main() async {
   // Set default home.
   WidgetsFlutterBinding.ensureInitialized();
   Widget _defaultHome;
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  if (prefs.getString("clientID") != null &&
-      prefs.getString("clientID") != "") {
-    _defaultHome = new NavBar();
-    authTokenvar = prefs.getString("clientID");
-    clientID = imgur.Imgur(imgur.Authentication.fromToken(authTokenvar));
-  } else {
-    _defaultHome = new ConnectApp();
-  }
+  _defaultHome = new WelcomeScreen();
 
   // Run app!
   runApp(new MaterialApp(
@@ -41,8 +32,7 @@ void main() async {
     debugShowCheckedModeBanner: false,
     routes: <String, WidgetBuilder>{
       // Set routes for using the Navigator.
-      '/home': (BuildContext context) => new NavBar(),
-      '/login': (BuildContext context) => new ConnectApp()
+      '/home': (BuildContext context) => new NavBar()
     },
   ));
 }
