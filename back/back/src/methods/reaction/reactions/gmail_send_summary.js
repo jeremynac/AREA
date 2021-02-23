@@ -7,6 +7,25 @@ const Gmail = require('node-gmail-api')
 const { google } = require('googleapis')
 const axios = require('axios')
 
+async function summarizeText(text) {
+    let summ_text;
+    const options = {
+        method: 'POST',
+        headers: { 'api-key': process.env.DEEPAPI_KEY },
+        data: { text: text },
+        url: process.env.DEEPAPI_URL,
+    }
+    axios(options).then(
+        (res) => {
+            summ_text = res.output
+            return res.output
+        }
+    ).catch((e) => {
+        console.log(e)
+        return text
+    })
+}
+
 function makeBody(to, from, subject, message) {
     var str = ["Content-Type: text/plain; charset=\"UTF-8\"\n",
         "MIME-Version: 1.0\n",
@@ -21,8 +40,9 @@ function makeBody(to, from, subject, message) {
     return encodedMail;
 }
 
-function sendMessage(from, auth, to, content) {
-    var raw = makeBody(to, from, 'test subject', content);
+async function sendMessage(from, auth, to, content) {
+    let summary = await summarizeText(content)
+    var raw = makeBody(to, from, 'summary', summary);
     const gmail = google.gmail({ version: "v1", auth: auth })
     gmail.users.messages.s
     gmail.users.messages.send({
@@ -35,13 +55,16 @@ function sendMessage(from, auth, to, content) {
     });
 }
 
-async function reactGmailSendEmail(account, parameters, script_vars) {
-    const oAuth2Client = new google.auth.OAuth2();
-    oAuth2Client.setCredentials({ access_token: account.access_token })
-    sendMessage(account.email, oAuth2Client, parameters.to, parameters.content)
-        // oAuth2Client.setCredentials(account.refresh_token)
-    const gmail = google.gmail({ version: "v1", auth: oAuth2Client })
-
+async function reactGmailSendSummary(account, parameters, script_vars) {
+    try {
+        const oAuth2Client = new google.auth.OAuth2();
+        oAuth2Client.setCredentials({ access_token: account.access_token })
+        await sendMessage(account.email, oAuth2Client, parameters.to, script_vars.actions_results.text)
+            // oAuth2Client.setCredentials(account.refresh_token)
+        const gmail = google.gmail({ version: "v1", auth: oAuth2Client })
+    } catch (e) {
+        console.log("error raection gmail send summary", e)
+    }
 }
 
 
@@ -65,5 +88,5 @@ async function reactGmailSendEmail(account, parameters, script_vars) {
 
 
 module.exports = {
-    reactGmailSendEmail
+    reactGmailSendSummary
 }

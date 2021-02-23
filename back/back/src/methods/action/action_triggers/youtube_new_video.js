@@ -3,45 +3,42 @@ const Scripts = require('@schemas/schemaScript')
 const Services = require('@schemas/schemaService')
 const Action = require('@schemas/schemaAction')
 const Account = require('@schemas/schemaAccount')
-const Gmail = require('node-gmail-api')
+var Gmail = require('node-gmail-api')
 const { google } = require('googleapis')
-const axios = require('axios')
 
-function makeBody(to, from, subject, message) {
-    var str = ["Content-Type: text/plain; charset=\"UTF-8\"\n",
-        "MIME-Version: 1.0\n",
-        "Content-Transfer-Encoding: 7bit\n",
-        "to: ", to, "\n",
-        "from: ", from, "\n",
-        "subject: ", subject, "\n\n",
-        message
-    ].join('');
-
-    var encodedMail = Buffer.from(str).toString("base64").replace(/\+/g, '-').replace(/\//g, '_');
-    return encodedMail;
+function getHeader(headers, key) {
+    let obj = headers.find(e => (e.name.toString() === key))
+    return obj.value.toString()
 }
 
-function sendMessage(from, auth, to, content) {
-    var raw = makeBody(to, from, 'test subject', content);
-    const gmail = google.gmail({ version: "v1", auth: auth })
-    gmail.users.messages.s
-    gmail.users.messages.send({
-        userId: from,
-        resource: {
-            raw: raw
-        }
-    }, function(err, response) {
-        console.log(err, response)
-    });
-}
-
-async function reactGmailSendEmail(account, parameters, script_vars) {
+async function checkYoutubeVideoReceived(account, parameters, script_vars, last_activation) {
+    console.log(account)
+        // let gmail = new Gmail(account.access_token)
     const oAuth2Client = new google.auth.OAuth2();
     oAuth2Client.setCredentials({ access_token: account.access_token })
-    sendMessage(account.email, oAuth2Client, parameters.to, parameters.content)
         // oAuth2Client.setCredentials(account.refresh_token)
-    const gmail = google.gmail({ version: "v1", auth: oAuth2Client })
-
+    const yt = google.youtube({ version: 'v3', auth: auth })
+    let channel_id = parameters.channel_id
+    let messages = [];
+    await yt.search.list({
+        channelId: channel_id,
+        maxResults: 10,
+        order: "date",
+        publishedAfter: last_activation.toString()
+    }).then(m => {
+        messages = m.data.messages || [];
+    }).catch(e => {
+        console.log(e)
+    })
+    console.log('fetching channel id: ', parameters.channel_id, 'after: ', last_activation)
+    consele.log('message', messages)
+    if (messages.length > 0) {
+        return true
+    } else {
+        return false
+    }
+    // console.log('fetched emails')
+    // return false
 }
 
 
@@ -65,5 +62,5 @@ async function reactGmailSendEmail(account, parameters, script_vars) {
 
 
 module.exports = {
-    reactGmailSendEmail
+    checkYoutubeVideoReceived
 }
