@@ -2,14 +2,14 @@
 
 ## Norme de commit
 
-- **[INIT]** -> Beginning of a future or a project  
-- **[ADD]** -> Rajout d'une fonctionnalité  
+- **[INIT]** -> Début d'un projet ou d'une fonctionalité.
+- **[ADD]** -> Rajout d'une fonctionnalité preque fini  
 - **[FIX]** -> Fixer un bug ou une fonctionnalité  
 - **[MOD]** -> Modification d'une fonctionnalité  
 
 ## Branches
 
-Ici on différencie notre production (master) des branches de dev
+Ici on différencie notre production (master) des branches de dev (dev-*)
 
 ### Branches production
 
@@ -17,9 +17,9 @@ Ici on différencie notre production (master) des branches de dev
 
 ### Branches de dev
 
-- **dev**: On regroupe ici toutes les fonctionnalités une fois développé et on test l'integration.  
+- **dev**: On regroupe ici toutes les fonctionnalités une fois ces dernières développées et on test l'integration avant de mettre sur master.  
   
-- **dev-front-react\***: Toute la partie développement côté web est regroupé ici.
+- **dev-front-react**: Toute la partie développement côté web est regroupé ici.
 - **dev-flutter**: Toute la partie développement côté mobile est regroupé ici.  
   
 - **dev-back**: Regroupe toutes les fonctionnalités prêtes dans le back.
