@@ -1,7 +1,6 @@
 import 'package:area/constants.dart';
 
-import 'screens/welcome_screen/WelcomeScreen.dart';
-import 'screens/pages/NavBar.dart';
+import 'Screens/Welcome/welcome_screen.dart';
 import 'package:flutter/material.dart';
 
 class MyApp extends StatelessWidget {
@@ -32,7 +31,7 @@ void main() async {
     debugShowCheckedModeBanner: false,
     routes: <String, WidgetBuilder>{
       // Set routes for using the Navigator.
-      '/home': (BuildContext context) => new NavBar()
+      '/home': (BuildContext context) => new WelcomeScreen()
     },
   ));
 }

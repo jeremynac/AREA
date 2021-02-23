@@ -23,7 +23,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_svg: ^0.15.0
+  flutter_svg: ^0.19.1
   flutter_launcher_icons: ^0.7.2
   video_player:
   transparent_image:
@@ -63,6 +63,7 @@ flutter:
   assets:
       - assets/icons/
       - assets/images/
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
