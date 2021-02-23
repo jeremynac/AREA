@@ -5,6 +5,7 @@ const Services = require('@schemas/schemaService')
 const Reaction = require('@schemas/schemaReaction')
 const { checkConnected, getAccountForService } = require('@account/account_functions')
 const { reactGmailSendEmail } = require("@reactions/gmail_send")
+const { reactGmailSendSummary } = require("@reactions/gmail_send_summary")
 
 async function activateReaction(accounts, parameters, script_vars, reaction_type) {
     let account_check = await getReactionAccount(accounts, reaction_type)
@@ -21,6 +22,8 @@ async function filterReaction(account, parameters, script_vars, reaction_type) {
     switch (reaction_type) {
         case 'gmail-send-email':
             return reactGmailSendEmail(account, parameters, script_vars)
+        case 'gmail-send-summary':
+            return reactGmailSendSummary(account, parameters, script_vars)
         default:
             return false
     }

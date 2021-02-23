@@ -17,5 +17,12 @@
         "name": "send an email",
         "description": "send an email to someone",
         "service": { "$oid": "601034a8779c01000abdc6b7" }
+    },
+    {
+        "_id": { "$oid": "6034ca21e7864400074e00c1" },
+        "type": "gmail-send-summary",
+        "name": "send an summary by email",
+        "description": "Take a text and send summarized version to your email",
+        "service": { "$oid": "601034a8779c01000abdc6b7" }
     }
 ]
