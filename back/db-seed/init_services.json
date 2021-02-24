@@ -16,6 +16,7 @@
         "parse_map": {
             "access_token": "access_token",
             "refresh_token": "refresh_token",
+            "expire": "expire",
             "email": "email",
             "username": "email",
             "name": "name",
@@ -34,6 +35,7 @@
         "parse_map": {
             "access_token": "access_token",
             "refresh_token": "refresh_token",
+            "expire": "expire",
             "email": "_json.email",
             "username": "_json.email",
             "name": "username",

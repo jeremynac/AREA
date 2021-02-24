@@ -17,5 +17,12 @@
         "type": "gmail-mail-received",
         "description": "You received an email on your gmail account",
         "service": { "$oid": "601034a8779c01000abdc6b7" }
+    },
+    {
+        "_id": { "$oid": "6034ed97f6a933000952dcf4" },
+        "name": "gmail: email received that match",
+        "type": "gmail-mail-received-match",
+        "description": "You received an email on your gmail account that matches words",
+        "service": { "$oid": "601034a8779c01000abdc6b7" }
     }
 ]

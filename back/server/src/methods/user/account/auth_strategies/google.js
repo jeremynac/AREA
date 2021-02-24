@@ -9,9 +9,11 @@ const GoStrategy = new GoogleStrategy({
         callbackURL: process.env.SERVER_URL + process.env.GOOGLE_CALLBACK,
         passReqToCallback: true,
     },
-    async function(req, accessToken, refreshToken, profile, cb) {
+    async function(req, accessToken, refreshToken, params, profile, cb) {
         profile.access_token = accessToken;
         profile.refresh_token = refreshToken;
+        profile.expire = params.expires_in
+        console.log(accessToken, refreshToken)
         let processed = await processAccount(req.query.state, 'google', profile);
         console.log('ok', processed)
         let user = await User.findById(processed.user_id)

@@ -21,16 +21,17 @@ async function checkGmailReceived(account, parameters, script_vars, last_activat
         // let author_params = parameters.author.toString()
     let messages = [];
     await gmail.users.messages.list({
-            userId: 'me',
-            q: 'label:inbox ' + 'from:' + parameters.author + ' after:' + last_activation.toString(),
-            // fields: ['id', 'internalDate', 'labelIds', 'payload'],
-            max: 1
-        }).then(m => {
-            messages = m.data.messages || [];
-        }).catch(e => {
-            console.log(e)
-        })
-        // let s = gmail.messages('label:inbox ' + 'from:' + parameters.author + ' after:' + last_activation.toString(), { fields: ['id', 'internalDate', 'labelIds', 'payload'], max: 1 })
+        userId: 'me',
+        q: 'label:inbox ' + 'from:' + parameters.author + ' after:' + last_activation.toString(),
+        // fields: ['id', 'internalDate', 'labelIds', 'payload'],
+        max: 1
+    }).then(m => {
+        messages = m.data.messages || [];
+    }).catch(e => {
+        console.log(e)
+    })
+
+    // let s = gmail.messages('label:inbox ' + 'from:' + parameters.author + ' after:' + last_activation.toString(), { fields: ['id', 'internalDate', 'labelIds', 'payload'], max: 1 })
     console.log('fetching emails author: ', parameters.author, 'after: ', last_activation)
         // s.on('data', function(d) {
         //     // let author = getHeader(d.payload.headers, "From")
