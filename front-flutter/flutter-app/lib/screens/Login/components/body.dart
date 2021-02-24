@@ -8,6 +8,7 @@ import 'package:area/components/rounded_password_field.dart';
 import 'package:area/api/auth.dart';
 import 'package:flutter_svg/svg.dart';
 
+//ignore: must_be_immutable
 class Body extends StatelessWidget {
   String email;
   String password;
