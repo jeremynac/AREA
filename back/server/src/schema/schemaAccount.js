@@ -30,6 +30,10 @@ const schemaAccount = mongoose.Schema({
     password: {
         type: String,
         require: false
+    },
+    expire: {
+        type: Number,
+        require: false
     }
 });
 

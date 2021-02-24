@@ -7,6 +7,7 @@
     },
     "dependencies": {
         "@oauth-everything/passport-discord": "^1.0.2",
+        "atob": "^2.1.2",
         "axios": "^0.21.1",
         "bcryptjs": "^2.4.3",
         "body-parser": "^1.18.2",
@@ -19,6 +20,7 @@
         "generate-password": "^1.6.0",
         "googleapis": "^67.0.0",
         "got": "^11.8.1",
+        "jwt-decode": "^3.1.2",
         "module-alias": "^2.2.2",
         "mongoose": "^5.0.7",
         "node-gmail-api": "^1.0.0",

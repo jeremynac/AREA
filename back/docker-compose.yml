@@ -9,9 +9,9 @@ services:
         restart: on-failure
         networks:
             - front_net
-    back:
-        container_name: back
-        build: ./back
+    server:
+        container_name: server
+        build: ./server
         depends_on:
             - mongo
         networks:
@@ -25,9 +25,9 @@ services:
         ports:
             - "8084:8084"
         env_file:
-            - back/.env
+            - server/.env
         volumes:
-          - ./back/src:/app/src
+          - ./server/src:/app/src
         restart: on-failure
     mongo:
         container_name: mongo

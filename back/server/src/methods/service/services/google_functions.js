@@ -16,6 +16,10 @@ async function findUserByGoogle(args) {
     }
 }
 
+function readMail(data) {
+
+}
+
 module.exports = {
     findUserByGoogle
 }

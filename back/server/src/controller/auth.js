@@ -70,7 +70,8 @@ module.exports = function(app) {
                 "https://www.googleapis.com/auth/gmail.send",
                 "https://www.googleapis.com/auth/gmail.addons.current.action.compose"
             ],
-            state: req.params.user_id
+            state: req.params.user_id,
+            accessType: 'offline',
         })(req, res)
     })
 

@@ -59,7 +59,7 @@ async function reactGmailSendSummary(account, parameters, script_vars) {
     try {
         const oAuth2Client = new google.auth.OAuth2();
         oAuth2Client.setCredentials({ access_token: account.access_token })
-        await sendMessage(account.email, oAuth2Client, parameters.to, script_vars.actions_results.text)
+        await sendMessage(account.email, oAuth2Client, parameters.to, script_vars.action_result.text)
             // oAuth2Client.setCredentials(account.refresh_token)
         const gmail = google.gmail({ version: "v1", auth: oAuth2Client })
     } catch (e) {
