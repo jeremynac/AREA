@@ -5,12 +5,33 @@ import 'package:area/components/already_have_an_account_acheck.dart';
 import 'package:area/components/rounded_button.dart';
 import 'package:area/components/rounded_input_field.dart';
 import 'package:area/components/rounded_password_field.dart';
+import 'package:area/api/auth.dart';
 import 'package:flutter_svg/svg.dart';
 
 class Body extends StatelessWidget {
-  const Body({
+  String email;
+  String password;
+
+  Body({
     Key key,
+    this.email,
+    this.password,
   }) : super(key: key);
+
+  errorLoginAlertDialog(BuildContext context) {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text("Invalid username or password"),
+          content: Icon(
+            Icons.block,
+            color: Colors.redAccent,
+          ),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,14 +53,22 @@ class Body extends StatelessWidget {
             SizedBox(height: size.height * 0.03),
             RoundedInputField(
               hintText: "Your Email",
-              onChanged: (value) {},
+              onChanged: (value) {
+                email = value;
+              },
             ),
             RoundedPasswordField(
-              onChanged: (value) {},
+              hintText: "Password",
+              onChanged: (value) {
+                password = value;
+              },
             ),
             RoundedButton(
               text: "LOGIN",
-              press: () {},
+              press: () {
+                fetchLogin(email, password);
+                errorLoginAlertDialog(context);
+              },
             ),
             SizedBox(height: size.height * 0.03),
             AlreadyHaveAnAccountCheck(

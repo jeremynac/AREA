@@ -5,6 +5,9 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 Future<Login> fetchLogin(String username, String password) async {
+  print("Attempting login with");
+  print(username);
+  print(password);
   final response = await http.post(
     'https://area.gen-host.fr/auth/login',
     headers: <String, String>{
@@ -18,6 +21,12 @@ Future<Login> fetchLogin(String username, String password) async {
   final responseJson = jsonDecode(response.body);
 
   return Login.fromJson(responseJson);
+}
+
+void signup(String username, String password) {
+  print("Attempting signup with");
+  print(username);
+  print(password);
 }
 
 class Login {
