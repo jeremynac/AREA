@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:area/Screens/Login/login_screen.dart';
-import 'package:area/Screens/Signup/signup_screen.dart';
-import 'package:area/Screens/Welcome/components/background.dart';
+import 'package:area/screens/Login/login_screen.dart';
+import 'package:area/screens/Signup/signup_screen.dart';
+import 'package:area/screens/Welcome/components/background.dart';
 import 'package:area/components/rounded_button.dart';
 import 'package:area/constants.dart';
 import 'package:flutter_svg/svg.dart';

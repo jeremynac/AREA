@@ -1,6 +1,6 @@
 import 'package:area/constants.dart';
 
-import 'Screens/Welcome/welcome_screen.dart';
+import 'screens/Welcome/welcome_screen.dart';
 import 'package:flutter/material.dart';
 
 class MyApp extends StatelessWidget {

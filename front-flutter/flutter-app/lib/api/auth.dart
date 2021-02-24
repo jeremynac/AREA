@@ -4,6 +4,8 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
+Map<String, String> headers = {};
+
 Future<Login> fetchLogin(String username, String password) async {
   print("Attempting login with");
   print(username);
@@ -18,15 +20,26 @@ Future<Login> fetchLogin(String username, String password) async {
       'password': username,
     }),
   );
+  updateCookie(response);
   final responseJson = jsonDecode(response.body);
 
   return Login.fromJson(responseJson);
+}
+
+void updateCookie(http.Response response) {
+  String rawCookie = response.headers['set-cookie'];
+  if (rawCookie != null) {
+    int index = rawCookie.indexOf(';');
+    headers['cookie'] =
+        (index == -1) ? rawCookie : rawCookie.substring(0, index);
+  }
 }
 
 void signup(String username, String password) {
   print("Attempting signup with");
   print(username);
   print(password);
+  fetchLogin(username, password);
 }
 
 class Login {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:area/Screens/Login/components/background.dart';
-import 'package:area/Screens/Signup/signup_screen.dart';
+import 'package:area/screens/Login/components/background.dart';
+import 'package:area/screens/Signup/signup_screen.dart';
 import 'package:area/components/already_have_an_account_acheck.dart';
 import 'package:area/components/rounded_button.dart';
 import 'package:area/components/rounded_input_field.dart';
