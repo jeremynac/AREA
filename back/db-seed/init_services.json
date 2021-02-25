@@ -41,5 +41,21 @@
             "name": "username",
             "id": "id"
         }
+    }, {
+        "_id": { "$oid": "60377bbaa7a1e900072798d6" },
+        "name": "twitch",
+        "type": "twitch",
+        "account": true,
+        "actions": [],
+        "reactions": [],
+        "parse_map": {
+            "access_token": "access_token",
+            "refresh_token": "refresh_token",
+            "expire": "expire",
+            "email": "email",
+            "username": "login",
+            "name": "display_name",
+            "id": "id"
+        }
     }
 ]

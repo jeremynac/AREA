@@ -35,8 +35,11 @@
         "passport-google-oauth20": "^2.0.0",
         "passport-local": "^1.0.0",
         "passport-session": "^1.0.2",
+        "passport-twitch": "^1.0.3",
+        "passport-twitch-new": "0.0.2",
         "passport-twitter": "^1.0.4",
         "password-hash": "^1.2.2",
+        "qs": "^6.9.6",
         "request": "^2.88.2",
         "session": "^0.1.0",
         "uuid": "^8.3.1"

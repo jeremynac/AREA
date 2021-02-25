@@ -20,25 +20,30 @@ async function checkGoogleToken(client) {
 }
 
 async function refreshGoogleToken(account) {
-    let client = new google.auth.OAuth2();
-    console.log('google', account.access_token)
-    client.setCredentials({ refresh_token: account.refresh_token })
-        // if (checkGoogleToken(client)) {
-        //     return true
-        // } else {
-    let token = await client.getAccessToken()
-    let account_saved = await Account.findById(account._id)
-    account_saved.access_token = token.token
-    await account_saved.save()
-        // let url = 'https://www.googleapis.com/oauth2/v4/token'
-        // let options = {
-        //     refresh_token: refresh,
-        //     client_id: process.env.GOOGLE_CLIENT_ID,
-        //     client_secret: process.env.GOGOLE_CLIENT_SECRET,
-        //     grant_type: refresh_token
-        // }
-        // let res = await axios.post(url, options)
-    return true
+    try {
+        let client = new google.auth.OAuth2();
+        console.log('google', account)
+        client.setCredentials({ client_id: process.env.GOOGLE_CLIENT_ID, client_secret: process.env.GOOGLE_CLIENT_SECRET, refresh_token: account.refresh_token })
+            // if (checkGoogleToken(client)) {
+            //     return true
+            // } else {
+        let token = await client.getAccessToken()
+        let account_saved = await Account.findById(account._id)
+        account_saved.access_token = token.token
+        await account_saved.save()
+            // let url = 'https://www.googleapis.com/oauth2/v4/token'
+            // let options = {
+            //     refresh_token: refresh,
+            //     client_id: process.env.GOOGLE_CLIENT_ID,
+            //     client_secret: process.env.GOGOLE_CLIENT_SECRET,
+            //     grant_type: refresh_token
+            // }
+            // let res = await axios.post(url, options)
+        return true
+    } catch (e) {
+        console.log(e)
+        return false
+    }
 }
 
 async function checkGoogleValidity(account) {

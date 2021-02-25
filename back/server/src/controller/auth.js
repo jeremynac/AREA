@@ -4,6 +4,7 @@ const User = require('@schemas/schemaUser')
 const Scripts = require('@schemas/schemaScript')
 const Services = require('@schemas/schemaService')
 const axios = require('axios')
+const { authCallback } = require('@account/account_functions')
 
 module.exports = function(app) {
     app.post('/login', (req, res, next) => {
@@ -92,7 +93,7 @@ module.exports = function(app) {
     // )
     app.get('/google/callback', (req, res) => {
         passport.authenticate('google', (err, user, new_account, success) => {
-            console.log('okok', new_account)
+            console.log('okok', err, new_account)
             try {
                 if (err) {
                     console.log("err")
@@ -101,12 +102,9 @@ module.exports = function(app) {
                     console.log("added account")
                     return res.status(200).json({ new_account: new_account.value, new_user: false })
                 } else {
-                    console.log("connected or added account", user)
-                    console.log('okokok')
                     req.logIn(user, function(err) {
                         console.log(err)
                     })
-                    console.log("err", user)
                     console.log("connected or added account", user)
                     return res.status(200).json({ new_account: new_account.value, new_user: true });
                 }
@@ -183,12 +181,9 @@ module.exports = function(app) {
                     console.log("added account")
                     return res.status(200).json({ new_account: new_account.value, new_user: false })
                 } else {
-                    console.log("connected or added account", user)
-                    console.log('okokok')
                     req.logIn(user, function(err) {
                         console.log(err)
                     })
-                    console.log("err", user)
                     console.log("connected or added account", user)
                     return res.status(200).json({ new_account: new_account.value, new_user: true });
                 }
@@ -198,23 +193,38 @@ module.exports = function(app) {
             }
         })(req, res)
     })
-    var scopes = ['identify', 'email', /* 'connections', (it is currently broken) */ 'guilds', 'guilds.join'];
-    var prompt = 'consent'
     app.get('/di-login/:user_id', async(req, res) => {
-        // console.log(req.params.user_id);
         console.log('test')
         passport.authenticate('discord', {
-            scope: scopes,
-            prompt: prompt,
+            scope: ['identify', 'email', 'guilds', 'guilds.join'],
+            prompt: 'consent',
             state: req.params.user_id
         })(req, res)
     })
-    app.get('/discord/callback',
-        passport.authenticate('discord', (req, res) => {
-            console.log(req)
-                // res.redirect('/secretstuff') // Successful auth
-        })
-    );
+    app.get('/discord/callback', (req, res) => {
+        passport.authenticate('discord', (err, user, new_account) => {
+            console.log('okok', err, new_account, user)
+            try {
+                if (err) {
+                    console.log("err")
+                    return res.status(400).json({ errors: err })
+                } else if (!user) {
+                    console.log("added account")
+                    return res.status(200).json({ new_account: new_account.value, new_user: false })
+                } else {
+                    req.logIn(user, function(err) {
+                        console.log(err)
+                    })
+                    console.log("connected or added account", user)
+                    return res.status(200).json({ new_account: new_account.value, new_user: true });
+                }
+            } catch (e) {
+                console.log(e)
+                return res.status(400).json({ errors: err })
+            }
+        })(req, res)
+    });
+
     const customDiStrategy = async(code) => {
         const clientID = process.env.DISCORD_CLIENT_ID
         const clientSecret = process.env.DICORD_CLIENT_SECRET
@@ -241,4 +251,37 @@ module.exports = function(app) {
             console.log(e)
         }
     }
+
+    app.get('/twitch-login/:user_id', async(req, res) => {
+        // console.log(req.params.user_id);
+        console.log('test')
+        passport.authenticate('twitch', {
+            scope: ['user_read'],
+            state: req.params.user_id
+        })(req, res)
+    })
+
+    app.get('/twitch/callback', (req, res) => {
+        passport.authenticate('twitch', (err, user, new_account) => {
+            console.log('okok', err, new_account)
+            try {
+                if (err) {
+                    console.log("err")
+                    return res.status(400).json({ errors: err })
+                } else if (!user) {
+                    console.log("added account")
+                    return res.status(200).json({ new_account: new_account.value, new_user: false })
+                } else {
+                    req.logIn(user, function(err) {
+                        console.log(err)
+                    })
+                    console.log("connected or added account", user)
+                    return res.status(200).json({ new_account: new_account.value, new_user: true });
+                }
+            } catch (e) {
+                console.log(e)
+                return res.status(400).json({ errors: err })
+            }
+        })(req, res)
+    })
 }

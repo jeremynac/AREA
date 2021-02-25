@@ -14,6 +14,7 @@ const DiscordStrategy = new Strategy({
     async function(req, accessToken, refreshToken, profile, cb) {
         profile.access_token = accessToken;
         profile.refresh_token = refreshToken;
+        console.log(profile)
         let processed = await processAccount(req.query.state, 'discord', profile);
         let user = await User.findById(processed.user_id);
         return cb(null, user, { value: processed.new_account });
