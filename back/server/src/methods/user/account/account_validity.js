@@ -6,6 +6,7 @@ const { findUserByGoogle } = require('@services/google_functions')
 const { refreshGoogleToken } = require('@account/account_validity/google_validity')
 const { refreshDiscordToken } = require('@account/account_validity/discord_validity')
 const { refreshTwitchToken } = require('@account/account_validity/twitch_validity')
+const { refreshGithubToken } = require('@account/account_validity/github_validity')
 
 async function checkAccountsValidity(accounts_id) {
     try {
@@ -68,6 +69,8 @@ async function filterAccount(account, service_type) {
             return refreshDiscordToken(account)
         case 'twitch':
             return refreshTwitchToken(account)
+        case 'github':
+            return refreshGithubToken(account)
         default:
             return null
     }

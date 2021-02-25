@@ -167,10 +167,15 @@ module.exports = function(app) {
         // }
     })
 
-    app.get('/off-login', passport.authenticate('office'))
+    app.get('/off-login/:user_id', async(req, res) => {
+        passport.authenticate('office',
+            //  {
+            //     state: req.params.user_id
+            // }
+        )(req, res)
+    })
 
     app.get('/office/callback', (req, res) => {
-        console.log(req)
         passport.authenticate('office', (err, user, new_account) => {
             console.log('okok', err, new_account)
             try {
@@ -263,6 +268,38 @@ module.exports = function(app) {
 
     app.get('/twitch/callback', (req, res) => {
         passport.authenticate('twitch', (err, user, new_account) => {
+            console.log('okok', err, new_account)
+            try {
+                if (err) {
+                    console.log("err")
+                    return res.status(400).json({ errors: err })
+                } else if (!user) {
+                    console.log("added account")
+                    return res.status(200).json({ new_account: new_account.value, new_user: false })
+                } else {
+                    req.logIn(user, function(err) {
+                        console.log(err)
+                    })
+                    console.log("connected or added account", user)
+                    return res.status(200).json({ new_account: new_account.value, new_user: true });
+                }
+            } catch (e) {
+                console.log(e)
+                return res.status(400).json({ errors: err })
+            }
+        })(req, res)
+    })
+
+    app.get('/gh-login/:user_id', async(req, res) => {
+        // console.log(req.params.user_id);
+        console.log('test')
+        passport.authenticate('github', {
+            state: req.params.user_id
+        })(req, res)
+    })
+
+    app.get('/github/callback', (req, res) => {
+        passport.authenticate('github', (err, user, new_account) => {
             console.log('okok', err, new_account)
             try {
                 if (err) {
