@@ -57,5 +57,21 @@
             "name": "display_name",
             "id": "id"
         }
+    }, {
+        "_id": { "$oid": "6037afafdcacf70009005f1b" },
+        "name": "github",
+        "type": "github",
+        "account": true,
+        "actions": [],
+        "reactions": [],
+        "parse_map": {
+            "access_token": "access_token",
+            "refresh_token": "refresh_token",
+            "expire": "expire",
+            "email": "email",
+            "username": "username",
+            "name": "displayName",
+            "id": "id"
+        }
     }
 ]
