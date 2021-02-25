@@ -5,6 +5,7 @@ const Account = require('@schemas/schemaAccount')
 const { findUserByGoogle } = require('@services/google_functions')
 const { refreshGoogleToken } = require('@account/account_validity/google_validity')
 const { refreshDiscordToken } = require('@account/account_validity/discord_validity')
+const { refreshTwitchToken } = require('@account/account_validity/twitch_validity')
 
 async function checkAccountsValidity(accounts_id) {
     try {
@@ -34,14 +35,15 @@ async function checkAccountsValidity(accounts_id) {
 
 async function checkAccountValidity(account_id) {
     try {
-        let account = await Account.findById(account_id).select('service expire').populate('service', 'type');
+        let account = await Account.findById(account_id).select('service expire refresh_token').populate('service', 'type');
         console.log('checking account validity', account.service.type)
         let date = Date.now()
-        if (account.expires < date) {
-            return refreshAccountCredentials(account, account.service.type)
-        } else {
-            return true
-        }
+        return refreshAccountCredentials(account, account.service.type)
+            // if (account.expires < date) {
+            //     return refreshAccountCredentials(account, account.service.type)
+            // } else {
+            //     return true
+            // }
     } catch (e) {
         console.log(e)
         return false
@@ -50,9 +52,10 @@ async function checkAccountValidity(account_id) {
 
 async function refreshAccountCredentials(account, service_type) {
     try {
+        console.log('refreshing', service_type)
         return filterAccount(account, service_type)
     } catch (e) {
-        console.log(e)
+        console.log(e[0].response)
         return false
     }
 }
@@ -63,6 +66,10 @@ async function filterAccount(account, service_type) {
             return refreshGoogleToken(account)
         case 'discord':
             return refreshDiscordToken(account)
+        case 'twitch':
+            return refreshTwitchToken(account)
+        default:
+            return null
     }
 }
 

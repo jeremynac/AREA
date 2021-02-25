@@ -4,6 +4,32 @@ const Service = require('@schemas/schemaService')
 const Account = require('@schemas/schemaAccount')
 var generator = require('generate-password');
 const { findUserByGoogle } = require('@services/google_functions')
+const { findUserByServiceAccount } = require('@service/service_functions')
+
+async function authCallback(err, user, new_account) {
+    console.log('okok', new_account)
+    try {
+        if (err) {
+            console.log("err")
+            return res.status(400).json({ errors: err })
+        } else if (!user) {
+            console.log("added account")
+            return res.status(200).json({ new_account: new_account.value, new_user: false })
+        } else {
+            console.log("connected or added account", user)
+            console.log('okokok')
+            req.logIn(user, function(err) {
+                console.log(err)
+            })
+            console.log("err", user)
+            console.log("connected or added account", user)
+            return res.status(200).json({ new_account: new_account.value, new_user: true });
+        }
+    } catch (e) {
+        console.log(e)
+        return res.status(400).json({ errors: err })
+    }
+}
 
 async function checkConnected(user_id, service_id, need_account) {
     if (!need_account) {
@@ -38,6 +64,7 @@ async function getAccountForService(accounts, service_id) {
 
 async function findUserByAccount(service_type, args) {
     console.log(service_type, args)
+    return findUserByServiceAccount(service_type, args)
     switch (service_type) {
         case 'google':
             return findUserByGoogle(args)
@@ -49,8 +76,12 @@ async function findUserByAccount(service_type, args) {
 async function createAccount(service_type, args) {
     console.log('find service', service_type)
     const service = await Service.findOne({ type: service_type }).select()
-    let account = new Account({ service: service, access_token: args.access_token, refresh_token: args.refresh_token, authorization_code: args.authorization_code, username: args.email })
+    let account = new Account({ service: service, access_token: args.access_token, refresh_token: args.refresh_token, authorization_code: args.authorization_code, username: args.username, email: args.email })
         // aaccount.save();
+    Object.entries(args).map((key, index) => {
+        account.key = args[key]
+    })
+    let i = 0;
     await account.save()
     console.log('new account:', account)
     return account;
@@ -153,5 +184,6 @@ async function processAccount(user_id, service_type, args) {
 module.exports = {
     checkConnected,
     getAccountForService,
-    processAccount
+    processAccount,
+    authCallback
 }

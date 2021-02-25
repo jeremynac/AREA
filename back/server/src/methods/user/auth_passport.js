@@ -6,6 +6,7 @@ const GoStrategy = require('@account/auth_strategies/google');
 const TTStrategy = require('@account/auth_strategies/twitter');
 const OfficeStrategy = require('@account/auth_strategies/office365');
 const DiscordStrategy = require('@account/auth_strategies/discord');
+const TWStrategy = require('@account/auth_strategies/twitch')
 
 passport.serializeUser(function(user, done) {
     console.log('serialize', user._id)
@@ -32,6 +33,8 @@ passport.use('facebook', FBStrategy)
 passport.use('google', GoStrategy)
 
 passport.use('discord', DiscordStrategy)
+
+passport.use('twitch', TWStrategy)
 
 // passport.use('office', OfficeStrategy)
 
