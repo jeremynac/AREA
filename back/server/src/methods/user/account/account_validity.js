@@ -39,12 +39,11 @@ async function checkAccountValidity(account_id) {
         let account = await Account.findById(account_id).select('service expire refresh_token').populate('service', 'type');
         console.log('checking account validity', account.service.type)
         let date = Date.now()
-        return refreshAccountCredentials(account, account.service.type)
-            // if (account.expires < date) {
-            //     return refreshAccountCredentials(account, account.service.type)
-            // } else {
-            //     return true
-            // }
+        if (account.expires < date) {
+            return refreshAccountCredentials(account, account.service.type)
+        } else {
+            return true
+        }
     } catch (e) {
         console.log(e)
         return false

@@ -16,6 +16,9 @@
         "name": "gmail: email received",
         "type": "gmail-mail-received",
         "description": "You received an email on your gmail account",
+        "parameters": {
+            "author": "String"
+        },
         "service": { "$oid": "601034a8779c01000abdc6b7" }
     },
     {
@@ -23,6 +26,10 @@
         "name": "gmail: email received that match",
         "type": "gmail-mail-received-match",
         "description": "You received an email on your gmail account that matches words",
+        "parameters": {
+            "important": "Boolean",
+            "word": "String"
+        },
         "service": { "$oid": "601034a8779c01000abdc6b7" }
     }
 ]
