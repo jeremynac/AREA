@@ -73,5 +73,20 @@
             "name": "displayName",
             "id": "id"
         }
+    },
+    {
+        "_id": { "$oid": "603b9c16f4930e000987dfaa" },
+        "name": "trello",
+        "type": "trello",
+        "account": true,
+        "actions": [],
+        "reactions": [],
+        "parse_map": {
+            "access_token": "access_token",
+            "email": "_json.email",
+            "username": "_json.username",
+            "name": "displayName",
+            "id": "id"
+        }
     }
 ]

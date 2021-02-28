@@ -8,6 +8,7 @@ const OfficeStrategy = require('@account/auth_strategies/office365');
 const DiscordStrategy = require('@account/auth_strategies/discord');
 const TWStrategy = require('@account/auth_strategies/twitch');
 const GHStrategy = require('@account/auth_strategies/github');
+const TrellStrategy = require('@account/auth_strategies/trello');
 
 passport.serializeUser(function(user, done) {
     console.log('serialize', user._id)
@@ -40,6 +41,8 @@ passport.use('twitch', TWStrategy)
 passport.use('github', GHStrategy)
 
 passport.use('office', OfficeStrategy)
+
+passport.use('trello', TrellStrategy)
 
 // passport.use('twitter', TTStrategy)
 // passport.use(GoStrategy)

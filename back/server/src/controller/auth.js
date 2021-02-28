@@ -5,6 +5,7 @@ const Scripts = require('@schemas/schemaScript')
 const Services = require('@schemas/schemaService')
 const axios = require('axios')
 const { authCallback } = require('@account/account_functions')
+const { trelloStrategy } = require('@account/auth_strategies/trello')
 
 module.exports = function(app) {
     app.post('/login', (req, res, next) => {
@@ -321,4 +322,58 @@ module.exports = function(app) {
             }
         })(req, res)
     })
+
+    app.get('/trello-login/:user_id', (req, res) => {
+        passport.authenticate('trello', {
+                state: req.params.user_id
+            })(req, res)
+            // return res.redirect(process.env.TRELLO_AUTHORIZE + '/' + '?expiration=never' + '&name=MyPersonalToken' + '&scope=' + process.env.TRELLO_SCOPE + '&response_type=token' + '&key=' + process.env.TRELLO_KEY + '&state=' + req.params.user_id + '&secret=' + process.env.TRELLO_CLIENT_SECRET + /*'&callback_method=postMessage' +*/ '&return_url=' + process.env.SERVER_URL + process.env.TRELLO_CALLBACK)
+    })
+
+    app.get('/trello/callback', (req, res) => {
+        passport.authenticate('trello', (err, user, new_account) => {
+            console.log('okok', err, new_account)
+            try {
+                if (err) {
+                    console.log("err")
+                    return res.status(400).json({ errors: err })
+                } else if (!user) {
+                    console.log("added account")
+                    return res.status(200).json({ new_account: new_account.value, new_user: false })
+                } else {
+                    req.logIn(user, function(err) {
+                        console.log(err)
+                    })
+                    console.log("connected or added account", user)
+                    return res.status(200).json({ new_account: new_account.value, new_user: true });
+                }
+            } catch (e) {
+                console.log(e)
+                return res.status(400).json({ errors: err })
+            }
+        })(req, res)
+    })
+
+    // app.get('/trello/callback', async(req, res) => {
+    //     console.log('query', req.query)
+    //     let trell = await trelloStrategy(req.query.params)
+    //     try {
+    //         if (trell.err) {
+    //             console.log("err")
+    //             return res.status(400).json({ errors: trell.err })
+    //         } else if (trell.user) {
+    //             console.log("added account")
+    //             return res.status(200).json({ new_account: trell.new_account, new_user: false })
+    //         } else {
+    //             req.logIn(trell.user, function(err) {
+    //                 console.log(err)
+    //             })
+    //             console.log("connected or added account", trell.user)
+    //             return res.status(200).json({ new_account: trell.new_account, new_user: true });
+    //         }
+    //     } catch (e) {
+    //         console.log(e)
+    //         return res.status(400).json({ errors: trell.err })
+    //     }
+    // })
 }

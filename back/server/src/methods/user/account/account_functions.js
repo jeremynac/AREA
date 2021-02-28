@@ -65,12 +65,12 @@ async function getAccountForService(accounts, service_id) {
 async function findUserByAccount(service_type, args) {
     console.log(service_type, args)
     return findUserByServiceAccount(service_type, args)
-    switch (service_type) {
-        case 'google':
-            return findUserByGoogle(args)
-        default:
-            return null
-    }
+        // switch (service_type) {
+        //     case 'google':
+        //         return findUserByGoogle(args)
+        //     default:
+        //         return null
+        // }
 }
 
 async function createAccount(service_type, args) {
