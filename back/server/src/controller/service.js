@@ -1,9 +1,8 @@
 const express = require('express')
-const User = require('@schemas/schemaUser')
-const Scripts = require('@schemas/schemaScript')
 const Services = require('@schemas/schemaService')
 const Reaction = require('@schemas/schemaReaction')
 const Action = require('@schemas/schemaAction')
+const { getUserServicesStatus } = require('../methods/user/user_functions')
 
 module.exports = function(app) {
     app.get('/reactions', async(req, res) => {
@@ -53,6 +52,15 @@ module.exports = function(app) {
                 // console.log(service)
                 // await service.save().then().catch()
             return res.status(200).json({ service: service })
+        } catch (e) {
+            console.log(e)
+            return res.status(500).json({ error: e })
+        }
+    })
+    app.get('/all/status', async(req, res) => {
+        try {
+            let services = await getUserServicesStatus(req.user._id)
+            return res.status(200).json({ services: services })
         } catch (e) {
             console.log(e)
             return res.status(500).json({ error: e })

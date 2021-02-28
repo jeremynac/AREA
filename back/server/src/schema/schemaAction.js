@@ -19,6 +19,10 @@ const schemaAction = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Service"
     },
+    parameters: {
+        type: Object,
+        require: false
+    },
     img: {
         type: String,
         require: false
