@@ -24,6 +24,10 @@ async function filterReaction(account, parameters, script_vars, reaction_type) {
             return reactGmailSendEmail(account, parameters, script_vars)
         case 'gmail-send-summary':
             return reactGmailSendSummary(account, parameters, script_vars)
+        case 'twitch-clip-stream':
+            return twitchClipStream();
+        case 'discord-send-message':
+            return discordSendMessage();
         default:
             return false
     }

@@ -19,8 +19,12 @@ async function activateAction(accounts, parameters, script_vars, last, action_ty
 
 async function filterAction(account, parameters, script_vars, last, action_type) {
     switch (action_type) {
-        case 'gmail-mail-received':
+        case 'gmail-mail-received': // Some are missing right ?
             return checkGmailReceived(account, parameters, script_vars, last);
+        case 'twitch-stream-started':
+            return twitchStreamStarted(); //Tofill
+        case 'discord-recieved-message':
+            return discordRecievedMessage();//Tofill
         default:
             return false;
     }

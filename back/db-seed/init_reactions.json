@@ -18,5 +18,19 @@
             "to": "String"
         },
         "service": { "$oid": "601034a8779c01000abdc6b7" }
+    },
+    {
+        "_id": { "$iod": "" },
+        "name": "twitch: Clips on a stream",
+        "type": "twitch-clip-stream",
+        "description": "",
+        "service": { "$oid": "60377bbaa7a1e900072798d6" }
+    },
+    {
+        "_id": { "$iod": "" },
+        "name": "discord: sends a message",
+        "type": "discord-send-message",
+        "description": "",
+        "service": { "$oid": "602bc4fd7233e600087eb9e0" }
     }
 ]
