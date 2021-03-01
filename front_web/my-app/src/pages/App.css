@@ -67,3 +67,11 @@
   font-weight: 700;
   text-shadow: 3px 3px rgba(58, 53, 53, 0.73);
 }
+
+.glass{
+  background: rgba(104, 255, 84, 0.4);
+  box-shadow: 0 8px 32px 0 rgba(255, 0, 0, 0.37);
+  backdrop-filter: blur( 8.0px );
+  border-radius: 10px;
+  border: 1px solid rgba( 255, 255, 255, 0.18 ); 
+}

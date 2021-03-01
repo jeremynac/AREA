@@ -1,9 +1,9 @@
 import React from 'react';
 import clsx from 'clsx';
-import './App.css';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import {CssBaseline,Typography,Button,MenuItem,Menu,Grid,Card,CardContent,CardActions} from '@material-ui/core';
+import {CssBaseline,Typography,ListItem,Button,MenuItem,Menu,Grid,Card,CardContent,CardActions, Box} from '@material-ui/core';
 import NavigationBar from "../Components/navbar";
+
 
 const drawerWidth = 240;
 
@@ -62,31 +62,32 @@ const useStyles = makeStyles((theme) => ({
     }),
     marginLeft: 0,
   },
-  
   toolbarButtons: {
     marginLeft: 'auto',
   },
-  glass: {
-    backgroundColor: 'transparent'
-    },
 }));
+
+function ListItemLink(props) {
+  return <ListItem button component="a" {...props} />;
+}
+
 
 export default function PersistentDrawerLeft() {
   const classes = useStyles();
-
   const theme = useTheme();
+  
   const [open, setOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [auth, setAuth] = React.useState(true);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const bull = <span className={classes.bullet}>•</span>;
 
   const isMenuOpen = Boolean(anchorEl);
+  
   const handleMobileMenuClose = () => { setMobileMoreAnchorEl(null); };
   const handleMenuClose = () => { setAnchorEl(null); handleMobileMenuClose(); };
 
   const menuId = 'primary-search-account-menu';
-  //Profile drop down menu
-
   const renderMenu = (
     <Menu
       anchorEl={anchorEl}
@@ -111,30 +112,52 @@ export default function PersistentDrawerLeft() {
         })}
       >
         <div className={classes.drawerHeader} />
-        <Grid container spacing={1}>
-        <Grid container item xs={12} spacing={3}>
-          <Card className="glass">
-            <CardContent>
-              <Typography className={classes.title} color="textSecondary" gutterBottom>
-                Word of the Day
-              </Typography>
-              <Typography variant="h5" component="h2">
-                be{bull}nev{bull}o{bull}lent
-              </Typography>
-              <Typography className={classes.pos} color="textSecondary">
-                adjective
-              </Typography>
-              <Typography variant="body2" component="p">
-                well meaning and kindly.
-                <br />
-                {'"a benevolent smile"'}
-              </Typography>
-            </CardContent>
-            <CardActions>
-              <Button size="small">Learn More</Button>
-            </CardActions>
-          </Card>
-        </Grid>
+        <Grid container
+              direction="column"
+              spacing={2}
+              style={{ minHeight: '100vh' }}>
+          <Grid item xs={3} spacing={3}>
+              <Card  className={classes.root}>
+                <CardContent>
+                  <Typography  variant="h5" color="textSecondary" gutterBottom>
+                    Profile 
+                  </Typography>
+                  <Typography variant="body1" component="h2">
+                    Name Here
+                  </Typography>
+                  <Typography className={classes.pos} color="textSecondary">
+                    Username Here
+                  </Typography>
+                  <Typography variant="body2" component="p">
+                    Email here.
+                  </Typography>
+                </CardContent>
+                <CardActions>
+                  <Button size="small">Change settings</Button>
+                </CardActions>
+              </Card>
+          </Grid>
+          <Grid item xs={3} spacing={3}>
+              <Card className={classes.root}>
+                <CardActions>
+                  <Button size="small">Login to google</Button>
+                </CardActions>
+              </Card>
+          </Grid>
+          <Grid item xs={3} spacing={3}>
+              <Card className={classes.root}>
+                <CardActions>
+                  <Button size="small">Login to Discord</Button>
+                </CardActions>
+              </Card>
+          </Grid>
+          <Grid item xs={3} spacing={3}>
+              <Card className={classes.root}>
+                <CardActions>
+                  <Button size="small">Login to Facebook</Button>
+                </CardActions>
+              </Card>
+          </Grid>
       </Grid>
       </main>
     </div>

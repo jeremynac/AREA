@@ -110,8 +110,8 @@ export default function SignInSide() {
               variant="contained"
               color="primary"
               className={classes.submit}
-              // onClick={navigateToHome}
-              onClick={signin}
+              onClick={navigateToHome}
+             // onClick={signin}
             >
               Sign In
             </Button>
