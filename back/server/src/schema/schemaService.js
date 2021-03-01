@@ -29,6 +29,14 @@ const schemaService = mongoose.Schema({
         type: String,
         require: false
     },
+    login_icon: {
+        type: String,
+        require: false
+    },
+    server_url: {
+        type: String,
+        require: false
+    },
     parse_map: {
         type: Object,
         require: false
