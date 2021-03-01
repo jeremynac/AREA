@@ -1,17 +1,4 @@
 [{
-        "_id": { "$oid": "5fff3620a0efdc70962fefa4" },
-        "name": "post posted by",
-        "type": "facebook-post-posted",
-        "description": "something is posted",
-        "service": "5fff3620c37c77753705f766"
-    },
-    {
-        "_id": { "$oid": "60018a13cab6dd49d2ba5a95" },
-        "name": "post removed by",
-        "description": "something is removed",
-        "service": "5fff3620c37c77753705f766"
-    },
-    {
         "_id": { "$oid": "601033c4779c01000abdc6b5" },
         "name": "gmail: email received",
         "type": "gmail-mail-received",
@@ -31,5 +18,22 @@
             "word": "String"
         },
         "service": { "$oid": "601034a8779c01000abdc6b7" }
+    },
+    {
+        "_id": { "$oid": "603cea1699eaca000863ccb1" },
+        "name": "facebook: mentionned",
+        "type": "facebook-mentionned",
+        "description": "You have been mentionned in a post",
+        "parameters": [{
+            "value": "posts",
+            "type": "Boolean"
+        }, {
+            "value": "photos",
+            "type": "Boolean"
+        }, {
+            "value": "comments",
+            "type": "Boolean"
+        }],
+        "service": { "$oid": "5fff3620c37c77753705f766" }
     }
 ]

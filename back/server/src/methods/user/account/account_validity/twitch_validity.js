@@ -5,6 +5,7 @@ const Account = require('@schemas/schemaAccount')
 const { getTokenDate } = require('@account/account_validity/utils')
 const { default: axios } = require('axios')
 var qs = require('qs');
+const { updateAccount } = require('./utils')
 
 // async function 
 
@@ -39,9 +40,7 @@ async function refreshTwitchToken(account) {
     let res = await axios(config)
         // res.raise_for_status()
     console.log('refreshed twitch', res.access_token)
-    let account_saved = await Account.findById(account._id)
-    account_saved.access_token = res.access_token
-    await account_saved.save()
+    await updateAccount(accoutn._id, res.access_token, res.expires_in)
     return true
 }
 

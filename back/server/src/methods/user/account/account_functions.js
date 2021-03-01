@@ -88,12 +88,18 @@ async function createAccount(service_type, args) {
 }
 
 async function addAccountToUser(user_id, service_type, args) {
-    let user = await User.findById(user_id);
-    let account = await createAccount(service_type, args);
-    account.user = user;
-    await account.save()
-    user.accounts.push(account);
-    await user.save();
+    try {
+        let user = await User.findById(user_id);
+        let account = await createAccount(service_type, args);
+        account.user = user;
+        await account.save()
+        user.accounts.push(account);
+        await user.save();
+        return true
+    } catch (e) {
+        console.log(e)
+        return false
+    }
 }
 
 async function createUserAndAccount(service_type, args) {
@@ -159,6 +165,7 @@ async function processAccount(user_id, service_type, args) {
         if (user_id) {
             console.log('already logged in')
             found = await findUserByAccount(service_type, parsed_args)
+            console.log('found', found)
             if (!found) { //check that no user already has an account with those credentials
                 success = await addAccountToUser(user_id, service_type, parsed_args);
                 return { user_id: null, new_account: true, success: success };

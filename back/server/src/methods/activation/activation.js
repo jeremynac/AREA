@@ -65,8 +65,8 @@ async function activateScript(script_id, accounts) {
     try {
         let script = await Script.findById(script_id).populate('action', 'service type').populate('reaction', 'service type')
         console.log("activating script", script.name, "with action", script.action._id, "and reaction", script.reaction._id);
-        console.log('action is: ', script.action, '\nreaction is: ', script.reaction);
-        let script_vars = script.variables
+        console.log('action is: ', script.action.type, '\nreaction is: ', script.reaction.type);
+        let script_vars = script.variables || {}
         let action_happened = await activateAction(accounts, script.action_parameters, script_vars, script.last_activation, script.action.type)
         script.last_activation = Math.floor(Date.now() / 1000)
         script.variables = script_vars

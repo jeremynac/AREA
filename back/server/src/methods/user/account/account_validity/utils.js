@@ -1,5 +1,6 @@
 const express = require('express')
 const jwt_decode = require("jwt-decode");
+const Account = require('@schemas/schemaAccount')
 
 function getTokenDate(token) {
     let tokens = token.split('.')
@@ -12,6 +13,16 @@ function getTokenDate(token) {
     return obj[exp]
 }
 
+async function updateAccount(account_id, token, expire) {
+    let account = await Account.findById(account_id)
+    if (account) {
+        account.access_token = token
+        account.expire = expire
+        await account.save()
+    }
+}
+
 module.exports = {
-    getTokenDate
+    getTokenDate,
+    updateAccount
 }

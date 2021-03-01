@@ -1,9 +1,21 @@
 [{
-    "_id": { "$oid": "601951238d07f000145f2e99" },
-    "username": "test",
-    "password": "test"
-}, {
-    "_id": { "$oid": "6019516187595d00085e39e0" },
-    "username": "admin",
-    "password": "area"
-}]
+        "_id": { "$oid": "601951238d07f000145f2e99" },
+        "username": "test",
+        "password": "test",
+        "firstname": "testfirstname",
+        "lastname": "testlastname",
+        "__v": 5,
+        "accounts": [{ "$oid": "603d07c0c73c4e00141720ed" },
+            { "$oid": "603d07c4c73c4e00141720ef" },
+            { "$oid": "603d08c7c73c4e00141720f0" },
+            { "$oid": "603d08cdc73c4e00141720f1" },
+            { "$oid": "603d08d0c73c4e00141720f2" }
+        ],
+        "scripts": []
+    },
+    {
+        "_id": { "$oid": "6019516187595d00085e39e0" },
+        "username": "admin",
+        "password": "area"
+    }
+]

@@ -1,0 +1,53 @@
+[{
+        "_id": { "$oid": "603d07c0c73c4e00141720ed" },
+        "service": { "$oid": "601034a8779c01000abdc6b7" },
+        "access_token": "ya29.A0AfH6SMC66POutzVBdex02HrIG_Ok8JpB82qIlUcIWuvJIsB0MYY15dvJZmTgFE5fnOyV4hgIgQkxYg7tZ8Coy0B8cfQwW3s5TWNIuK80F96lpOf4HP8tY_W5uOxuIT5Ac2-g9iMISO8sOoJJlOmMnOtMxVYv",
+        "refresh_token": "1//03cF0Yc0fDmyfCgYIARAAGAMSNwF-L9IrIg3r3PbltUmxiapqtMKk_7T-ePrghVkWN-MJtkuF2M-2xfLSBTDdkoyXZONJ6D3r7TM",
+        "__v": 0,
+        "user": { "$oid": "601951238d07f000145f2e99" }
+    }, {
+        "_id": { "$oid": "603d3bd6549a190013f9ea6c" },
+        "service": { "$oid": "5fff3620c37c77753705f766" },
+        "access_token": "EAAylAtMbWV4BAGaJrK6Om9s3Frfre66UWYZANkRRuQHDa18KUyByR8lGx9jVGE7ASFa0r7IXRM4m1ZAIRpAQspxyK2BjuNSTXT0yBXJ4eZAZAKCnkWskhIMcfNq9t1V86V1Saf2VyXICOrFCjZCdSskh9AQ3hgqN7AYsZAgfxNjJwhFJ1ZA8cwWPF52gsCs83wZD",
+        "__v": 0,
+        "user": { "$oid": "601951238d07f000145f2e99" }
+    },
+    {
+        "_id": { "$oid": "603d08c7c73c4e00141720f0" },
+        "service": { "$oid": "602bc4fd7233e600087eb9e0" },
+        "access_token": "bLv0RSQVKNf4clsBsSMb4fqTecZTpO",
+        "refresh_token": "RcYw7kh5Yq9XqwHA9inEjnpZJudShK",
+        "username": "jeremynac@hotmail.fr",
+        "email": "jeremynac@hotmail.fr",
+        "__v": 0,
+        "user": { "$oid": "601951238d07f000145f2e99" }
+    },
+    {
+        "_id": { "$oid": "603d08cdc73c4e00141720f1" },
+        "service": { "$oid": "60377bbaa7a1e900072798d6" },
+        "access_token": "81dhc5ffgovna2phqslskp3uxgo63z",
+        "refresh_token": "vly19gvhu7gky3gn1kf0p41a0vv88s1x8xq5oabwt9i607sry3",
+        "username": "jeremynac",
+        "email": "jeremynac@hotmail.fr",
+        "__v": 0,
+        "user": { "$oid": "601951238d07f000145f2e99" }
+    },
+    {
+        "_id": { "$oid": "603d08d0c73c4e00141720f2" },
+        "service": { "$oid": "6037afafdcacf70009005f1b" },
+        "access_token": "3cfaae189211b97d24d7a64955239c0f535778e3",
+        "username": "jeremynac",
+        "__v": 0,
+        "user": { "$oid": "601951238d07f000145f2e99" }
+    },
+    {
+        "_id": { "$oid": "603d08d7c73c4e00141720f3" },
+        "service": { "$oid": "603b9c16f4930e000987dfaa" },
+        "access_token": "9038afc01813dee82df4aa605ef35e7561e2d8634f32fac452045865bd4a7398",
+        "username": "jeremynaccache1",
+        "email": "jeremy.naccache@epitech.eu",
+
+        "__v": 0,
+        "user": { "$oid": "603d08d7c73c4e00141720f4" }
+    }
+]

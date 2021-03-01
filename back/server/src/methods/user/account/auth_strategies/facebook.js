@@ -17,7 +17,7 @@ const FBStrategy = new Strategy({
     profile.refresh_token = refreshToken;
     profile.expire = params.expires_in
     console.log(accessToken, refreshToken)
-    let processed = await processAccount(req.query.state, 'google', profile);
+    let processed = await processAccount(req.query.state, 'facebook', profile);
     console.log('ok', processed)
     let user = await User.findById(processed.user_id)
     return cb(null, user, { value: processed.new_account })
