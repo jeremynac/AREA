@@ -56,6 +56,20 @@ class ServiceCard extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  if (data['service']['type'] == "google")
+                    FlatButton(
+                      onPressed: () {
+                        Navigator.pushNamed(
+                          context,
+                          '/web',
+                          arguments: "/auth/go-login/601951238d07f000145f2e99",
+                        );
+                        //Navigator.of(context).pushNamed('/web');
+                      },
+                      child: Image.network(
+                        "https://cdn.discordapp.com/attachments/798160246794354688/816004458340286514/btn_google_signin_dark_focus_web.png",
+                      ),
+                    ),
                   if (data['connected'] == false && data['service']['loginIcn'] != null)
                     FlatButton(
                       onPressed: () {

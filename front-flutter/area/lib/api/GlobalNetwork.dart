@@ -1,2 +1,2 @@
 Map<String, String> headers = {};
-String url_area = "https://area.gen-host.fr";
+String urlArea = "http://area.gen-host.fr";

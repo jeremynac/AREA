@@ -7,8 +7,7 @@ class CustomWebView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final String url = ModalRoute.of(context).settings.arguments;
-    const user_agent =
-        'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Mobile Safari/537.36';
+    const user_agent = 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Mobile Safari/537.36';
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -22,7 +21,7 @@ class CustomWebView extends StatelessWidget {
       ),
       body: WebView(
         userAgent: user_agent,
-        initialUrl: (url_area + url),
+        initialUrl: (urlArea + url),
         javascriptMode: JavascriptMode.unrestricted,
       ),
     );
