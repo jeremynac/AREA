@@ -21,10 +21,14 @@ async function filterAction(account, parameters, script_vars, last, action_type)
     switch (action_type) {
         case 'gmail-mail-received': // Some are missing right ?
             return checkGmailReceived(account, parameters, script_vars, last);
+        case 'gmail-mail-received-match':
+            return checkGmailReceivedMatch(account, parameters, script_vars, last);
+        case 'youtube-new-video':
+            return checkYoutubeVideoReceived(account, parameters, script_vars, last);
         case 'twitch-stream-started':
-            return twitchStreamStarted(); //Tofill
+            return twitchStreamStarted(account, parameters, script_vars, last);
         case 'discord-recieved-message':
-            return discordRecievedMessage();//Tofill
+            return discordRecievedMessage(account, parameters, script_vars, last);
         default:
             return false;
     }

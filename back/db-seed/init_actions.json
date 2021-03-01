@@ -1,49 +1,42 @@
 [{
-        "_id": { "$oid": "5fff3620a0efdc70962fefa4" },
-        "name": "post posted by",
-        "type": "facebook-post-posted",
-        "description": "something is posted",
-        "service": "5fff3620c37c77753705f766"
+    "_id": { "$oid": "601033c4779c01000abdc6b5" },
+    "name": "gmail: email received",
+    "type": "gmail-mail-received",
+    "description": "You received an email on your gmail account",
+    "parameters": {
+        "author": "String"
     },
-    {
-        "_id": { "$oid": "60018a13cab6dd49d2ba5a95" },
-        "name": "post removed by",
-        "description": "something is removed",
-        "service": "5fff3620c37c77753705f766"
+    "service": { "$oid": "601034a8779c01000abdc6b7" }
+}, {
+    "_id": { "$oid": "6034ed97f6a933000952dcf4" },
+    "name": "gmail: email received that match",
+    "type": "gmail-mail-received-match",
+    "description": "You received an email on your gmail account that matches words",
+    "parameters": {
+        "important": "Boolean",
+        "word": "String"
     },
-    {
-        "_id": { "$oid": "601033c4779c01000abdc6b5" },
-        "name": "gmail: email received",
-        "type": "gmail-mail-received",
-        "description": "You received an email on your gmail account",
-        "parameters": {
-            "author": "String"
-        },
-        "service": { "$oid": "601034a8779c01000abdc6b7" }
+    "service": { "$oid": "601034a8779c01000abdc6b7" }
+}, {
+    "_id": { "$oid": "603cb80f98d4c60008cb2a14" },
+    "name": "youtube: posted a new video",
+    "type": "youtube-new-video",
+    "description": "Notif when new video has been posted",
+    "parameters": {
+        "important": "Boolean",
+        "word": "String"
     },
-    {
-        "_id": { "$oid": "6034ed97f6a933000952dcf4" },
-        "name": "gmail: email received that match",
-        "type": "gmail-mail-received-match",
-        "description": "You received an email on your gmail account that matches words",
-        "parameters": {
-            "important": "Boolean",
-            "word": "String"
-        },
-        "service": { "$oid": "601034a8779c01000abdc6b7" }
-    },
-    {
-        "_id": { "$iod": "" },
-        "name": "twitch: Notif when Stream starts",
-        "type": "twitch-stream-started",
-        "description": "",
-        "service": { "$oid": "60377bbaa7a1e900072798d6" }
-    },
-    {
-        "_id": { "$iod": "" },
-        "name": "discord: Recieved discord message",
-        "type": "discord-recieved-message",
-        "description": "",
-        "service": { "$oid": "602bc4fd7233e600087eb9e0" }
-    }
-]
+    "service": { "$oid": "601034a8779c01000abdc6b7" }
+}, {
+    "_id": { "$oid": "603cb81298d4c60008cb2a16" },
+    "name": "twitch: Notif when Stream starts",
+    "type": "twitch-stream-started",
+    "description": "Notif when someone starts a stream",
+    "service": { "$oid": "60377bbaa7a1e900072798d6" }
+}, {
+    "_id": { "$oid": "603cb81498d4c60008cb2a18" },
+    "name": "discord: Recieved discord message",
+    "type": "discord-recieved-message",
+    "description": "Notif when you recieved a message on discord",
+    "service": { "$oid": "602bc4fd7233e600087eb9e0" }
+}]
