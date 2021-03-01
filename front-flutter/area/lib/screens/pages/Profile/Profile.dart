@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:area/constants.dart';
 import 'package:area/api/auth.dart';
+import './components/body.dart';
 
 class MyProfile extends StatefulWidget {
   MyProfile({Key key}) : super(key: key);
@@ -20,28 +21,27 @@ class _MyProfile extends State<MyProfile> {
             color: Colors.black,
           ),
         ),
-        leading: Builder(
-          builder: (BuildContext context) {
-            return IconButton(
-              icon: const Icon(
-                Icons.logout,
-                color: Colors.redAccent,
-              ),
-              onPressed: () async {
-                disconnect();
-                Navigator.of(context).pushNamedAndRemoveUntil(
-                    '/home', (Route<dynamic> route) => false);
-              },
-            );
-          },
-        ),
+        actions: [
+          Builder(
+            builder: (BuildContext context) {
+              return IconButton(
+                icon: const Icon(
+                  Icons.logout,
+                  color: Colors.redAccent,
+                ),
+                onPressed: () async {
+                  disconnect();
+                  Navigator.of(context).pushNamedAndRemoveUntil(
+                      '/home', (Route<dynamic> route) => false);
+                },
+              );
+            },
+          ),
+        ],
         backgroundColor: kPrimaryLightColor,
       ),
       backgroundColor: Colors.white,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[],
-      ),
+      body: Body(),
     );
   }
 }

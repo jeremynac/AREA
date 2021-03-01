@@ -1,10 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:area/constants.dart';
-import 'BrowseAreas.dart';
-import 'MyReactions.dart';
-import 'MyAreas.dart';
-import 'Profile.dart';
+import 'BrowseAreas/BrowseAreas.dart';
+import 'CreateArea/CreateArea.dart';
+import 'MyAreas/MyAreas.dart';
+import 'Profile/Profile.dart';
 
 /// This is the stateful widget that the main application instantiates.
 class NavBar extends StatefulWidget {
@@ -22,7 +22,7 @@ class _NavBar extends State<NavBar> {
 
   List<Widget> _widgetOptions = <Widget>[
     BrowseAreas(),
-    MyReactions(),
+    CreateArea(),
     MyAreas(),
     MyProfile()
   ];

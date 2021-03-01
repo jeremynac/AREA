@@ -4,17 +4,17 @@ import 'package:area/constants.dart';
 final controller1 = TextEditingController();
 final controller2 = TextEditingController();
 
-class MyReactions extends StatefulWidget {
+class CreateArea extends StatefulWidget {
   @override
-  _MyReactions createState() => _MyReactions();
+  _CreateArea createState() => _CreateArea();
 }
 
-class _MyReactions extends State<MyReactions> {
+class _CreateArea extends State<CreateArea> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'My Reactions',
+          'Create Area',
           style: TextStyle(
             fontFamily: 'Ubuntu',
             color: Colors.black,

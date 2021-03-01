@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:area/screens/Login/login_screen.dart';
 import 'package:area/screens/Signup/components/background.dart';
-import 'package:area/screens/Signup/components/or_divider.dart';
-import 'package:area/screens/Signup/components/social_icon.dart';
 import 'package:area/components/already_have_an_account_acheck.dart';
 import 'package:area/components/rounded_button.dart';
 import 'package:area/components/rounded_input_field.dart';
@@ -115,24 +113,6 @@ class Body extends StatelessWidget {
                 );
               },
             ),
-            OrDivider(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                SocalIcon(
-                  iconSrc: "assets/icons/facebook.svg",
-                  press: () {},
-                ),
-                SocalIcon(
-                  iconSrc: "assets/icons/twitter.svg",
-                  press: () {},
-                ),
-                SocalIcon(
-                  iconSrc: "assets/icons/google-plus.svg",
-                  press: () {},
-                ),
-              ],
-            )
           ],
         ),
       ),
