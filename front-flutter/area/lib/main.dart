@@ -3,6 +3,7 @@ import 'package:area/constants.dart';
 import 'screens/pages/NavBar.dart';
 import 'screens/Welcome/welcome_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:area/screens/pages/Profile/CustomWebView.dart';
 
 class MyApp extends StatelessWidget {
   @override
@@ -34,6 +35,7 @@ void main() async {
       // Set routes for using the Navigator.
       '/home': (BuildContext context) => new WelcomeScreen(),
       '/app': (BuildContext context) => new NavBar(),
+      '/web': (BuildContext contex) => new CustomWebView(),
     },
   ));
 }

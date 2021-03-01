@@ -14,7 +14,6 @@ class _ProfileCardState extends State<ProfileCard> {
       future: getUserInfo(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
-          Size size = MediaQuery.of(context).size;
           return Card(
             color: kPrimaryLightColor,
             shape: RoundedRectangleBorder(

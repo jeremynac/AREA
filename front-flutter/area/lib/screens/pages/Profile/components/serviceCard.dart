@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:area/constants.dart';
-import 'package:area/components/rounded_button.dart';
+/* import 'package:webview_flutter/webview_flutter.dart';
+import '../CustomWebView.dart'; */
 
 class ServiceCard extends StatelessWidget {
   final String text;
@@ -19,8 +20,6 @@ class ServiceCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    var icon_rul;
     return Card(
         color: kPrimaryLightColor,
         shape: RoundedRectangleBorder(
@@ -39,9 +38,7 @@ class ServiceCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Image.network(
-                  ((data['service']['img'] != null)
-                      ? data['service']['img']
-                      : 'https://cdn.discordapp.com/attachments/798160246794354688/813858802045681664/Area.png'),
+                  ((data['service']['img'] != null) ? data['service']['img'] : 'https://cdn.discordapp.com/attachments/798160246794354688/813858802045681664/Area.png'),
                   height: 45,
                   width: 55,
                 ),
@@ -59,10 +56,16 @@ class ServiceCard extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  if (data['connected'] == false &&
-                      data['service']['loginIcn'] != null)
+                  if (data['connected'] == false && data['service']['loginIcn'] != null)
                     FlatButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushNamed(
+                          context,
+                          '/web',
+                          arguments: (data['service']['service_url']),
+                        );
+                        //Navigator.of(context).pushNamed('/web');
+                      },
                       child: Image.network(
                         data['service']['loginIcn'],
                       ),

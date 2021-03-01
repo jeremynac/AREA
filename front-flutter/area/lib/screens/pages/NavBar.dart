@@ -50,11 +50,11 @@ class _NavBar extends State<NavBar> {
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.cloud_upload),
+            icon: Icon(Icons.add_box_outlined),
             label: 'Reactions',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
+            icon: Icon(Icons.file_copy),
             label: 'My Actions',
           ),
           BottomNavigationBarItem(
