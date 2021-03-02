@@ -10,7 +10,7 @@ const { refreshGithubToken } = require('@account/account_validity/github_validit
 
 async function checkAccountsValidity(accounts_id) {
     try {
-        console.log('checking accounts validity')
+        console.log('checking accounts validity', accounts_id)
         await Promise.allSettled(
             accounts_id.map(
                 (account_id) => {
@@ -37,7 +37,7 @@ async function checkAccountsValidity(accounts_id) {
 async function checkAccountValidity(account_id) {
     try {
         let account = await Account.findById(account_id).select('service expire refresh_token').populate('service', 'type');
-        console.log('checking account validity', account.service.type)
+        console.log('checking account validity', account.service.type, account_id)
         let date = Date.now()
         if (account.expires < date) {
             return refreshAccountCredentials(account, account.service.type)

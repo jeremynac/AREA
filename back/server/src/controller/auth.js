@@ -55,7 +55,7 @@ module.exports = function(app) {
         // console.log('test', req.params.user_id)
         passport.authenticate('facebook', {
             state: req.params.user_id,
-            scope: ['email', 'user_friends', 'manage_pages', 'user_likes', 'user_posts', 'public_profile', 'pages_show_list', 'pages_manage_metadata', 'pages_manage_read_engagement', 'pages_manage_posts']
+            scope: ['user_friends', 'user_likes', 'user_posts', 'public_profile', 'pages_show_list', 'pages_manage_metadata', 'pages_read_engagement', 'pages_manage_posts']
         })(req, res, next);
     })
     app.get('/facebook/callback', async(req, res, next) => {

@@ -25,13 +25,16 @@
         "type": "facebook-mentionned",
         "description": "You have been mentionned in a post",
         "parameters": [{
-            "value": "posts",
+            "name": "page_name",
+            "type": "String"
+        }, {
+            "name": "posts",
             "type": "Boolean"
         }, {
-            "value": "photos",
+            "name": "photos",
             "type": "Boolean"
         }, {
-            "value": "comments",
+            "name": "comments",
             "type": "Boolean"
         }],
         "service": { "$oid": "5fff3620c37c77753705f766" }
