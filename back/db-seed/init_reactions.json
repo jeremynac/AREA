@@ -85,9 +85,18 @@
         "_id": { "$oid": "603e3bfca7b0800006576946" },
         "name": "Trello: create label",
         "type": "trello-notif",
-        "description": "TODO",
+        "description": "Creates a label with a given name on a given Board",
         "parameters": [{
-            "name": "label",
+            "name": "username",
+            "type": "String"
+        },{
+            "name": "label_name",
+            "type": "String"
+        },{
+            "name": "board_url",
+            "type": "String"
+        },{
+            "name": "color",
             "type": "String"
         }],
         "service": { "$oid": "603b9c16f4930e000987dfaa" }
