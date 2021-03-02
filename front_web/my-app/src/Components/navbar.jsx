@@ -23,6 +23,7 @@ import Menu from '@material-ui/core/Menu';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { ImRss ,ImLibrary, ImFacebook2, ImOnedrive, ImMail4, ImClock2 } from "react-icons/im";
 import {useHistory} from "react-router-dom";
+import { green, purple } from '@material-ui/core/colors';
 
 
 
@@ -37,6 +38,7 @@ const useStyles = makeStyles((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
+    backgroundColor: purple[500],
   },
   appBarShift: {
     width: `calc(100% - ${drawerWidth}px)`,
@@ -88,9 +90,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function ListItemLink(props) {
-  return <ListItem button component="a" {...props} />;
-}
+//function ListItemLink(props) {
+//  return <ListItem button component="a" {...props} />;
+//}
 
 export default function PersistentDrawerLeft() {
   const classes = useStyles();
@@ -119,6 +121,8 @@ export default function PersistentDrawerLeft() {
   const navigateToOneDrive = () => history.push('/OneDrive');
   const navigateToOutlook = () => history.push('/Outlook');
   const navigateToTimer = () => history.push('/Timer');
+  const navigateToProfile = () => history.push('/Profile');
+
 
   const menuId = 'primary-search-account-menu';
   //Profile drop down menu
@@ -133,8 +137,7 @@ export default function PersistentDrawerLeft() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={navigateToProfile}>Profile</MenuItem>
     </Menu>
   );
   return (
@@ -160,16 +163,6 @@ export default function PersistentDrawerLeft() {
             AREA
           </Typography>
           <div className={classes.toolbarButtons}>
-          <IconButton aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <MailIcon />
-              </Badge>
-            </IconButton>
-            <IconButton aria-label="show 17 new notifications" color="inherit">
-              <Badge badgeContent={17} color="secondary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
             <IconButton edge="end" aria-label="account of current user" aria-controls={menuId} aria-haspopup="true"
               onClick={handleProfileMenuOpen}
               color="inherit"

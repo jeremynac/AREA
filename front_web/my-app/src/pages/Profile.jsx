@@ -1,8 +1,13 @@
 import React from 'react';
 import clsx from 'clsx';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles,withStyles, useTheme } from '@material-ui/core/styles';
 import {CssBaseline,Typography,ListItem,Button,MenuItem,Menu,Grid,Card,CardContent,CardActions, Box} from '@material-ui/core';
 import NavigationBar from "../Components/navbar";
+import Fab from '@material-ui/core/Fab';
+import { ImGoogle, ImFacebook, ImGithub, ImTwitch, ImTrello } from "react-icons/im";
+import { FaDiscord } from "react-icons/fa";
+
+import {GoogleButton, DiscordButton, FacebookButton, TrelloButton,GithubButton,TwitchButton} from '../Components/Buttons';
 
 
 const drawerWidth = 240;
@@ -65,17 +70,18 @@ const useStyles = makeStyles((theme) => ({
   toolbarButtons: {
     marginLeft: 'auto',
   },
+  extendedIcon: {
+    marginRight: theme.spacing(1),
+  },
 }));
 
 function ListItemLink(props) {
   return <ListItem button component="a" {...props} />;
 }
 
-
 export default function PersistentDrawerLeft() {
   const classes = useStyles();
   const theme = useTheme();
-  
   const [open, setOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [auth, setAuth] = React.useState(true);
@@ -86,6 +92,11 @@ export default function PersistentDrawerLeft() {
   
   const handleMobileMenuClose = () => { setMobileMoreAnchorEl(null); };
   const handleMenuClose = () => { setAnchorEl(null); handleMobileMenuClose(); };
+
+  const openInNewTab = (url) => {
+    const newWindow = window.open(url, '_blank', 'noopener,noreferrer')
+    if (newWindow) newWindow.opener = null
+  }
 
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
@@ -119,17 +130,22 @@ export default function PersistentDrawerLeft() {
           <Grid item xs={3} spacing={3}>
               <Card  className={classes.root}>
                 <CardContent>
-                  <Typography  variant="h5" color="textSecondary" gutterBottom>
+                  <Typography variant="h5" color="textSecondary" gutterBottom>
                     Profile 
                   </Typography>
                   <Typography variant="body1" component="h2">
-                    Name Here
+                    First Name : {localStorage.getItem("firstname")}
+
+                  </Typography>
+                  <Typography variant="body1" component="h2">
+                    Last Name : {localStorage.getItem("lastname")}
+
                   </Typography>
                   <Typography className={classes.pos} color="textSecondary">
-                    Username Here
+                    Username : {localStorage.getItem("userID")}
                   </Typography>
-                  <Typography variant="body2" component="p">
-                    Email here.
+                  <Typography variant="body1" component="p">
+                    Email : {localStorage.getItem("email")}
                   </Typography>
                 </CardContent>
                 <CardActions>
@@ -138,23 +154,57 @@ export default function PersistentDrawerLeft() {
               </Card>
           </Grid>
           <Grid item xs={3} spacing={3}>
+            
               <Card className={classes.root}>
                 <CardActions>
-                  <Button size="small">Login to google</Button>
+                  <GoogleButton color="contained" variant="extended" onClick={() => openInNewTab((process.env.REACT_APP_SERVER_URL) + '/auth/go-login' + '/' + (localStorage.getItem("userID")) )} size="small"> 
+                  <ImGoogle className={classes.extendedIcon} />
+                  Login to google</GoogleButton>
                 </CardActions>
               </Card>
           </Grid>
           <Grid item xs={3} spacing={3}>
               <Card className={classes.root}>
                 <CardActions>
-                  <Button size="small">Login to Discord</Button>
+                  <DiscordButton color="contained" variant="extended" onClick={() => openInNewTab((process.env.REACT_APP_SERVER_URL) + '/auth/di-login' + '/' + (localStorage.getItem("userID")) )} size="small">
+                  <FaDiscord className={classes.extendedIcon} />
+                  Login to Discord</DiscordButton>
                 </CardActions>
               </Card>
           </Grid>
           <Grid item xs={3} spacing={3}>
               <Card className={classes.root}>
                 <CardActions>
-                  <Button size="small">Login to Facebook</Button>
+                <FacebookButton color="contained" variant="extended" onClick={() => openInNewTab((process.env.REACT_APP_SERVER_URL) + '/auth/fb-login' + '/' + (localStorage.getItem("userID")) )} size="small">
+                <ImFacebook className={classes.extendedIcon} />
+                  Login to Facebook</FacebookButton>
+                </CardActions>
+              </Card>
+          </Grid>
+          <Grid item xs={3} spacing={3}>
+              <Card className={classes.root}>
+                <CardActions>
+                  <TrelloButton color="contained" variant="extended" onClick={() => openInNewTab((process.env.REACT_APP_SERVER_URL) + '/auth/trello-login' + '/' + (localStorage.getItem("userID")) )} size="small">
+                  <ImTrello className={classes.extendedIcon} />
+                  Login to Trello</TrelloButton>
+                </CardActions>
+              </Card>
+          </Grid>
+          <Grid item xs={3} spacing={3}>
+              <Card className={classes.root}>
+                <CardActions>
+                  <GithubButton color="contained" variant="extended" onClick={() => openInNewTab((process.env.REACT_APP_SERVER_URL) + '/auth/gh-login' + '/' + (localStorage.getItem("userID")) )} size="small">
+                  <ImGithub className={classes.extendedIcon} />
+                  Login to Github</GithubButton>
+                </CardActions>
+              </Card>
+          </Grid>
+          <Grid item xs={3} spacing={3}>
+              <Card className={classes.root}>
+                <CardActions>
+                  <TwitchButton color="contained" variant="extended" onClick={() => openInNewTab((process.env.REACT_APP_SERVER_URL) + '/auth/twitch-login' + '/' + (localStorage.getItem("userID")) )} size="small">
+                  <ImTwitch className={classes.extendedIcon} />
+                  Login to Twitch</TwitchButton>
                 </CardActions>
               </Card>
           </Grid>

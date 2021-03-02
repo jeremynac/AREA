@@ -60,7 +60,10 @@ export default function SignInSide() {
   const navigateToHome = () => history.push('/Homepage');
   const signin = async () => {
     console.log(username, password)
-     await API.login(username, password)
+    let res = await API.login(username, password)
+    if (res) {
+      navigateToHome()
+    }
   }
 
   return (
@@ -75,7 +78,6 @@ export default function SignInSide() {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <form className={classes.form} noValidate>
             <TextField
               variant="outlined"
               margin="normal"
@@ -105,13 +107,13 @@ export default function SignInSide() {
               label="Remember me"
             />
             <Button
-              type="submit"
+              // type="submit"
               fullWidth
               variant="contained"
               color="primary"
               className={classes.submit}
-              onClick={navigateToHome}
-             // onClick={signin}
+              // onClick={navigateToHome}
+              onClick={()=> {signin()}}
             >
               Sign In
             </Button>
@@ -130,7 +132,6 @@ export default function SignInSide() {
             <Box mt={5}>
               <Copyright />
             </Box>
-          </form>
         </div>
       </Grid>
     </Grid>

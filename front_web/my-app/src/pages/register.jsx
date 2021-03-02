@@ -52,6 +52,18 @@ export default function SignInSide() {
   const classes = useStyles();
   const history = useHistory();
 
+  // const [username, setUsername] = useState('')
+  // const [password, setPassword] = useState('')
+  // const [email, setEmail] = useState('')
+
+  // const register = async () => {
+  //   console.log(username, password)
+  //   let res = await API.login(username, password)
+  //   if (res) {
+  //     navigateToHome()
+  //   }
+  // }
+
   const navigateTo = () => history.push('/');
   return (
     <Grid container component="main" className={classes.root}>
@@ -65,7 +77,7 @@ export default function SignInSide() {
           <Typography component="h1" variant="h5">
             Register
           </Typography>
-          <form className={classes.form} noValidate>
+          {/* <form className={classes.form} noValidate> */}
             <TextField
               variant="outlined"
               margin="normal"
@@ -122,11 +134,12 @@ export default function SignInSide() {
               label="Remember me"
             />
             <Button
-              type="submit"
+              // type="submit"
               fullWidth
               variant="contained"
               color="primary"
-              className={classes.submit}
+              // onClick={}
+              // className={classes.submit}
             >
               Sign In
             </Button>
@@ -140,7 +153,7 @@ export default function SignInSide() {
             <Box mt={5}>
               <Copyright />
             </Box>
-          </form>
+          {/* </form> */}
         </div>
       </Grid>
     </Grid>

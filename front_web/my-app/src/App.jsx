@@ -14,6 +14,8 @@ import RSS from './pages/RSS';
 import OneDrive from './pages/OneDrive';
 import Outlook from './pages/Outlook';
 import Timer from './pages/Timer';
+import Profile from './pages/Profile';
+
 
 
 function App() {
@@ -49,6 +51,9 @@ function App() {
           </Route>
           <Route path="/Timer">
             <Timer />
+          </Route>
+          <Route path="/Profile">
+            <Profile />
           </Route>
         </Switch>
       </div>

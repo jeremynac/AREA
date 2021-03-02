@@ -69,9 +69,10 @@
 }
 
 .glass{
-  background: rgba(104, 255, 84, 0.4);
+  background: rgba( 255, 255, 255, 0.40 );
   box-shadow: 0 8px 32px 0 rgba(255, 0, 0, 0.37);
   backdrop-filter: blur( 8.0px );
+  -webkit-backdrop-filter: blur( 8.0px );
   border-radius: 10px;
-  border: 1px solid rgba( 255, 255, 255, 0.18 ); 
+  border: 1px solid rgba( 255, 255, 255, 0.18 );
 }
