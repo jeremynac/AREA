@@ -4,8 +4,14 @@
         "name": "send an email",
         "description": "send an email to someone",
         "parameters": [
-            { "name": "to", "type": "String" },
-            { "name": "content", "type": "String" }
+            {
+                "type": "String",
+                "name": "to"
+            },
+            {
+                "type": "String",
+                "name": "content"
+            }
         ],
         "service": { "$oid": "601034a8779c01000abdc6b7" }
     },
@@ -14,11 +20,44 @@
         "type": "gmail-send-summary",
         "name": "send an summary by email",
         "description": "Take a text and send summarized version to your email",
+        "parameters": [
+            {
+                "type": "String",
+                "name": "to"
+            }
+        ],
+        "service": { "$oid": "601034a8779c01000abdc6b7" }
+    },
+    {
+        "_id": { "$oid": "603cb8e798d4c60008cb2a1a" },
+        "name": "twitch: Clips on a stream",
+        "type": "twitch-clip-stream",
+        "description": "Clips on a given stream",
         "parameters": [{
-            "name": "to",
+            "name": "broadcaster_id",
             "type": "String"
         }],
-        "service": { "$oid": "601034a8779c01000abdc6b7" }
+        "service": { "$oid": "60377bbaa7a1e900072798d6" }
+    },
+    {
+        "_id": { "$oid": "603cb8eb98d4c60008cb2a1c" },
+        "name": "discord: sends a message",
+        "type": "discord-send-message",
+        "description": "Message someone on discord",
+        "parameters": [{
+            "name": "content",
+            "type": "String"
+        },{
+            "name": "title",
+            "type": "String"
+        },{
+            "name": "description",
+            "type": "String"
+        },{
+            "type": "String",
+            "name": "channel_name"
+        }],
+        "service": { "$oid": "602bc4fd7233e600087eb9e0" }
     },
     {
         "_id": { "$oid": "603d23329b4fe60009c08a91" },
@@ -27,8 +66,30 @@
         "description": "Post something on your facebook page",
         "parameters": [{
             "type": "String",
-            "value": "page_name"
+            "name": "page_name"
         }],
         "service": { "$oid": "5fff3620c37c77753705f766" }
+    },
+    {
+        "_id": { "$oid": "603e3bfaa7b0800006576944" },
+        "name": "github: create tag",
+        "type": "github-tag",
+        "description": "TODO",
+        "parameters": [{
+            "name": "tag",
+            "type": "String"
+        }],
+        "service": { "$oid": "6037afafdcacf70009005f1b" }
+    },
+    {
+        "_id": { "$oid": "603e3bfca7b0800006576946" },
+        "name": "Trello: create label",
+        "type": "trello-notif",
+        "description": "TODO",
+        "parameters": [{
+            "name": "label",
+            "type": "String"
+        }],
+        "service": { "$oid": "603b9c16f4930e000987dfaa" }
     }
 ]

@@ -21,12 +21,24 @@ async function activateAction(accounts, parameters, script_vars, last, action_ty
 
 async function filterAction(account, parameters, script_vars, last, action_type) {
     switch (action_type) {
-        case 'gmail-mail-received':
+        case 'gmail-mail-received': // Some are missing right ?
             return checkGmailReceived(account, parameters, script_vars, last);
+        case 'gmail-mail-received-match':
+            return checkGmailReceivedMatch(account, parameters, script_vars, last);
+        case 'youtube-new-video':
+            return checkYoutubeVideoReceived(account, parameters, script_vars, last);
+        case 'twitch-stream-started':
+            return twitchStreamStarted(account, parameters, script_vars, last);
+        case 'twitch-channel-followed':
+            return twitchChannelFollowed(account, parameters, script_vars, last);
+        case 'discord-recieved-message':
+            return discordRecievedMessage(account, parameters, script_vars, last);
         case 'facebook-mentionned':
             return checkFacebookMentionned(account, parameters, script_vars, last)
-        case 'gmail-mail-received-match':
-            return checkGmailReceivedMatch(account, parameters, script_vars, last)
+        case 'github-issue':
+            return githubIssue(account, parameters, script_vars, last);
+        case 'trello-notif':
+            return trelloNotif(account, parameters, script_vars, last)
         default:
             return false;
     }
