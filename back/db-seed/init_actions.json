@@ -3,29 +3,44 @@
     "name": "gmail: email received",
     "type": "gmail-mail-received",
     "description": "You received an email on your gmail account",
-    "parameters": {
-        "author": "String"
-    },
+    "parameters": [
+        {
+            "type": "String",
+            "name": "author"
+        }
+    ],
     "service": { "$oid": "601034a8779c01000abdc6b7" }
 }, {
     "_id": { "$oid": "6034ed97f6a933000952dcf4" },
     "name": "gmail: email received that match",
     "type": "gmail-mail-received-match",
     "description": "You received an email on your gmail account that matches words",
-    "parameters": {
-        "important": "Boolean",
-        "word": "String"
-    },
+    "parameters": [
+        {
+            "type": "Boolean",
+            "name": "important"
+        },
+        {
+            "type": "String",
+            "name": "word"
+        }
+    ],
     "service": { "$oid": "601034a8779c01000abdc6b7" }
 }, {
     "_id": { "$oid": "603cb80f98d4c60008cb2a14" },
     "name": "youtube: posted a new video",
     "type": "youtube-new-video",
     "description": "Notif when new video has been posted",
-    "parameters": {
-        "important": "Boolean",
-        "word": "String"
-    },
+    "parameters": [
+        {
+            "type": "Boolean",
+            "name": "important"
+        },
+        {
+            "type": "String",
+            "name": "word"
+        }
+    ],
     "service": { "$oid": "601034a8779c01000abdc6b7" }
 }, {
     "_id": { "$oid": "603cb81298d4c60008cb2a16" },
@@ -56,14 +71,36 @@
     "type": "facebook-mentionned",
     "description": "You have been mentionned in a post",
     "parameters": [{
-        "value": "posts",
+        "name": "posts",
         "type": "Boolean"
     }, {
-        "value": "photos",
+        "name": "photos",
         "type": "Boolean"
     }, {
-        "value": "comments",
+        "name": "comments",
         "type": "Boolean"
     }],
     "service": { "$oid": "5fff3620c37c77753705f766" }
+},
+{
+    "_id": { "$oid": "603e3a68a7b0800006576940" },
+    "name": "github: issue keyword",
+    "type": "github-issue",
+    "description": "TODO",
+    "parameters": [{
+        "name": "keyword",
+        "type": "String"
+    }],
+    "service": { "$oid": "6037afafdcacf70009005f1b" }
+},
+{
+    "_id": { "$oid": "603e3a6aa7b0800006576942" },
+    "name": "Trello: recieved notif",
+    "type": "trello-notif",
+    "description": "TODO",
+    "parameters": [{
+        "name": "keyword",
+        "type": "String"
+    }],
+    "service": { "$oid": "603b9c16f4930e000987dfaa" }
 }]

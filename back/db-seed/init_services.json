@@ -81,8 +81,8 @@
         "name": "github",
         "type": "github",
         "account": true,
-        "actions": [],
-        "reactions": [],
+        "actions": [{ "$oid": "603e3a68a7b0800006576940"}],
+        "reactions": [{ "$oid": "603e3bfaa7b0800006576944" }],
         "parse_map": {
             "access_token": "access_token",
             "refresh_token": "refresh_token",
@@ -99,8 +99,8 @@
         "name": "trello",
         "type": "trello",
         "account": true,
-        "actions": [],
-        "reactions": [],
+        "actions": [{ "$oid": "603e3a6aa7b0800006576942"}],
+        "reactions": [{ "$oid": "603e3bfca7b0800006576946" }],
         "parse_map": {
             "access_token": "access_token",
             "email": "_json.email",

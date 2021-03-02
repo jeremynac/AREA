@@ -8,7 +8,7 @@ function getHeader(access_token) {
     return {
         header: {
             'Authorization': `token ${access_token}`,
-            'client-id': DISCORD_CLIENT_ID
+            'client-id': process.env.DISCORD_CLIENT_ID
         }
     }
 }

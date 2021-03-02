@@ -3,10 +3,16 @@
         "type": "gmail-send-email",
         "name": "send an email",
         "description": "send an email to someone",
-        "parameters": {
-            "to": "String",
-            "content": "String"
-        },
+        "parameters": [
+            {
+                "type": "String",
+                "name": "to"
+            },
+            {
+                "type": "String",
+                "name": "content"
+            }
+        ],
         "service": { "$oid": "601034a8779c01000abdc6b7" }
     },
     {
@@ -14,9 +20,12 @@
         "type": "gmail-send-summary",
         "name": "send an summary by email",
         "description": "Take a text and send summarized version to your email",
-        "parameters": {
-            "to": "String"
-        },
+        "parameters": [
+            {
+                "type": "String",
+                "name": "to"
+            }
+        ],
         "service": { "$oid": "601034a8779c01000abdc6b7" }
     },
     {
@@ -54,8 +63,30 @@
         "description": "Post something on your facebook page",
         "parameters": [{
             "type": "String",
-            "value": "page_name"
+            "name": "page_name"
         }],
         "service": { "$oid": "5fff3620c37c77753705f766" }
+    },
+    {
+        "_id": { "$oid": "603e3bfaa7b0800006576944" },
+        "name": "github: create tag",
+        "type": "github-tag",
+        "description": "TODO",
+        "parameters": [{
+            "name": "tag",
+            "type": "String"
+        }],
+        "service": { "$oid": "6037afafdcacf70009005f1b" }
+    },
+    {
+        "_id": { "$oid": "603e3bfca7b0800006576946" },
+        "name": "Trello: create label",
+        "type": "trello-notif",
+        "description": "TODO",
+        "parameters": [{
+            "name": "label",
+            "type": "String"
+        }],
+        "service": { "$oid": "603b9c16f4930e000987dfaa" }
     }
 ]
