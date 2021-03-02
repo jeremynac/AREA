@@ -53,6 +53,9 @@
         },{
             "name": "description",
             "type": "String"
+        },{
+            "type": "String",
+            "name": "channel_name"
         }],
         "service": { "$oid": "602bc4fd7233e600087eb9e0" }
     },

@@ -62,6 +62,10 @@
     "_id": { "$oid": "603cb81498d4c60008cb2a18" },
     "name": "discord: Recieved discord message",
     "type": "discord-recieved-message",
+    "parameters": [{
+        "type": "String",
+        "name": "channel_name"
+    }],
     "description": "Notif when you recieved a message on discord",
     "service": { "$oid": "602bc4fd7233e600087eb9e0" }
 },
