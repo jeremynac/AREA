@@ -3,10 +3,10 @@
         "type": "gmail-send-email",
         "name": "send an email",
         "description": "send an email to someone",
-        "parameters": {
-            "to": "String",
-            "content": "String"
-        },
+        "parameters": [
+            { "name": "to", "type": "String" },
+            { "name": "content", "type": "String" }
+        ],
         "service": { "$oid": "601034a8779c01000abdc6b7" }
     },
     {
@@ -14,9 +14,10 @@
         "type": "gmail-send-summary",
         "name": "send an summary by email",
         "description": "Take a text and send summarized version to your email",
-        "parameters": {
-            "to": "String"
-        },
+        "parameters": [{
+            "name": "to",
+            "type": "String"
+        }],
         "service": { "$oid": "601034a8779c01000abdc6b7" }
     },
     {
