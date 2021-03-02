@@ -24,6 +24,10 @@
         "name": "twitch: Clips on a stream",
         "type": "twitch-clip-stream",
         "description": "Clips on a given stream",
+        "parameters": [{
+            "name": "broadcaster_id",
+            "type": "String"
+        }],
         "service": { "$oid": "60377bbaa7a1e900072798d6" }
     },
     {
@@ -31,6 +35,16 @@
         "name": "discord: sends a message",
         "type": "discord-send-message",
         "description": "Message someone on discord",
+        "parameters": [{
+            "name": "content",
+            "type": "String"
+        },{
+            "name": "title",
+            "type": "String"
+        },{
+            "name": "description",
+            "type": "String"
+        }],
         "service": { "$oid": "602bc4fd7233e600087eb9e0" }
     },
     {
