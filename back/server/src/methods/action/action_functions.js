@@ -35,6 +35,10 @@ async function filterAction(account, parameters, script_vars, last, action_type)
             return discordRecievedMessage(account, parameters, script_vars, last);
         case 'facebook-mentionned':
             return checkFacebookMentionned(account, parameters, script_vars, last)
+        case 'github-issue':
+            return githubIssue(account, parameters, script_vars, last);
+        case 'trello-notif':
+            return trelloNotif(account, parameters, script_vars, last)
         default:
             return false;
     }
