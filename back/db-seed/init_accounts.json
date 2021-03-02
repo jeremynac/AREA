@@ -5,12 +5,6 @@
         "refresh_token": "1//03cF0Yc0fDmyfCgYIARAAGAMSNwF-L9IrIg3r3PbltUmxiapqtMKk_7T-ePrghVkWN-MJtkuF2M-2xfLSBTDdkoyXZONJ6D3r7TM",
         "__v": 0,
         "user": { "$oid": "601951238d07f000145f2e99" }
-    }, {
-        "_id": { "$oid": "603d3bd6549a190013f9ea6c" },
-        "service": { "$oid": "5fff3620c37c77753705f766" },
-        "access_token": "EAAylAtMbWV4BAGaJrK6Om9s3Frfre66UWYZANkRRuQHDa18KUyByR8lGx9jVGE7ASFa0r7IXRM4m1ZAIRpAQspxyK2BjuNSTXT0yBXJ4eZAZAKCnkWskhIMcfNq9t1V86V1Saf2VyXICOrFCjZCdSskh9AQ3hgqN7AYsZAgfxNjJwhFJ1ZA8cwWPF52gsCs83wZD",
-        "__v": 0,
-        "user": { "$oid": "601951238d07f000145f2e99" }
     },
     {
         "_id": { "$oid": "603d08c7c73c4e00141720f0" },

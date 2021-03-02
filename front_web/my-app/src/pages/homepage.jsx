@@ -131,8 +131,11 @@ export default function PersistentDrawerLeft() {
               <Button size="small">Learn More</Button>
               <Button size="small" onClick={()=>{handleClick('/auth/go-login')}}>Google</Button>
               <Button size="small" onClick={()=>{handleClick('/auth/fb-login')}}>Facebook</Button>
-              <Button size="small" onClick={()=>{handleClick('/auth//di-login')}}>Dicord</Button>
+
+              <Button size="small" onClick={()=>{handleClick('/auth/di-login')}}>Discord</Button>
               <Button size="small" onClick={()=>{handleClick('/auth/twitch-login')}}>Twitch</Button>
+              <Button size="small" onClick={()=>{handleClick('/auth/gh-login')}}>Github</Button>
+              <Button size="small" onClick={()=>{handleClick('/auth/trello-login')}}>trello</Button>
             </CardActions>
           </Card>
         </Grid>

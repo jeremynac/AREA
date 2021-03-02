@@ -76,7 +76,7 @@ async function findUserByAccount(service_type, args) {
 async function createAccount(service_type, args) {
     console.log('find service', service_type)
     const service = await Service.findOne({ type: service_type }).select()
-    let account = new Account({ service: service, access_token: args.access_token, refresh_token: args.refresh_token, authorization_code: args.authorization_code, username: args.username, email: args.email })
+    let account = new Account({ service: service, access_token: args.access_token, refresh_token: args.refresh_token, authorization_code: args.authorization_code, username: args.username, email: args.email, expire: args.expire })
         // aaccount.save();
     Object.entries(args).map((key, index) => {
         account.key = args[key]
