@@ -1,5 +1,4 @@
-[
-    {
+[{
         "_id": { "$oid": "5fff3620c37c77753705f766" },
         "name": "facebook",
         "type": "facebook",

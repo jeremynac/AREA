@@ -42,5 +42,37 @@
             "type": "Boolean"
         }],
         "service": { "$oid": "5fff3620c37c77753705f766" }
+    }, {
+        "_id": { "$oid": "603cb80f98d4c60008cb2a14" },
+        "name": "youtube: posted a new video",
+        "type": "youtube-new-video",
+        "description": "Notif when new video has been posted",
+        "parameters": {
+            "important": "Boolean",
+            "word": "String"
+        },
+        "service": { "$oid": "601034a8779c01000abdc6b7" }
+    }, {
+        "_id": { "$oid": "603cb81298d4c60008cb2a16" },
+        "name": "twitch: Notif when Stream starts",
+        "type": "twitch-stream-started",
+        "parameters": [{
+            "type": "String",
+            "name": "channel"
+        }],
+        "description": "Notif when someone starts a stream",
+        "service": { "$oid": "60377bbaa7a1e900072798d6" }
+    }, {
+        "_id": { "$oid": "603dff57de0afb0006462ab6" },
+        "name": "twitch: channel is followed",
+        "type": "twitch-channel-followed",
+        "description": "Notif when the channel is followed",
+        "service": { "$oid": "60377bbaa7a1e900072798d6" }
+    }, {
+        "_id": { "$oid": "603cb81498d4c60008cb2a18" },
+        "name": "discord: Recieved discord message",
+        "type": "discord-recieved-message",
+        "description": "Notif when you recieved a message on discord",
+        "service": { "$oid": "602bc4fd7233e600087eb9e0" }
     }
 ]
