@@ -11,12 +11,13 @@ export default {
           console.log('url', process.env.REACT_APP_SERVER_URL)
           const { data: response, status: statusid } = await axios.post(process.env.REACT_APP_SERVER_URL + '/auth/login', body);
             if (statusid === 200) {
-                console.log("logged in", response.firstname, response.lastname)
-                localStorage.setItem("firstname", response.firstname);
-                localStorage.setItem("lastname", response.lastname);
-                localStorage.setItem("email", email);
+                // console.log("logged in", response.firstname, response.lastname)
+                // localStorage.setItem("firstname", response.firstname);
+                // localStorage.setItem("lastname", response.lastname);
+                // localStorage.setItem("email", email);
                 // localStorage.setItem("teacher", response.teacher);
-                localStorage.setItem("userID", response.userID);
+                localStorage.setItem("user_id", response.userID);
+
                 return true
             }
         } catch (err) {
