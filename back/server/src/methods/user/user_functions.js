@@ -22,7 +22,7 @@ async function getUserReactions(user_id) {
 }
 async function getUserServicesStatus(user_id) {
     let services_connected = await getUserServices(user_id)
-    let services_all = await Service.find().select('name type description service_url img login_icon')
+    let services_all = await Service.find().select('name type description service_url img loginIcn')
     let services = []
     let connected = false;
     services_all.map(s => {
