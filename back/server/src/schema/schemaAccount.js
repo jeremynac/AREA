@@ -38,6 +38,10 @@ const schemaAccount = mongoose.Schema({
     expire: {
         type: Number,
         require: false
+    },
+    service_id: {
+        type: String,
+        require: false
     }
 });
 

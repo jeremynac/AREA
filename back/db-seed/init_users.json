@@ -4,14 +4,18 @@
         "password": "test",
         "firstname": "testfirstname",
         "lastname": "testlastname",
-        "__v": 5,
+        "__v": 25,
         "accounts": [{ "$oid": "603d07c0c73c4e00141720ed" },
-            { "$oid": "603d07c4c73c4e00141720ef" },
             { "$oid": "603d08c7c73c4e00141720f0" },
             { "$oid": "603d08cdc73c4e00141720f1" },
-            { "$oid": "603d08d0c73c4e00141720f2" }
+            { "$oid": "603d08d0c73c4e00141720f2" },
+            { "$oid": "603d07c0c73c4e00141720ed" },
+            { "$oid": "603e1be3f297170030faf820" },
+            { "$oid": "603e68c2dd911500b4538e84" }
         ],
-        "scripts": []
+        "scripts": [{ "$oid": "603e34eda7eb0a0030b16599" },
+            { "$oid": "603e622434c8b80044e79d55" }
+        ]
     },
     {
         "_id": { "$oid": "6019516187595d00085e39e0" },
