@@ -10,6 +10,8 @@ const app = express();
 const passport = require("@user/auth_passport");
 const cors = require("cors");
 const { json } = require('body-parser');
+const schedule = require('node-schedule');
+const { scheduleActivation } = require('@activation/schedule');
 // const session = require('session')
 
 
@@ -83,7 +85,6 @@ app.set('trust proxy', true)
 
 app.use(express.urlencoded({ extended: true }));
 
-
 // Controllers:
 
 const routerUser = express.Router();
@@ -93,6 +94,10 @@ const routerReaction = express.Router();
 const routerService = express.Router();
 const routerAuth = express.Router();
 const routerAdmin = express.Router();
+
+app.get('/cgu', async(req, res) => {
+
+})
 
 app.use("/auth", routerAuth);
 require("@controller/auth")(routerAuth);
@@ -134,4 +139,17 @@ app.use((req, res) => {
     return res.status(400).json({ value: 'nothing happened' })
 })
 
-app.listen(process.env.PORT) //process.env.PORT, () => console.log(`Listening on port ${process.env.PORT}`));
+app.listen(process.env.PORT, () => {
+    scheduleActivation('1h')
+})
+
+/*
+
+set the schedule to:
+ - '1h' : 1 per hour
+ - '5min': 5 minutes
+ - '1min': 1 minute
+ - '30sec': 30 seconds
+ - '5sec': 5seconds
+ 
+*/
