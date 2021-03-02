@@ -5,36 +5,44 @@ const Action = require('@schemas/schemaAction')
 const Account = require('@schemas/schemaAccount')
 const axios = require('axios')
 
-function getHeader(client_id, access_token) {
+function getHeader(client_id, account) {
     return {
         headers: {
-            'Authorization': `token ${access_token}`,
+            'Authorization': `token ${account.access_token}`,
             'client-id': `${client_id}`
         }
     }
 }
 
 async function twitchChannelFollowed(account, parameters, script_vars, last_activation) {
-    /*const oAuth2Client = new google.auth.OAuth2();
-    oAuth2Client.setCredentials({ access_token: account.access_token })
-    const gmail = google.gmail({ version: "v1", auth: oAuth2Client })*/
     let messages = "";
-    await axios.get('GET https://api.twitch.tv/helix/users/follows?to_id' + parameters.to_id, {
-        getHeader(client_id, access_token)
-    }
+    await axios.get('GET https://api.twitch.tv/helix/users/follows',//?to_id=' + parameters.to_id,
+        getHeader(process.env.TWITCH_CLIENT_ID, account)
     ).then((response) => {
-        console.log(response.data[0].is_live);
-        if (response.data[0].is_live)
-            messages = true;
+        console.log(response.total);
+        if (script_vars.action_result) {
+            if (script_vars.action_result.nb_follower < response.total) {
+                script_vars.action_result = {
+                    'nb_follower' : response.total
+                }
+                return true
+            }
+            else {
+                script_vars.action_result = {
+                    'nb_follower' : response.total
+                }
+                return false
+            }
+        }
+        script_vars.action_result = {
+            'nb_follower' : response.total
+        }
+        return false
     }).catch(e => {
         console.log(e)
     });
+    return false
 
-    if (messages.length > 0) {
-        return true
-    } else {
-        return false
-    }
 }
 
 

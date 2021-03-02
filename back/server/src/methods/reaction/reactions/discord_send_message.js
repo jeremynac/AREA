@@ -5,7 +5,7 @@ const Action = require('@schemas/schemaAction')
 const Account = require('@schemas/schemaAccount')
 const axios = require('axios')
 
-function makeBody() {
+function makeBody(title, content, description, account) {
     return {
         body: {
             "content": content,
@@ -16,17 +16,16 @@ function makeBody() {
             }
         },
         header: {
-            'Authorization': `token ${access_token}`,
+            'Authorization': `token ${account.access_token}`,
+            'client-id': process.env.DISCORD_CLIENT_ID
         }
     }
 }
 
 async function discordSendMessage(account, parameters, script_vars) {
-    /*const oAuth2Client = new google.auth.OAuth2();
-    oAuth2Client.setCredentials({ access_token: account.access_token })
-    const gmail = google.gmail({ version: "v1", auth: oAuth2Client })*/
     let channel_id = "798160246794354688"
-    await axios.post('https://discord.com/api/channels/' + channel_id + '/messages', makeBody(parameters.title, parameters.content, parameters.description)
+    await axios.post('https://discord.com/api/channels/' + channel_id + '/messages',
+        makeBody(parameters.title, parameters.content, parameters.description, account)
     ).then((response) => {
         console.log("Success : \n" + response);
         return true

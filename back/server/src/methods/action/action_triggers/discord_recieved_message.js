@@ -8,6 +8,7 @@ function getHeader(access_token) {
     return {
         header: {
             'Authorization': `token ${access_token}`,
+            'client-id': DISCORD_CLIENT_ID
         }
     }
 }
@@ -18,8 +19,24 @@ async function discordRecievedMessage(account, parameters, script_vars, last_act
     await axios.get('https://discord.com/api/channels/' + channel_id + '/messages', makeBody(account.access_token)
     ).then((response) => {
         console.log("Success : \n" + response);
-        //if (response.lenght != than before)
-        return true
+        if (script_vars.action_result) {
+            if (script_vars.action_result.lenght < response.lenght) {
+                script_vars.action_result = {
+                    'lenght' : response.lenght
+                }
+                return true
+            }
+            else {
+                script_vars.action_result = {
+                    'lenght' : response.lenght
+                }
+                return false
+            }
+        }
+        script_vars.action_result = {
+            'lenght' : response.lenght
+        }
+        return false
     }).catch(e => {
         console.log(e)
     });

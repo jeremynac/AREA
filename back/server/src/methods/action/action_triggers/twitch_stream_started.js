@@ -15,26 +15,34 @@ function getHeader(client_id, access_token) {
 }
 
 async function twitchStreamStarted(account, parameters, script_vars, last_activation) {
-    /*const oAuth2Client = new google.auth.OAuth2();
-    oAuth2Client.setCredentials({ access_token: account.access_token })
-    const gmail = google.gmail({ version: "v1", auth: oAuth2Client })*/
+
     let messages = "";
-    await axios.get('https://api.twitch.tv/helix/search/channels?query=' + parameters.channel, {
-        getHeader(client_id, access_token)
-    }
+    await axios.get('https://api.twitch.tv/helix/search/channels?query=' + parameters.channel,
+        getHeader(process.env.TWITCH_CLIENT_ID, account.access_token)
     ).then((response) => {
         console.log(response.data[0].is_live);
-        if (response.data[0].is_live)
-            messages = true;
+        if (script_vars.action_result) {
+            if (response.data[0].is_live && !script_vars.action_result.is_live) {
+                script_vars.action_result = {
+                    'is_live': response.data[0].is_live
+                }
+                return true
+            }
+            else {
+                script_vars.action_result = {
+                    'is_live': response.data[0].is_live
+                }
+                return false
+            }
+        }
+        script_vars.action_result = {
+            'is_live': response.data[0].is_live
+        }
+        return false
     }).catch(e => {
         console.log(e)
     });
-
-    if (messages.length > 0) {
-        return true
-    } else {
-        return false
-    }
+    return false
 }
 
 

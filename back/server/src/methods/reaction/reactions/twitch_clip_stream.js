@@ -5,36 +5,31 @@ const Action = require('@schemas/schemaAction')
 const Account = require('@schemas/schemaAccount')
 const axios = require('axios')
 
-function makeBody(parameters) {
+function makeBody(client_id, broadcaster_id, access_token) {
     return {
+        body: {
+            'broadcaster-id': `${broadcaster_id}`
+        },
         headers: {
-            'Authorization': `token ${parameters.access_token}`,
-            'broadcaster-id': `${parameters.broadcaster_id}`
+            'Authorization': `token ${access_token}`,
+            'client-id': `${client_id}`
         }
     }
 }
 
 async function twitchClipStream(account, parameters, script_vars) {
-    /*const oAuth2Client = new google.auth.OAuth2();
-    oAuth2Client.setCredentials({ access_token: account.access_token })
-    const gmail = google.gmail({ version: "v1", auth: oAuth2Client })*/
-    let messages = "";
-    await axios.post('https://api.twitch.tv/helix/clips', {
-        makeBody(parameters)
-    }
+    await axios.post('https://api.twitch.tv/helix/clips',
+        makeBody(process.env.TWITCH_CLIENT_ID, parameters.broadcaster_id, account.access_token)
     ).then((response) => {
         console.log(response.edit_url);
-        if (response.edit_url.length > 0)
-            messages = response.edit_url;
+        script_vars.action_result = {
+            'url': response.edit_url
+        }
+        return true
     }).catch(e => {
         console.log(e)
     });
-
-    if (messages.length > 0) {
-        return true
-    } else {
-        return false
-    }
+    return false
 }
 
 module.exports = {
