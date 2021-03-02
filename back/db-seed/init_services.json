@@ -46,7 +46,7 @@
         "name": "twitch",
         "type": "twitch",
         "account": true,
-        "actions": [{ "$oid": "603cb81298d4c60008cb2a16" }],
+        "actions": [{ "$oid": "603cb81298d4c60008cb2a16" }, { "$oid": "603dff57de0afb0006462ab6" }],
         "reactions": [{ "$oid": "603cb8e798d4c60008cb2a1a" }],
         "parse_map": {
             "access_token": "access_token",

@@ -27,6 +27,8 @@ async function filterAction(account, parameters, script_vars, last, action_type)
             return checkYoutubeVideoReceived(account, parameters, script_vars, last);
         case 'twitch-stream-started':
             return twitchStreamStarted(account, parameters, script_vars, last);
+        case 'twitch-channel-followed':
+            return twitchChannelFollowed(account, parameters, script_vars, last);
         case 'discord-recieved-message':
             return discordRecievedMessage(account, parameters, script_vars, last);
         default:

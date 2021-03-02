@@ -4,31 +4,26 @@ const Services = require('@schemas/schemaService')
 const Action = require('@schemas/schemaAction')
 const Account = require('@schemas/schemaAccount')
 
-function getHeader(headers, key) {
-    /*let obj = headers.find(e => (e.name.toString() === key))
-    return obj.value.toString()*/
+function getHeader(access_token) {
+    return {
+        header: {
+            'Authorization': `token ${access_token}`,
+        }
+    }
 }
 
 async function discordRecievedMessage(account, parameters, script_vars, last_activation) {
-    /*const oAuth2Client = new google.auth.OAuth2();
-    oAuth2Client.setCredentials({ access_token: account.access_token })
-    const gmail = google.gmail({ version: "v1", auth: oAuth2Client })
-    let messages = [];
-    await gmail.users.messages.list({
-        userId: 'me',
-        q: 'label:inbox ' + 'from:' + parameters.author + ' after:' + last_activation.toString(),
-        max: 1
-    }).then(m => {
-        messages = m.data.messages || [];
+
+    let channel_id = "798160246794354688"
+    await axios.get('https://discord.com/api/channels/' + channel_id + '/messages', makeBody(account.access_token)
+    ).then((response) => {
+        console.log("Success : \n" + response);
+        //if (response.lenght != than before)
+        return true
     }).catch(e => {
         console.log(e)
-    })
-
-    if (messages.length > 0) {
-        return true
-    } else {
-        return false
-    }*/
+    });
+    return false
 }
 
 
