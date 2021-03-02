@@ -45,4 +45,21 @@
     "type": "discord-recieved-message",
     "description": "Notif when you recieved a message on discord",
     "service": { "$oid": "602bc4fd7233e600087eb9e0" }
+},
+{
+    "_id": { "$oid": "603cea1699eaca000863ccb1" },
+    "name": "facebook: mentionned",
+    "type": "facebook-mentionned",
+    "description": "You have been mentionned in a post",
+    "parameters": [{
+        "value": "posts",
+        "type": "Boolean"
+    }, {
+        "value": "photos",
+        "type": "Boolean"
+    }, {
+        "value": "comments",
+        "type": "Boolean"
+    }],
+    "service": { "$oid": "5fff3620c37c77753705f766" }
 }]

@@ -32,5 +32,16 @@
         "type": "discord-send-message",
         "description": "Message someone on discord",
         "service": { "$oid": "602bc4fd7233e600087eb9e0" }
+    },
+    {
+        "_id": { "$oid": "603d23329b4fe60009c08a91" },
+        "type": "facebook-post-page",
+        "name": "facebook post on page",
+        "description": "Post something on your facebook page",
+        "parameters": [{
+            "type": "String",
+            "value": "page_name"
+        }],
+        "service": { "$oid": "5fff3620c37c77753705f766" }
     }
 ]

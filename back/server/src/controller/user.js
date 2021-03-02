@@ -68,4 +68,13 @@ module.exports = function(app) {
             return res.status(500).json({ error: e })
         }
     })
+
+    app.get('/info', async(req, res) => {
+        try {
+            let user = await User.findById(req.user._id).select("firstname lastname email username");
+            return res.status(200).json(user)
+        } catch (e) {
+            return res.status(500).json({ error: e })
+        }
+    })
 }

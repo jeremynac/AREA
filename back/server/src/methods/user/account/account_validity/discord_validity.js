@@ -5,6 +5,7 @@ const Account = require('@schemas/schemaAccount')
 const { getTokenDate } = require('@account/account_validity/utils')
 var axios = require('axios')
 var qs = require('qs');
+const { updateAccount } = require('./utils')
 
 // async function 
 
@@ -25,7 +26,7 @@ async function refreshDiscordToken(account) {
         'client_id': '810912093909286923',
         'client_secret': 'xEjlWuogRuuxmjNUFRSfnKWVDo9iP39k',
         'grant_type': 'refresh_token',
-        'refresh_token': 'V41XdghATsNMYwg6cvhW8wSE3EowPk'
+        'refresh_token': refresh //'V41XdghATsNMYwg6cvhW8wSE3EowPk'
     });
     var config = {
         method: 'post',
@@ -35,14 +36,16 @@ async function refreshDiscordToken(account) {
         },
         data: data
     };
+    try {
+        let res = await axios(config)
+        if (res) {
+            await updateAccount(account._id, res.access_token, response.expires_in)
+        }
 
-    axios(config)
-        .then(function(response) {
-            console.log(JSON.stringify(response.data));
-        })
-        .catch(function(error) {
-            console.log(error);
-        });
+    } catch (e) {
+        console.log(e)
+        return false
+    }
     // let data = qs.stringify({
     //     'client_id': process.env.TWITCH_CLIENT_ID,
     //     'client_secret': process.env.TWITCH_CLIENT_SECRET,

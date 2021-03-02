@@ -51,12 +51,36 @@ module.exports = function(app) {
             return res.status(200).json({ connected: false })
         }
     })
-    app.get('/fb-login', async(req, res, next) => {
-        passport.authenticate('facebook');
+    app.get('/fb-login/:user_id', (req, res, next) => {
+        // console.log('test', req.params.user_id)
+        passport.authenticate('facebook', {
+            state: req.params.user_id,
+            scope: ['email', 'user_friends', 'manage_pages', 'user_likes', 'user_posts', 'public_profile', 'pages_show_list', 'pages_manage_metadata', 'pages_manage_read_engagement', 'pages_manage_posts']
+        })(req, res, next);
     })
     app.get('/facebook/callback', async(req, res, next) => {
         console.log('facebook callback', req.query)
-        passport.authenticate('facebook', { successRedirect: '/', failureRedirect: '/login' });
+        passport.authenticate('facebook', (err, user, new_account, success) => {
+            console.log('okok', err, new_account)
+            try {
+                if (err) {
+                    console.log("err")
+                    return res.status(400).json({ errors: err })
+                } else if (!user) {
+                    console.log("added account")
+                    return res.status(200).json({ new_account: new_account.value, new_user: false })
+                } else {
+                    req.logIn(user, function(err) {
+                        console.log(err)
+                    })
+                    console.log("connected or added account", user)
+                    return res.status(200).json({ new_account: new_account.value, new_user: true });
+                }
+            } catch (e) {
+                console.log(e)
+                return res.status(400).json({ errors: err })
+            }
+        })(req, res);
     })
 
     app.get('/go-login/:user_id', async(req, res) => {

@@ -28,9 +28,10 @@ async function refreshGoogleToken(account) {
             //     return true
             // } else {
         let token = await client.getAccessToken()
-        let account_saved = await Account.findById(account._id)
-        account_saved.access_token = token.token
-        await account_saved.save()
+        await updateAccount(account._id, token.token, token.expires_in)
+            // let account_saved = await Account.findById(account._id)
+            // account_saved.access_token = token.token
+            // await account_saved.save()
             // let url = 'https://www.googleapis.com/oauth2/v4/token'
             // let options = {
             //     refresh_token: refresh,

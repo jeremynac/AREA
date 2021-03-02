@@ -4,7 +4,19 @@
         "type": "facebook",
         "account": true,
         "actions": [{ "$oid": "5fff3620a0efdc70962fefa4" }, { "$oid": "60018a13cab6dd49d2ba5a95" }],
-        "reactions": [{ "$oid": "5fff3620c3a3e2f146ce9aa3" }, { "$oid": "60018a136c7bd76663a84619" }]
+        "reactions": [{ "$oid": "5fff3620c3a3e2f146ce9aa3" }, { "$oid": "60018a136c7bd76663a84619" }],
+        "parse_map": {
+            "access_token": "access_token",
+            "refresh_token": "refresh_token",
+            "expire": "expire",
+            "email": "email",
+            "username": "email",
+            "name": "name",
+            "firstname": "name.givenName",
+            "lastname": "name.familyName",
+            "id": "sub"
+        },
+        "service_url": "/auth/fb-login"
     },
     {
         "_id": { "$oid": "601034a8779c01000abdc6b7" },
@@ -23,7 +35,10 @@
             "firstname": "given_name",
             "lastname": "family_name",
             "id": "sub"
-        }
+        },
+        "img": "https://cdn.discordapp.com/attachments/798160246794354688/816004458340286514/btn_google_signin_dark_focus_web.png",
+        "service_url": "/auth/go-login"
+
     },
     {
         "_id": { "$oid": "602bc4fd7233e600087eb9e0" },
@@ -40,7 +55,9 @@
             "username": "_json.email",
             "name": "username",
             "id": "id"
-        }
+        },
+        "service_url": "/auth/di-login"
+
     }, {
         "_id": { "$oid": "60377bbaa7a1e900072798d6" },
         "name": "twitch",
@@ -56,7 +73,9 @@
             "username": "login",
             "name": "display_name",
             "id": "id"
-        }
+        },
+        "service_url": "/auth/twitch-login"
+
     }, {
         "_id": { "$oid": "6037afafdcacf70009005f1b" },
         "name": "github",
@@ -72,7 +91,8 @@
             "username": "username",
             "name": "displayName",
             "id": "id"
-        }
+        },
+        "service_url": "/auth/gh-login"
     },
     {
         "_id": { "$oid": "603b9c16f4930e000987dfaa" },
@@ -87,6 +107,8 @@
             "username": "_json.username",
             "name": "displayName",
             "id": "id"
-        }
+        },
+        "service_url": "/auth/trello-login"
+
     }
 ]

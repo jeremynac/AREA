@@ -6,6 +6,7 @@ const Reaction = require('@schemas/schemaReaction')
 const { checkConnected, getAccountForService } = require('@account/account_functions')
 const { reactGmailSendEmail } = require("@reactions/gmail_send")
 const { reactGmailSendSummary } = require("@reactions/gmail_send_summary")
+const { reactFacebookPostPage } = require('@reactions/facebook_post_page')
 
 async function activateReaction(accounts, parameters, script_vars, reaction_type) {
     let account_check = await getReactionAccount(accounts, reaction_type)
@@ -28,6 +29,8 @@ async function filterReaction(account, parameters, script_vars, reaction_type) {
             return twitchClipStream(account, parameters, script_vars);
         case 'discord-send-message':
             return discordSendMessage(account, parameters, script_vars);
+        case 'facebook-post-page':
+            return reactFacebookPostPage(account, parameters, script_vars)
         default:
             return false
     }
