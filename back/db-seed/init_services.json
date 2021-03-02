@@ -1,5 +1,4 @@
-[
-    {
+[{
         "_id": { "$oid": "5fff3620c37c77753705f766" },
         "name": "facebook",
         "type": "facebook",
@@ -26,7 +25,7 @@
         "name": "google",
         "type": "google",
         "account": true,
-        "actions": [{ "$oid": "601033c4779c01000abdc6b5" }],
+        "actions": [{ "$oid": "601033c4779c01000abdc6b5" }, { "$oid": "603cb80f98d4c60008cb2a14" }],
         "reactions": [{ "$oid": "602ba5c897914b000773055f" }],
         "parse_map": {
             "access_token": "access_token",
@@ -48,8 +47,8 @@
         "name": "discord",
         "type": "discord",
         "account": true,
-        "actions": [],
-        "reactions": [],
+        "actions": [{ "$oid": "603cb81498d4c60008cb2a18" }],
+        "reactions": [{ "$oid": "603cb8eb98d4c60008cb2a1c" }],
         "parse_map": {
             "access_token": "access_token",
             "refresh_token": "refresh_token",
@@ -68,8 +67,8 @@
         "name": "twitch",
         "type": "twitch",
         "account": true,
-        "actions": [],
-        "reactions": [],
+        "actions": [{ "$oid": "603cb81298d4c60008cb2a16" }, { "$oid": "603dff57de0afb0006462ab6" }],
+        "reactions": [{ "$oid": "603cb8e798d4c60008cb2a1a" }],
         "parse_map": {
             "access_token": "access_token",
             "refresh_token": "refresh_token",
@@ -88,8 +87,8 @@
         "name": "github",
         "type": "github",
         "account": true,
-        "actions": [],
-        "reactions": [],
+        "actions": [{ "$oid": "603e3a68a7b0800006576940"}],
+        "reactions": [{ "$oid": "603e3bfaa7b0800006576944" }],
         "parse_map": {
             "access_token": "access_token",
             "refresh_token": "refresh_token",
@@ -108,8 +107,8 @@
         "name": "trello",
         "type": "trello",
         "account": true,
-        "actions": [],
-        "reactions": [],
+        "actions": [{ "$oid": "603e3a6aa7b0800006576942"}],
+        "reactions": [{ "$oid": "603e3bfca7b0800006576946" }],
         "parse_map": {
             "access_token": "access_token",
             "email": "_json.email",

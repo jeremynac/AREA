@@ -348,8 +348,9 @@ module.exports = function(app) {
     })
 
     app.get('/trello-login/:user_id', (req, res) => {
+        req.session.user_id = req.params.user_id
         passport.authenticate('trello', {
-                state: req.params.user_id
+                state: req.params.user_id,
             })(req, res)
             // return res.redirect(process.env.TRELLO_AUTHORIZE + '/' + '?expiration=never' + '&name=MyPersonalToken' + '&scope=' + process.env.TRELLO_SCOPE + '&response_type=token' + '&key=' + process.env.TRELLO_KEY + '&state=' + req.params.user_id + '&secret=' + process.env.TRELLO_CLIENT_SECRET + /*'&callback_method=postMessage' +*/ '&return_url=' + process.env.SERVER_URL + process.env.TRELLO_CALLBACK)
     })

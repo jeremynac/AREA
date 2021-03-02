@@ -1,12 +1,4 @@
 [{
-        "_id": { "$oid": "603d07c0c73c4e00141720ed" },
-        "service": { "$oid": "601034a8779c01000abdc6b7" },
-        "access_token": "ya29.A0AfH6SMC66POutzVBdex02HrIG_Ok8JpB82qIlUcIWuvJIsB0MYY15dvJZmTgFE5fnOyV4hgIgQkxYg7tZ8Coy0B8cfQwW3s5TWNIuK80F96lpOf4HP8tY_W5uOxuIT5Ac2-g9iMISO8sOoJJlOmMnOtMxVYv",
-        "refresh_token": "1//03cF0Yc0fDmyfCgYIARAAGAMSNwF-L9IrIg3r3PbltUmxiapqtMKk_7T-ePrghVkWN-MJtkuF2M-2xfLSBTDdkoyXZONJ6D3r7TM",
-        "__v": 0,
-        "user": { "$oid": "601951238d07f000145f2e99" }
-    },
-    {
         "_id": { "$oid": "603d08c7c73c4e00141720f0" },
         "service": { "$oid": "602bc4fd7233e600087eb9e0" },
         "access_token": "bLv0RSQVKNf4clsBsSMb4fqTecZTpO",
@@ -35,13 +27,37 @@
         "user": { "$oid": "601951238d07f000145f2e99" }
     },
     {
-        "_id": { "$oid": "603d08d7c73c4e00141720f3" },
-        "service": { "$oid": "603b9c16f4930e000987dfaa" },
-        "access_token": "9038afc01813dee82df4aa605ef35e7561e2d8634f32fac452045865bd4a7398",
-        "username": "jeremynaccache1",
-        "email": "jeremy.naccache@epitech.eu",
-
+        "_id": { "$oid": "603e1be3f297170030faf820" },
+        "service": { "$oid": "5fff3620c37c77753705f766" },
+        "access_token": "EAAGfbxMwpKIBABVuI7fFRV22D2lZAdLK1vfcOJVLPfILo6uVKQMdw37JwevnZCp4jCA4QeiaVJt9BB94BaHmHvse2D8EA7YpceSRQ8ZC4YlgO3KkQFwFEa7qfWW7YCrIQvZCNaQUWclZA3QagaXnTZBB774OD8LsOtjQ52rhf0AXeY2KWrziUCpjwfo8ksENQZD",
         "__v": 0,
-        "user": { "$oid": "603d08d7c73c4e00141720f4" }
+        "user": { "$oid": "601951238d07f000145f2e99" }
+    },
+    {
+        "_id": { "$oid": "603e30a2a7eb0a0030b16598" },
+        "service": { "$oid": "601034a8779c01000abdc6b7" },
+        "access_token": "ya29.A0AfH6SMAXymETSsaVDpwIsrS5TaTWJ7HqJfRDahiaaxElsPARa_HkX3AzU9zt_gOQvJbrHGjX8nbDJ7PYwoYsWg9w5dj0R_mwJm-avxLI_L1FsbP9yuZ3KrMKQInFN37ApaATlsq2vyLYBKfVpRYsTru0BgdV",
+        "refresh_token": "1//03yPwovoY79PjCgYIARAAGAMSNwF-L9IrRlUkgJ6GmApGf309ATehGQpCEhTU2_jnsrSx8fUEUsRESi_8oDywq3_OMAMn1t6xDeE",
+        "expire": 3599,
+        "__v": 0,
+        "user": { "$oid": "601951238d07f000145f2e99" }
+    },
+    {
+        "_id": { "$oid": "603d07c0c73c4e00141720ed" },
+        "service": { "$oid": "601034a8779c01000abdc6b7" },
+        "access_token": "ya29.A0AfH6SMC66POutzVBdex02HrIG_Ok8JpB82qIlUcIWuvJIsB0MYY15dvJZmTgFE5fnOyV4hgIgQkxYg7tZ8Coy0B8cfQwW3s5TWNIuK80F96lpOf4HP8tY_W5uOxuIT5Ac2-g9iMISO8sOoJJlOmMnOtMxVYv",
+        "refresh_token": "1//03cF0Yc0fDmyfCgYIARAAGAMSNwF-L9IrIg3r3PbltUmxiapqtMKk_7T-ePrghVkWN-MJtkuF2M-2xfLSBTDdkoyXZONJ6D3r7TM",
+        "__v": 0,
+        "user": { "$oid": "601951238d07f000145f2e99" }
+    },
+    {
+        "_id": { "$oid": "603e68c2dd911500b4538e84" },
+        "service": { "$oid": "603b9c16f4930e000987dfaa" },
+        "access_token": "13d52d2b6b08d774b3a2776dc860f501a3f20b50c7f579d85c1cbd89e73e2af7",
+        "username": "jeremynaccache1",
+        "email": null,
+        "service_id": "5f68a339ea6ea5767890c765",
+        "__v": 0,
+        "user": { "$oid": "601951238d07f000145f2e99" }
     }
 ]

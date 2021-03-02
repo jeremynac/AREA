@@ -35,16 +35,11 @@ const TrellStrategy = new TrelloStrategy({
         consumerSecret: process.env.TRELLO_CLIENT_SECRET,
         callbackURL: process.env.TRELLO_CALLBACK,
         passReqToCallback: true,
-        trelloParams: {
-            scope: "read,write,account",
-            name: "MyApp",
-            expiration: "never",
-        },
     },
     async(req, token, tokenSecret, profile, cb) => {
-        console.log(token, tokenSecret, profile)
+        console.log(token, tokenSecret, profile, req.session)
         profile.access_token = token;
-        let processed = await processAccount(req.query.state, 'trello', profile);
+        let processed = await processAccount(req.session.user_id, 'trello', profile);
         console.log('ok', processed)
         let user = await User.findById(processed.user_id)
         return cb(null, user, { value: processed.new_account })

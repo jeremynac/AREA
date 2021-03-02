@@ -78,7 +78,9 @@ export default function PersistentDrawerLeft() {
   const isMenuOpen = Boolean(anchorEl);
   const handleMobileMenuClose = () => { setMobileMoreAnchorEl(null); };
   const handleMenuClose = () => { setAnchorEl(null); handleMobileMenuClose(); };
-
+  const handleClick = (url) => {
+    window.open(process.env.REACT_APP_SERVER_URL + url + '/' + localStorage.user_id)
+  }
   const menuId = 'primary-search-account-menu';
   //Profile drop down menu
 
@@ -127,6 +129,13 @@ export default function PersistentDrawerLeft() {
             </CardContent>
             <CardActions>
               <Button size="small">Learn More</Button>
+              <Button size="small" onClick={()=>{handleClick('/auth/go-login')}}>Google</Button>
+              <Button size="small" onClick={()=>{handleClick('/auth/fb-login')}}>Facebook</Button>
+
+              <Button size="small" onClick={()=>{handleClick('/auth/di-login')}}>Discord</Button>
+              <Button size="small" onClick={()=>{handleClick('/auth/twitch-login')}}>Twitch</Button>
+              <Button size="small" onClick={()=>{handleClick('/auth/gh-login')}}>Github</Button>
+              <Button size="small" onClick={()=>{handleClick('/auth/trello-login')}}>trello</Button>
             </CardActions>
           </Card>
         </Grid>
