@@ -72,11 +72,14 @@
     },
     {
         "_id": { "$oid": "603e3bfaa7b0800006576944" },
-        "name": "github: create tag",
-        "type": "github-tag",
-        "description": "TODO",
+        "name": "github: fork",
+        "type": "github-fork",
+        "description": "Forks to owners' repo",
         "parameters": [{
-            "name": "tag",
+            "name": "path_to_owner",
+            "type": "String"
+        }, {
+            "name": "path_to_repo",
             "type": "String"
         }],
         "service": { "$oid": "6037afafdcacf70009005f1b" }
