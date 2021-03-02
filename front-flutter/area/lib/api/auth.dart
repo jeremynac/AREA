@@ -8,8 +8,10 @@ import 'package:http/http.dart' as http;
 Future<bool> isAuth() async {
   final prefs = await SharedPreferences.getInstance();
   final cookie = prefs.getString('cookie');
+  final userIdStorage = prefs.getString('user_id');
   headers['Content-Type'] = 'application/json; charset=UTF-8';
   headers['cookie'] = cookie;
+  userID = userIdStorage;
 
   final response = await http.get(urlArea + '/auth/isauth', headers: headers);
 
@@ -26,6 +28,8 @@ void disconnect() async {
   final prefs = await SharedPreferences.getInstance();
   prefs.remove('cookie');
   headers.remove('cookie');
+  prefs.remove('userID');
+  userID = "";
 }
 
 Future<bool> fetchLogin(String username, String password) async {
@@ -73,5 +77,9 @@ void updateCookie(http.Response response) async {
     headers['cookie'] = (index == -1) ? rawCookie : rawCookie.substring(0, index);
     final prefs = await SharedPreferences.getInstance();
     prefs.setString('cookie', (index == -1) ? rawCookie : rawCookie.substring(0, index));
+
+    Map<String, dynamic> areas = jsonDecode(response.body);
+    userID = areas['userID'];
+    prefs.setString('user_id', userID);
   }
 }

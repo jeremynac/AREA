@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:area/constants.dart';
+import './components/body.dart';
 
 class MyAreas extends StatefulWidget {
   MyAreas({Key key}) : super(key: key);
@@ -22,10 +23,7 @@ class _MyAreas extends State<MyAreas> {
         backgroundColor: kPrimaryLightColor,
       ),
       backgroundColor: Colors.white,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[],
-      ),
+      body: Body(),
     );
   }
 }

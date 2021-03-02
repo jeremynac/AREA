@@ -66,15 +66,8 @@ import 'package:http/http.dart' as http;
 
 Future<Map<String, dynamic>> getUserInfo() async {
   final response = await http.get(urlArea + '/user/info', headers: headers);
-  /*Map<String, dynamic> test = {
-    "email": "test@test.fr",
-    "firstname": "Bob",
-    "lastname": "Godeau",
-    "username": "Kevindu95"
-  };*/
 
   Map<String, dynamic> userinfo = jsonDecode(response.body);
-  //Map<String, dynamic> userinfo = jsonDecode(test);
   if (response.statusCode == 200) {
     return userinfo;
   } else {
@@ -85,10 +78,9 @@ Future<Map<String, dynamic>> getUserInfo() async {
 
 Future<Map<String, dynamic>> getServiceAllStatus() async {
   final response = await http.get(urlArea + '/service/all/status', headers: headers);
-  //return exampleServiceAllStatus;
 
   Map<String, dynamic> userinfo = jsonDecode(response.body);
-  // Map<String, dynamic> userinfo = jsonDecode(exampleServiceAllStatus);
+  //print(userinfo);
   if (response.statusCode == 200) {
     return userinfo;
   } else {
@@ -96,3 +88,17 @@ Future<Map<String, dynamic>> getServiceAllStatus() async {
     return userinfo;
   }
 }
+
+Future<Map<String, dynamic>> getMyAreas() async {
+  final response = await http.get(urlArea + '/user/scripts', headers: headers);
+
+  Map<String, dynamic> areas = jsonDecode(response.body);
+  if (response.statusCode == 200) {
+    return areas;
+  } else {
+    areas['error'] = true;
+    return areas;
+  }
+}
+
+//
