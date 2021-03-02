@@ -77,7 +77,8 @@ Future<Map<String, dynamic>> getUserInfo() async {
 }
 
 Future<Map<String, dynamic>> getServiceAllStatus() async {
-  final response = await http.get(urlArea + '/service/all/status', headers: headers);
+  final response =
+      await http.get(urlArea + '/service/all/status', headers: headers);
 
   Map<String, dynamic> userinfo = jsonDecode(response.body);
   //print(userinfo);
@@ -89,6 +90,7 @@ Future<Map<String, dynamic>> getServiceAllStatus() async {
   }
 }
 
+/*
 Future<Map<String, dynamic>> getMyAreas() async {
   final response = await http.get(urlArea + '/user/scripts', headers: headers);
 
@@ -99,6 +101,6 @@ Future<Map<String, dynamic>> getMyAreas() async {
     areas['error'] = true;
     return areas;
   }
-}
+} */
 
 //

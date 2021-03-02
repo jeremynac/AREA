@@ -28,6 +28,7 @@ dependencies:
   video_player:
   transparent_image:
   photo_view: ^0.10.2
+  pull_to_refresh: ^1.6.3
   http:
   uni_links:
   url_launcher:

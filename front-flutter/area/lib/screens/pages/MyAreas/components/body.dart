@@ -1,6 +1,6 @@
-import 'package:area/api/profile.dart';
-
+import 'package:area/api/scripts.dart';
 import 'package:flutter/material.dart';
+import './areaCard.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -13,7 +13,7 @@ class _BodyState extends State<Body> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return FutureBuilder(
-      future: getServiceAllStatus(),
+      future: getUserScripts(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           return Container(
@@ -23,7 +23,7 @@ class _BodyState extends State<Body> {
                 SingleChildScrollView(
                   child: Column(
                     children: [
-                      //for (var i in snapshot.data['services']) ServiceCard(data: i),
+                      for (var i in snapshot.data['scripts']) AreaCard(data: i),
                     ],
                   ),
                 ),
