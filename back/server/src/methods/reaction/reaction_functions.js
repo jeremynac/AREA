@@ -25,8 +25,16 @@ async function filterReaction(account, parameters, script_vars, reaction_type) {
             return reactGmailSendEmail(account, parameters, script_vars)
         case 'gmail-send-summary':
             return reactGmailSendSummary(account, parameters, script_vars)
+        case 'twitch-clip-stream':
+            return twitchClipStream(account, parameters, script_vars);
+        case 'discord-send-message':
+            return discordSendMessage(account, parameters, script_vars);
         case 'facebook-post-page':
             return reactFacebookPostPage(account, parameters, script_vars)
+        case 'github-tag':
+            return githubTag(account, parameters, script_vars);
+        case 'trello-label':
+            return trelloLabel(account, parameters, script_vars)
         default:
             return false
     }
