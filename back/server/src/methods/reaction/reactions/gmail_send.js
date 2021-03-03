@@ -38,7 +38,7 @@ function sendMessage(from, auth, to, content) {
 async function reactGmailSendEmail(account, parameters, script_vars) {
     const oAuth2Client = new google.auth.OAuth2();
     oAuth2Client.setCredentials({ access_token: account.access_token })
-    sendMessage(account.email, oAuth2Client, parameters.to, parameters.content)
+    sendMessage(account.email, oAuth2Client, parameters.to, parameters.content || script_vars.action_result.text)
         // oAuth2Client.setCredentials(account.refresh_token)
     const gmail = google.gmail({ version: "v1", auth: oAuth2Client })
 

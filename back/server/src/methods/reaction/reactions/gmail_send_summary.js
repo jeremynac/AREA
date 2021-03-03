@@ -41,7 +41,13 @@ function makeBody(to, from, subject, message) {
 }
 
 async function sendMessage(from, auth, to, content) {
-    let summary = await summarizeText(content)
+    let summary = content
+    try {
+        summary = await summarizeText(content)
+    } catch (e) {
+        console.log(e)
+        summary = content
+    }
     var raw = makeBody(to, from, 'summary', summary);
     const gmail = google.gmail({ version: "v1", auth: auth })
     gmail.users.messages.s

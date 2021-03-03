@@ -7,6 +7,15 @@ const { checkConnected, getAccountForService } = require('@account/account_funct
 const { checkGmailReceived } = require('@action_triggers/gmail_received')
 const { checkGmailReceivedMatch } = require('@action_triggers/gmail_received_match')
 const { checkFacebookMentionned } = require('@action_triggers/facebook_mentionned')
+const { checkYoutubeVideoReceived } = require('@action_triggers/youtube_new_video')
+const { twitchStreamStarted } = require('@action_triggers/twitch_stream_started')
+const { twitchChannelFollowed } = require('@action_triggers/twitch_channel_followed')
+const { discordRecievedMessage } = require('@action_triggers/discord_recieved_message')
+const { githubIssue } = require('@action_triggers/github_issue')
+const { trelloNotif } = require('@action_triggers/trello_notif')
+
+
+
 
 async function activateAction(accounts, parameters, script_vars, last, action_type) {
     let account_check = await getActionAccount(accounts, action_type)
