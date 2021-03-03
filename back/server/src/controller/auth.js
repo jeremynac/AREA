@@ -286,7 +286,7 @@ module.exports = function(app) {
         // console.log(req.params.user_id);
         console.log('test')
         passport.authenticate('twitch', {
-            scope: ['user_read'],
+            scope: ['user_read', 'clips:edit'],
             state: req.params.user_id
         })(req, res)
     })

@@ -10,21 +10,21 @@ async function trelloNotif(account, parameters, script_vars, last_activation) {
         console.log("Success : \n" + response.data);
         if (script_vars.action_result) {
             console.log("NOTIF TRELLO : " + response.data.length, script_vars.action_result)
-            if (script_vars.action_result.nb_notif < response.data.length) {
+            if (script_vars.action_result.last_notif && script_vars.action_result.last_notif.id != response.data[response.data.length - 1].id) {
                 script_vars.action_result = {
-                    'nb_notif': response.data.length,
+                    'last_notif': response.data[response.data.length - 1],
                     'text': "Notification received on trello"
                 }
                 return true
             } else {
                 script_vars.action_result = {
-                    'nb_notif': response.data.length
+                    'last_notif': response.data[response.data.length - 1]
                 }
                 return false
             }
         }
         script_vars.action_result = {
-            'nb_notif': response.data.length
+            'last_notif': response.data[response.data.length - 1]
         }
         return false
     }).catch(e => {
