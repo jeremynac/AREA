@@ -31,7 +31,7 @@
         "type": "twitch-clip-stream",
         "description": "Clips on a given stream",
         "parameters": [{
-            "name": "broadcaster_id",
+            "name": "broadcaster_name",
             "type": "String"
         }],
         "service": { "$oid": "60377bbaa7a1e900072798d6" }

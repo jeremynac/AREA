@@ -8,7 +8,7 @@ const axios = require('axios')
 function getHeader(client_id, account) {
     return {
         headers: {
-            'Authorization': account.access_token,
+            'Authorization': "Bearer " + account.access_token,
             'client-id': client_id
         }
     }
