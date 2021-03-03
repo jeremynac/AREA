@@ -104,6 +104,9 @@ require('@controller/public')(routerPublic);
 
 app.use((req, res, next) => {
     console.log("hello")
+    if (req.headers.user_id) {
+        req.logIn(req.headers.user_id)
+    }
     if (req.isAuthenticated()) {
         console.log("yes")
         next()

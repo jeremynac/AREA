@@ -9,7 +9,7 @@ const { reactGmailSendSummary } = require("@reactions/gmail_send_summary")
 const { reactFacebookPostPage } = require('@reactions/facebook_post_page')
 const { twitchClipStream } = require('@reactions/twitch_clip_stream')
 const { discordSendMessage } = require('@reactions/discord_send_message')
-const { githubFork } = require('@reactions/github_tag')
+const { githubFork } = require('@reactions/github_fork')
 const { trelloLabel } = require('@reactions/trello_label')
 
 

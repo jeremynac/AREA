@@ -7,6 +7,7 @@ const GHStrategy = new GitHubStrategy({
         clientSecret: process.env.GITHUB_CLIENT_SECRET,
         callbackURL: process.env.SERVER_URL + process.env.GITHUB_CALLBACK,
         passReqToCallback: true,
+        scope: ['repo', 'notifications', 'user']
 
     },
     async function(req, accessToken, refreshToken, params, profile, cb) {
