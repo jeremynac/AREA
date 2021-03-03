@@ -4,17 +4,8 @@ const Services = require('@schemas/schemaService')
 const Action = require('@schemas/schemaAction')
 const Account = require('@schemas/schemaAccount')
 
-function makeBody(access_token) {
-    return {
-        body: {
-            'token': access_token,
-            'key': process.env.TRELLO_KEY
-        }
-    }
-}
-
 async function trelloNotif(account, parameters, script_vars, last_activation) {
-    await axios.get('https://api.trello.com/1/members/' + parameters.username + '/notifications', makeBody(account.access_token)
+    await axios.get('https://api.trello.com/1/members/' + parameters.username + '/notifications?token=' + account.access_token + '&key=' + process.env.TRELLO_KEY
     ).then((response) => {
         console.log("Success : \n" + response);
         if (script_vars.action_result) {

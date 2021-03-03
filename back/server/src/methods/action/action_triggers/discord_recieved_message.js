@@ -6,7 +6,7 @@ const Account = require('@schemas/schemaAccount')
 
 function makeBody(access_token) {
     return {
-        header: {
+        headers: {
             'Authorization': `token ${access_token}`,
             'client-id': process.env.DISCORD_CLIENT_ID
         }

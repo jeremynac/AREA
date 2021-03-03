@@ -6,7 +6,7 @@ const Account = require('@schemas/schemaAccount')
 
 function getHeaderJson(access_token) {
     return {
-        header: {
+        headers: {
             'accept': "application/vnd.github.v3+json",
             'Authorization': `token ${access_token}`,
             'client-id': process.env.GITHUB_CLIENT_ID
