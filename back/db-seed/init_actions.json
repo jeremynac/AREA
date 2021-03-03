@@ -90,9 +90,9 @@
     "_id": { "$oid": "603e3a68a7b0800006576940" },
     "name": "github: issue keyword",
     "type": "github-issue",
-    "description": "TODO",
+    "description": "Notif when a issue found by keyword is open/closed",
     "parameters": [{
-        "name": "keyword",
+        "name": "issue_keyword",
         "type": "String"
     }],
     "service": { "$oid": "6037afafdcacf70009005f1b" }
@@ -101,9 +101,9 @@
     "_id": { "$oid": "603e3a6aa7b0800006576942" },
     "name": "Trello: recieved notif",
     "type": "trello-notif",
-    "description": "TODO",
+    "description": "Activates everytime a Notif is given to the user",
     "parameters": [{
-        "name": "keyword",
+        "name": "username",
         "type": "String"
     }],
     "service": { "$oid": "603b9c16f4930e000987dfaa" }
