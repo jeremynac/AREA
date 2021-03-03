@@ -152,7 +152,7 @@ export default function SignInSide() {
               <Grid container>
               <Grid item >
                 <Link href="#" variant="body2" onClick={navigateTo}>
-                  Login Page
+                  Already have an account? Sign in
                 </Link>
               </Grid>
             </Grid>

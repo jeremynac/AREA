@@ -68,7 +68,6 @@ const TwitchButton = withStyles((theme) => ({
     },
 }))(Button);
 
-
 const SignInButton = withStyles((theme) => ({
   root: {
     color: theme.palette.getContrastText(purple[500]),
@@ -112,4 +111,15 @@ const LoginTextField = withStyles({
   },
 })(TextField);
 
-export {GoogleButton, DiscordButton, FacebookButton, TrelloButton,GithubButton,TwitchButton, SignInButton,RegisterButton,LoginTextField  } ;
+const AddButton = withStyles((theme) => ({
+  root: {
+    color: theme.palette.getContrastText(purple[500]),
+    backgroundColor: "#6441a5",
+    '&:hover': {
+      backgroundColor: "#513586",
+    },
+    borderRadius: "40px"
+  },
+}))(Button);
+
+export {GoogleButton, DiscordButton, FacebookButton, TrelloButton,GithubButton,TwitchButton, SignInButton,RegisterButton,LoginTextField, AddButton  } ;

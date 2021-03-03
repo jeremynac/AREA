@@ -1,20 +1,30 @@
-import React, {Component} from 'react';
+import React, {Component, useState, useEffect, useStyles} from 'react';
 import { green } from '@material-ui/core/colors';
 import {Button, Typography, Fab} from '@material-ui/core';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-class LoginCheck extends Component {
+import API from '../auth/requests'
 
-    constructor(props) {
-        super(props)
-        this.state = {
-            isLoggedIn: false
-        }
-    }
+
+const LoginCheck = () => {
     
-    render() {
-            return this.state.isLoggedIn &&  <CheckCircleIcon style={{ color: green[500] }}/> 
-    }
-}
+    const [myservices, setServices] = useState([]);
+    useEffect(()=> {
+        async function fetchAPI() {
+            console.log("Fetching Login...")
+            API.getServiceAllStatus().then(res=>{
+                console.log(res)
+                if (res.tournaments !== undefined) {
+                    setServices(res.services)
+                }
+            }).catch(e=>{
+                console.log(e)
+            })
+        };
+        console.log("print 2")
+        fetchAPI()
+    }, []);
+    return (myservices[1] && myservices[1].connected ? "myservices[1].connected && <CheckCircleIcon style={{ color: green[500] }}/> " : "")
+};
 
+export default LoginCheck;
 
-export {LoginCheck } ;

@@ -1,5 +1,9 @@
 import axios from 'axios';
 axios.defaults.withCredentials = true
+axios.defaults.headers = {
+    user_id: localStorage.userID
+}
+let url = "https://area.gen-host.fr"
 
 export default {
     //login API
@@ -9,7 +13,7 @@ export default {
         const body = { username: email, password: password };
         try {
           console.log('url', process.env.REACT_APP_SERVER_URL)
-          const { data: response, status: statusid } = await axios.post(process.env.REACT_APP_SERVER_URL + '/auth/login', body);
+          const { data: response, status: statusid } = await axios.post(url + '/auth/login', body);
             if (statusid === 200) {
                 console.log("logged in", response.firstname, response.lastname)
                 localStorage.setItem("firstname", response.firstname);
@@ -17,6 +21,9 @@ export default {
                 localStorage.setItem("email", email);
                 // localStorage.setItem("teacher", response.teacher);
                 localStorage.setItem("userID", response.userID);
+                axios.defaults.headers = {
+                    user_id: localStorage.userID
+                }
                 return true
             }
         } catch (err) {
@@ -33,7 +40,7 @@ export default {
         try {
         const body = { username: email, password: password, firstname: firstname, lastname: lastname, /* teacher: teacher */ };
         console.log('url', process.env.REACT_APP_SERVER_URL)
-            const { data: response, status: statusid } = await axios.post(process.env.REACT_APP_SERVER_URL + '/auth/register', body);
+            const { data: response, status: statusid } = await axios.post('/auth/register', body);
             console.log('url', process.env.SERVER_URL)
             if (statusid === 200) {
                 // localStorage.setItem("token", response.user.token);
@@ -89,36 +96,13 @@ export default {
         localStorage.clear();
         window.location = "/";
     },
-    getAssignment: async function(id) {
-        let res = await axios.get(process.env.SERVER_URL + "/homework/assignment/getAssignment?assignmentID=" + id);
-        if (res.status === 200) {
-            return res.data;
-        } else {
-            return null;
+    getServiceAllStatus: async function() {
+        try {
+            let res = await axios.get(url + '/service/all/status', {withCredentials: true});
+            return res;
+        } catch (err) {
+            return err;
         }
     },
-    getUserAssignments: async function() {
-        let res = await axios.get(process.env.SERVER_URL + "/user/getUserAssignments");
-        if (res.status === 200) {
-            return res.data.assignments;
-        } else {
-            return null;
-        }
-    },
-    getAnswers: async function(id) {
-        let res = await axios.get(process.env.SERVER_URL + "/homework/answersheet/getAnswerSheet?answerSheetID=" + id);
-        if (res.status === 200) {
-            return res.data.answers;
-        } else {
-            return null;
-        }
-    },
-    addAnswers: async function(answers, id) {
-        let res = await axios.post(process.env.SERVER_URL + "/answerSheet/addAnswerSheet", {answerSheetID: id, answers: answers});
-        if (res.status === 200) {
-            return res.data;
-        } else {
-            return null;
-        }
-    },
+
 };

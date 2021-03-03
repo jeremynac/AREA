@@ -1,9 +1,6 @@
 import React from 'react';
-import clsx from 'clsx';
-import './App.css';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import {CssBaseline,Typography,Button,MenuItem,Menu,Grid,Card,CardContent,CardActions} from '@material-ui/core';
-import NavigationBar from "../Components/navbar";
+import {Typography,Card,CardContent} from '@material-ui/core';
 
 const drawerWidth = 240;
 
@@ -13,14 +10,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PersistentDrawerLeft() {
+export default function AreaList() {
   const classes = useStyles();
   const theme = useTheme();
 
   return (
-    <div className={classes.root}>
-      <CssBaseline />
-    
-    </div>
+      <Card> 
+        <CardContent>
+            <Typography className={classes.title} color="textSecondary" gutterBottom>
+                AREA List
+            </Typography>
+            </CardContent>
+      </Card>
   );
 }

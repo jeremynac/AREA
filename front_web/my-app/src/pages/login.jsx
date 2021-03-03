@@ -53,9 +53,11 @@ export default function SignInSide() {
   const signin = async () => {
     console.log(username, password)
     let res = await API.login(username, password)
-    if (res) {
-      navigateToHome()
-    }
+    console.log("FETCH LOGIN");
+    console.log(res);
+    // if (res) {
+    //   navigateToHome()
+    // }
   }
 
   return (

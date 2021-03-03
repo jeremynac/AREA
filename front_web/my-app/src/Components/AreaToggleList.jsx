@@ -1,9 +1,10 @@
 import React from 'react';
 import clsx from 'clsx';
-import './App.css';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import {CssBaseline,Typography,Button,MenuItem,Menu,Grid,Card,CardContent,CardActions} from '@material-ui/core';
-import NavigationBar from "../Components/navbar";
+import {List,ListItem,ListItemText,Divider,Card} from '@material-ui/core';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import InboxIcon from '@material-ui/icons/Inbox';
+import DraftsIcon from '@material-ui/icons/Drafts';
 
 const drawerWidth = 240;
 
@@ -13,14 +14,29 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PersistentDrawerLeft() {
+function ListItemLink(props) {
+    return <ListItem button component="a" {...props} />;
+  }
+
+export default function AreaToggle() {
   const classes = useStyles();
   const theme = useTheme();
 
   return (
-    <div className={classes.root}>
-      <CssBaseline />
-    
-    </div>
+    <Card>
+        <List className={classes.root} subheader={<li />}>
+            {[0, 1, 2, 3, 4].map((sectionId) => (
+                    <li key={`section-${sectionId}`} className={classes.listSection}>
+                    <ul className={classes.ul}>
+                        {[0].map((item) => (
+                        <ListItem key={`item-${sectionId}-${item}`}>
+                            <ListItemText primary={`Item ${item}`} />
+                        </ListItem>
+                        ))}
+                    </ul>
+                </li>
+            ))}
+        </List>
+    </Card>
   );
 }

@@ -4,7 +4,8 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import {Paper, CssBaseline,Typography,ListItem,Button,MenuItem,Menu,Grid,Card,CardContent,CardActions} from '@material-ui/core';
 import NavigationBar from "../Components/navbar";
 import Axios from 'axios';
-
+import AreaToggle from "../Components/AreaToggleList";
+import AreaList from "../Components/AreaList";
 
 const drawerWidth = 240;
 
@@ -113,10 +114,10 @@ export default function PersistentDrawerLeft() {
         <div className={classes.drawerHeader} />
         <Grid container item spacing={3}>
           <Grid item xs={6}>
-            <Card className={classes.paper}>AREAS</Card>
+            <AreaList/>
           </Grid>
           <Grid item xs={3}>
-            <Paper className={classes.paper}>TOGGLE</Paper>
+            <AreaToggle/>
           </Grid>
           <Grid item xs={3} >
             <Card className={classes.root}>
@@ -125,7 +126,7 @@ export default function PersistentDrawerLeft() {
                   EPITECH AREA APK DOWNLOAD
                 </Typography>
                 <Button onClick={downloadfile}>DOWNLOAD</Button>
-            </CardContent>
+              </CardContent>
             </Card>
           </Grid>
         </Grid>
