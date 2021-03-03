@@ -1,13 +1,13 @@
 import React from 'react';
 import clsx from 'clsx';
-import { makeStyles,withStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import {CssBaseline,Typography,ListItem,Button,MenuItem,Menu,Grid,Card,CardContent,CardActions, Box} from '@material-ui/core';
 import NavigationBar from "../Components/navbar";
-import Fab from '@material-ui/core/Fab';
 import { ImGoogle, ImFacebook, ImGithub, ImTwitch, ImTrello } from "react-icons/im";
 import { FaDiscord } from "react-icons/fa";
-
 import {GoogleButton, DiscordButton, FacebookButton, TrelloButton,GithubButton,TwitchButton} from '../Components/Buttons';
+import { LoginCheck} from '../Components/LoginCheck';
+import { purple } from '@material-ui/core/colors';
 
 
 const drawerWidth = 240;
@@ -73,6 +73,9 @@ const useStyles = makeStyles((theme) => ({
   extendedIcon: {
     marginRight: theme.spacing(1),
   },
+  test: {
+    color: purple[500]
+  },
 }));
 
 function ListItemLink(props) {
@@ -130,20 +133,10 @@ export default function PersistentDrawerLeft() {
           <Grid item xs={3} spacing={3}>
               <Card  className={classes.root}>
                 <CardContent>
-                  <Typography variant="h5" color="textSecondary" gutterBottom>
-                    Profile 
-                  </Typography>
-                  <Typography variant="body1" component="h2">
-                    First Name : {localStorage.getItem("firstname")}
-
-                  </Typography>
-                  <Typography variant="body1" component="h2">
-                    Last Name : {localStorage.getItem("lastname")}
-
-                  </Typography>
-                  <Typography className={classes.pos} color="textSecondary">
-                    Username : {localStorage.getItem("userID")}
-                  </Typography>
+                  <Typography variant="h5" color="textSecondary" gutterBottom> Profile </Typography>
+                  <Typography variant="body1" component="h2"> First Name : {localStorage.getItem("firstname")} </Typography>
+                  <Typography variant="body1" component="h2"> Last Name : {localStorage.getItem("lastname")} </Typography>
+                  <Typography className={classes.pos} color="textSecondary"> Username : {localStorage.getItem("userID")} </Typography>
                   <Typography variant="body1" component="p">
                     Email : {localStorage.getItem("email")}
                   </Typography>
@@ -154,12 +147,12 @@ export default function PersistentDrawerLeft() {
               </Card>
           </Grid>
           <Grid item xs={3} spacing={3}>
-            
               <Card className={classes.root}>
                 <CardActions>
                   <GoogleButton color="contained" variant="extended" onClick={() => openInNewTab((process.env.REACT_APP_SERVER_URL) + '/auth/go-login' + '/' + (localStorage.getItem("userID")) )} size="small"> 
                   <ImGoogle className={classes.extendedIcon} />
                   Login to google</GoogleButton>
+                  <LoginCheck/>
                 </CardActions>
               </Card>
           </Grid>
@@ -169,6 +162,7 @@ export default function PersistentDrawerLeft() {
                   <DiscordButton color="contained" variant="extended" onClick={() => openInNewTab((process.env.REACT_APP_SERVER_URL) + '/auth/di-login' + '/' + (localStorage.getItem("userID")) )} size="small">
                   <FaDiscord className={classes.extendedIcon} />
                   Login to Discord</DiscordButton>
+                  <LoginCheck  style={{ justifyContent: 'flex-end'}}/>
                 </CardActions>
               </Card>
           </Grid>

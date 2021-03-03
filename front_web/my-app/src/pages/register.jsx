@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import './App.css';
-import { FormControlLabel, Paper, Avatar, Checkbox, Box, Link, Typography, Grid , TextField, CssBaseline , Button, makeStyles } from '@material-ui/core';
+import { FormControlLabel, Paper, Checkbox, Link, Typography, Grid , CssBaseline, makeStyles } from '@material-ui/core';
 import {useHistory} from "react-router-dom";
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import {SignInButton, LoginTextField} from '../Components/Buttons';
+import mainlogo from "../Components/Area.png"
 
 function Copyright() {
   return (
@@ -46,6 +47,13 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  Cardheader: {
+    width: "100px",
+    height: "100px"
+  },
+  Padding: {
+    padding: theme.spacing(6),
+  },
 }));
 
 export default function SignInSide() {
@@ -71,14 +79,12 @@ export default function SignInSide() {
       <Grid item xs={false} sm={4} md={7} className={classes.image} />
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <div className={classes.paper}>
-          <Avatar className={classes.avatar}>
-            <AccountCircleIcon />
-          </Avatar>
+          <img  src={mainlogo} className={classes.Cardheader} alt="fireSpot"/>
           <Typography component="h1" variant="h5">
             Register
           </Typography>
           {/* <form className={classes.form} noValidate> */}
-            <TextField
+            <LoginTextField
               variant="outlined"
               margin="normal"
               required
@@ -89,7 +95,7 @@ export default function SignInSide() {
               autoComplete="email"
               autoFocus
             />
-            <TextField
+            <LoginTextField
               variant="outlined"
               margin="normal"
               required
@@ -102,7 +108,7 @@ export default function SignInSide() {
             />
             <Grid container spacing={2}>
               <Grid item xs >
-                  <TextField
+                  <LoginTextField
                   variant="outlined"
                   margin="normal"
                   required
@@ -116,7 +122,7 @@ export default function SignInSide() {
               </Grid>
 
               <Grid item xs>
-                <TextField
+                <LoginTextField
                   variant="outlined"
                   margin="normal"
                   required
@@ -133,26 +139,23 @@ export default function SignInSide() {
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             />
-            <Button
-              // type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              // onClick={}
-              // className={classes.submit}
-            >
-              Sign In
-            </Button>
-            <Grid container>
-              <Grid item xs >
+              <SignInButton
+                // type="submit"
+                fullWidth
+                variant="contained"
+                className={classes.submit}
+                // onClick={}
+                // className={classes.submit}
+              >
+                Sign In
+              </SignInButton>
+              <Grid container>
+              <Grid item >
                 <Link href="#" variant="body2" onClick={navigateTo}>
-                  Login
+                  Login Page
                 </Link>
               </Grid>
             </Grid>
-            <Box mt={5}>
-              <Copyright />
-            </Box>
           {/* </form> */}
         </div>
       </Grid>

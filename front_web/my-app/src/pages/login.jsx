@@ -1,23 +1,11 @@
 import React, { useState } from "react";
 import './App.css';
 import { FormControlLabel, Paper, Avatar, Checkbox, Box, Link, Typography, Grid , TextField, CssBaseline , Button, makeStyles } from '@material-ui/core';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import {useHistory} from "react-router-dom";
+import mainlogo from "../Components/Area.png"
+import {SignInButton, LoginTextField} from '../Components/Buttons';
 
 import API from '../auth/requests'
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -48,6 +36,10 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  Cardheader: {
+    width: "100px",
+    height: "100px"
+  }
 }));
 
 export default function SignInSide() {
@@ -72,13 +64,11 @@ export default function SignInSide() {
       <Grid item xs={false} sm={4} md={7} className={classes.image} />
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <div className={classes.paper}>
-          <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
-          </Avatar>
+          <img  src={mainlogo} className={classes.Cardheader} alt="fireSpot"/>
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-            <TextField
+            <LoginTextField
               variant="outlined"
               margin="normal"
               required
@@ -90,7 +80,7 @@ export default function SignInSide() {
               autoFocus
               onChange={(e)=>{setUsername(e.target.value)}}
             />
-            <TextField
+            <LoginTextField
               variant="outlined"
               margin="normal"
               required
@@ -106,32 +96,23 @@ export default function SignInSide() {
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             />
-            <Button
+            <SignInButton
               // type="submit"
               fullWidth
               variant="contained"
-              color="primary"
               className={classes.submit}
               // onClick={navigateToHome}
               onClick={()=> {signin()}}
             >
               Sign In
-            </Button>
+            </SignInButton>
             <Grid container>
-              <Grid item xs >
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
               <Grid item>
                 <Link href="#" variant="body2" onClick={navigateTo}>
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
             </Grid>
-            <Box mt={5}>
-              <Copyright />
-            </Box>
         </div>
       </Grid>
     </Grid>

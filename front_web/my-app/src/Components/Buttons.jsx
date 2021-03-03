@@ -1,8 +1,6 @@
-import React from 'react';
-import clsx from 'clsx';
-import { makeStyles,withStyles, useTheme } from '@material-ui/core/styles';
+import {withStyles } from '@material-ui/core/styles';
 import { green, purple } from '@material-ui/core/colors';
-import {Button} from '@material-ui/core';
+import {Button, TextField} from '@material-ui/core';
 
 const GoogleButton = withStyles((theme) => ({
     root: {
@@ -71,4 +69,47 @@ const TwitchButton = withStyles((theme) => ({
 }))(Button);
 
 
-export {GoogleButton, DiscordButton, FacebookButton, TrelloButton,GithubButton,TwitchButton  } ;
+const SignInButton = withStyles((theme) => ({
+  root: {
+    color: theme.palette.getContrastText(purple[500]),
+    backgroundColor: purple[500],
+    '&:hover': {
+      backgroundColor: purple[700],
+    },
+    borderRadius: "20px"
+  },
+}))(Button);
+
+const RegisterButton = withStyles((theme) => ({
+  root: {
+    color: theme.palette.getContrastText(purple[500]),
+    backgroundColor: purple[500],
+    '&:hover': {
+      backgroundColor: purple[700],
+    },
+  },
+}))(Button);
+
+const LoginTextField = withStyles({
+  root: {
+    '& label.Mui-focused': {
+      color: 'purple',
+    },
+    '& .MuiInput-underline:after': {
+      borderBottomColor: 'purple',
+    },
+    '& .MuiOutlinedInput-root': {
+      '& fieldset': {
+        borderColor: 'purple',
+      },
+      '&:hover fieldset': {
+        borderColor: 'purple',
+      },
+      '&.Mui-focused fieldset': {
+        borderColor: 'purple',
+      },
+    },
+  },
+})(TextField);
+
+export {GoogleButton, DiscordButton, FacebookButton, TrelloButton,GithubButton,TwitchButton, SignInButton,RegisterButton,LoginTextField  } ;

@@ -21,10 +21,10 @@ import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import { ImRss ,ImLibrary, ImFacebook2, ImOnedrive, ImMail4, ImClock2 } from "react-icons/im";
+import { ImLibrary, ImFacebook2 } from "react-icons/im";
 import {useHistory} from "react-router-dom";
 import { green, purple } from '@material-ui/core/colors';
-
+import SettingsIcon from '@material-ui/icons/Settings';
 
 
 const drawerWidth = 240;
@@ -116,11 +116,6 @@ export default function PersistentDrawerLeft() {
   const handleProfileMenuOpen = (event) => {  setAnchorEl(event.currentTarget); };
 
   const navigateToEpitech = () => history.push('/Epitech');
-  const navigateToFacebook = () => history.push('/Facebook');
-  const navigateToRSS = () => history.push('/RSS');
-  const navigateToOneDrive = () => history.push('/OneDrive');
-  const navigateToOutlook = () => history.push('/Outlook');
-  const navigateToTimer = () => history.push('/Timer');
   const navigateToProfile = () => history.push('/Profile');
 
 
@@ -191,28 +186,13 @@ export default function PersistentDrawerLeft() {
       <List component="nav" aria-label="main mailbox folders">
         <ListItem button onClick={navigateToEpitech} >
           <ListItemIcon> <ImLibrary /> </ListItemIcon>
-          <ListItemText primary="Epitech" />
+          <ListItemText primary="Profile" />
         </ListItem>
-        <ListItem button onClick={navigateToFacebook} >
-          <ListItemIcon> <ImFacebook2 /> </ListItemIcon>
-          <ListItemText primary="Facebook" />
+        <ListItem button onClick={navigateToProfile} >
+          <ListItemIcon> <SettingsIcon /> </ListItemIcon>
+          <ListItemText primary="Settings" />
         </ListItem>
-        <ListItem button onClick={navigateToRSS} >
-          <ListItemIcon> <ImRss /> </ListItemIcon>
-          <ListItemText primary="RSS" />
-        </ListItem>
-        <ListItem button onClick={navigateToOneDrive} >
-          <ListItemIcon> <ImOnedrive /> </ListItemIcon>
-          <ListItemText primary="OneDrive" />
-        </ListItem>
-        <ListItem button onClick={navigateToOutlook} >
-          <ListItemIcon> <ImMail4 /> </ListItemIcon>
-          <ListItemText primary="Outlook" />
-        </ListItem>
-        <ListItem button onClick={navigateToTimer} >
-          <ListItemIcon> <ImClock2 /> </ListItemIcon>
-          <ListItemText primary="Timer" />
-        </ListItem>
+  
       </List>
       </Drawer>
     </div>

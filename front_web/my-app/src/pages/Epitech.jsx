@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import {CssBaseline,Typography,ListItem,Button,MenuItem,Menu,Grid,Card,CardContent,CardActions} from '@material-ui/core';
+import {Paper, CssBaseline,Typography,ListItem,Button,MenuItem,Menu,Grid,Card,CardContent,CardActions} from '@material-ui/core';
 import NavigationBar from "../Components/navbar";
 import Axios from 'axios';
 
@@ -11,6 +11,8 @@ const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
+    flexGrow: 1,
+
   },
   appBar: {
     transition: theme.transitions.create(['margin', 'width'], {
@@ -109,18 +111,24 @@ export default function PersistentDrawerLeft() {
         })}
       >
         <div className={classes.drawerHeader} />
-        <Grid container spacing={1}>
-        <Grid container item xs={12} spacing={3}>
-          <Card className={classes.root}>
-            <CardContent>
-              <Typography className={classes.title} color="textSecondary" gutterBottom>
-                EPITECH AREA APK DOWNLOAD
-              </Typography>
-              <Button onClick={downloadfile}>DOWNLOAD</Button>
-          </CardContent>
-          </Card>
+        <Grid container item spacing={3}>
+          <Grid item xs={6}>
+            <Card className={classes.paper}>AREAS</Card>
+          </Grid>
+          <Grid item xs={3}>
+            <Paper className={classes.paper}>TOGGLE</Paper>
+          </Grid>
+          <Grid item xs={3} >
+            <Card className={classes.root}>
+              <CardContent>
+                <Typography className={classes.title} color="textSecondary" gutterBottom>
+                  EPITECH AREA APK DOWNLOAD
+                </Typography>
+                <Button onClick={downloadfile}>DOWNLOAD</Button>
+            </CardContent>
+            </Card>
+          </Grid>
         </Grid>
-      </Grid>
       </main>
     </div>
   );
