@@ -56,25 +56,26 @@ module.exports = function(app) {
 
     app.put('/update', async(req, res) => {
         try {
+            console.log(req.body.script)
             let done = await updateScript(req.body.script._id, req.body.script)
             if (done) {
-                return res.status(200)
+                return res.status(200).json({ modified: true, id: req.body.script._id })
             } else {
-                return res.status(300)
+                return res.status(300).json({ modified: false, id: req.body.script._id })
             }
         } catch (e) {
             console.log(e)
-            return res.status(401)
+            return res.status(401).json({ error: true })
         }
     })
 
-    app.put('/delete', async(req, res) => {
+    app.get('/delete', async(req, res) => {
             try {
-                await Script.deleteOne({ _id: req.body.id })
-                return res.status(200)
+                await Script.deleteOne({ _id: req.query.id })
+                return res.status(200).json({ deleted: true })
             } catch (e) {
                 console.log(e)
-                return res.status(401)
+                return res.status(401).json({ deleted: false })
             }
         })
         // app.post('/add', async(req, res) => {

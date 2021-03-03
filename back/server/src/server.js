@@ -99,7 +99,7 @@ const routerPublic = express.Router();
 app.use("/auth", routerAuth);
 require("@controller/auth")(routerAuth);
 
-app.use('/public', routerAdmin);
+app.use('/public', routerPublic);
 require('@controller/public')(routerPublic);
 
 app.use((req, res, next) => {
