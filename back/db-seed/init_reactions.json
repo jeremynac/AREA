@@ -3,8 +3,7 @@
         "type": "gmail-send-email",
         "name": "send an email",
         "description": "send an email to someone",
-        "parameters": [
-            {
+        "parameters": [{
                 "type": "String",
                 "name": "to"
             },
@@ -20,12 +19,10 @@
         "type": "gmail-send-summary",
         "name": "send an summary by email",
         "description": "Take a text and send summarized version to your email",
-        "parameters": [
-            {
-                "type": "String",
-                "name": "to"
-            }
-        ],
+        "parameters": [{
+            "type": "String",
+            "name": "to"
+        }],
         "service": { "$oid": "601034a8779c01000abdc6b7" }
     },
     {
@@ -34,7 +31,7 @@
         "type": "twitch-clip-stream",
         "description": "Clips on a given stream",
         "parameters": [{
-            "name": "broadcaster_id",
+            "name": "broadcaster_name",
             "type": "String"
         }],
         "service": { "$oid": "60377bbaa7a1e900072798d6" }
@@ -47,13 +44,13 @@
         "parameters": [{
             "name": "content",
             "type": "String"
-        },{
+        }, {
             "name": "title",
             "type": "String"
-        },{
+        }, {
             "name": "description",
             "type": "String"
-        },{
+        }, {
             "type": "String",
             "name": "channel_name"
         }],
@@ -87,18 +84,18 @@
     {
         "_id": { "$oid": "603e3bfca7b0800006576946" },
         "name": "Trello: create label",
-        "type": "trello-notif",
+        "type": "trello-label",
         "description": "Creates a label with a given name on a given Board",
         "parameters": [{
             "name": "username",
             "type": "String"
-        },{
+        }, {
             "name": "label_name",
             "type": "String"
-        },{
+        }, {
             "name": "board_url",
             "type": "String"
-        },{
+        }, {
             "name": "color",
             "type": "String"
         }],

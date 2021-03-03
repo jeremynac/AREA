@@ -7,6 +7,11 @@ const { checkConnected, getAccountForService } = require('@account/account_funct
 const { reactGmailSendEmail } = require("@reactions/gmail_send")
 const { reactGmailSendSummary } = require("@reactions/gmail_send_summary")
 const { reactFacebookPostPage } = require('@reactions/facebook_post_page')
+const { twitchClipStream } = require('@reactions/twitch_clip_stream')
+const { discordSendMessage } = require('@reactions/discord_send_message')
+const { githubFork } = require('@reactions/github_tag')
+const { trelloLabel } = require('@reactions/trello_label')
+
 
 async function activateReaction(accounts, parameters, script_vars, reaction_type) {
     let account_check = await getReactionAccount(accounts, reaction_type)

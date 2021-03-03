@@ -35,6 +35,11 @@ const TrellStrategy = new TrelloStrategy({
         consumerSecret: process.env.TRELLO_CLIENT_SECRET,
         callbackURL: process.env.TRELLO_CALLBACK,
         passReqToCallback: true,
+        trelloParams: {
+            scope: "read,write",
+            name: "MyApp",
+            expiration: "never"
+        }
     },
     async(req, token, tokenSecret, profile, cb) => {
         console.log(token, tokenSecret, profile, req.session)

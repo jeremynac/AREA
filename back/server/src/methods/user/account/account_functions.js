@@ -47,14 +47,12 @@ async function checkConnected(user_id, service_id, need_account) {
 
 async function getAccountForService(accounts, service_id) {
     let account = accounts.find(a => {
-        console.log(a.service, service_id, JSON.stringify(a.service), JSON.stringify(service_id), typeof(a.service), typeof(service_id))
         if (JSON.stringify(a.service) === JSON.stringify(service_id)) {
             return true
         } else {
             return false
         }
     });
-    console.log(account, accounts, service_id)
     if (account) {
         return account;
     } else {

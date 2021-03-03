@@ -35,7 +35,7 @@ async function activateUserScripts(user_id) {
     try {
         let user = await User.findById(user_id).select('username accounts scripts').populate('scripts', 'activated')
         console.log("activating all scripts for user", user.username, user.scripts)
-        await checkAccountsValidity(user.accounts)
+            // await checkAccountsValidity(user.accounts)
         let accounts = await Account.find({ _id: { $in: user.accounts } })
         Promise.allSettled(
             user.scripts.map(
@@ -70,12 +70,11 @@ async function activateScript(script_id, accounts) {
         let action_happened = await activateAction(accounts, script.action_parameters, script_vars, script.last_activation, script.action.type)
         script.last_activation = Math.floor(Date.now() / 1000)
         script.variables = script_vars
-        await script.save()
+        await Script.updateOne({ "_id": script._id }, { $set: { variables: script_vars } })
         if (action_happened) {
             console.log("action happened, activating reaction")
             await activateReaction(accounts, script.reaction_parameters, script_vars, script.reaction.type)
-            script.variables = script_vars
-            await script.save()
+            await Script.updateOne({ "_id": script._id }, { $set: { variables: script_vars } })
             return true
         } else {
             console.log("action did not happen")

@@ -8,8 +8,8 @@ const axios = require('axios')
 function getHeader(client_id, access_token) {
     return {
         headers: {
-            'Authorization': `token ${access_token}`,
-            'client-id': `${client_id}`
+            'Authorization': "Bearer " + access_token,
+            'client-id': client_id
         }
     }
 }
@@ -24,11 +24,11 @@ async function twitchStreamStarted(account, parameters, script_vars, last_activa
         if (script_vars.action_result) {
             if (response.data[0].is_live && !script_vars.action_result.is_live) {
                 script_vars.action_result = {
-                    'is_live': response.data[0].is_live
+                    'is_live': response.data[0].is_live,
+                    'text': parameters.channel + " has started a stream !"
                 }
                 return true
-            }
-            else {
+            } else {
                 script_vars.action_result = {
                     'is_live': response.data[0].is_live
                 }
@@ -42,6 +42,8 @@ async function twitchStreamStarted(account, parameters, script_vars, last_activa
     }).catch(e => {
         console.log(e)
     });
+    if (script_vars.action_result.text)
+        return true
     return false
 }
 

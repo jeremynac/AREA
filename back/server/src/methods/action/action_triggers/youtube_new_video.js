@@ -33,6 +33,7 @@ async function checkYoutubeVideoReceived(account, parameters, script_vars, last_
     console.log('fetching channel id: ', parameters.channel_id, 'after: ', last_activation)
     consele.log('message', messages)
     if (messages.length > 0) {
+        script_vars.action_result = { text: 'A video was published by ' + channel_id }
         return true
     } else {
         return false

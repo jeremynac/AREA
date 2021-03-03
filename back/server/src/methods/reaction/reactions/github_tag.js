@@ -9,22 +9,24 @@ function getHeaderJson(access_token) {
     return {
         headers: {
             'accept': "application/vnd.github.v3+json",
-            'Authorization': `token ${access_token}`,
+            'Authorization': access_token,
             'client-id': process.env.GITHUB_CLIENT_ID
         }
     }
 }
 
 async function githubFork(account, parameters, script_vars) {
-    await axios.get('https://api.github.com/repos/' + parameters.path_to_owner + '/' + parameters.path_to_repo+ '/forks',
+    let success = false
+    await axios.get('https://api.github.com/repos/' + parameters.path_to_owner + '/' + parameters.path_to_repo + '/forks',
         getHeaderJson(account.access_token)
     ).then((response) => {
-        console.log(response)
+        console.log(response.data)
+        success = true
         return true
-    }).catch(e => 
+    }).catch(e =>
         console.log(e)
     )
-    return false
+    return success
 }
 
 module.exports = {
