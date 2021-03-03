@@ -11,10 +11,10 @@
             "expire": "expire",
             "email": "email",
             "username": "email",
-            "name": "name",
+            "name": "displayName",
             "firstname": "name.givenName",
             "lastname": "name.familyName",
-            "id": "sub"
+            "id": "id"
         },
         "service_url": "/auth/fb-login",
         "img": "https://cdn3.iconfinder.com/data/icons/capsocial-round/500/facebook-512.png",
@@ -31,12 +31,12 @@
             "access_token": "access_token",
             "refresh_token": "refresh_token",
             "expire": "expire",
-            "email": "email",
-            "username": "email",
-            "name": "name",
-            "firstname": "given_name",
-            "lastname": "family_name",
-            "id": "sub"
+            "email": "_json.email",
+            "username": "_json.email",
+            "name": "displayName",
+            "firstname": "_json.given_name",
+            "lastname": "_json.family_name",
+            "id": "_json.sub"
         },
         "service_url": "/auth/go-login",
         "img": "https://cdn.discordapp.com/attachments/798160246794354688/816004458340286514/btn_google_signin_dark_focus_web.png",
@@ -54,9 +54,9 @@
             "refresh_token": "refresh_token",
             "expire": "expire",
             "email": "_json.email",
-            "username": "_json.email",
-            "name": "username",
-            "id": "id"
+            "username": "_json.username",
+            "name": "_json.username",
+            "id": "_json.id"
         },
         "service_url": "/auth/di-login",
         "img": "https://icons-for-free.com/iconfiles/png/512/part+1+github-1320568339880199515.png",
@@ -87,16 +87,16 @@
         "name": "github",
         "type": "github",
         "account": true,
-        "actions": [{ "$oid": "603e3a68a7b0800006576940"}],
+        "actions": [{ "$oid": "603e3a68a7b0800006576940" }],
         "reactions": [{ "$oid": "603e3bfaa7b0800006576944" }],
         "parse_map": {
             "access_token": "access_token",
             "refresh_token": "refresh_token",
             "expire": "expire",
-            "email": "email",
-            "username": "username",
-            "name": "displayName",
-            "id": "id"
+            "email": "_json.email",
+            "username": "_json.login",
+            "name": "_json.login",
+            "id": "_json.id"
         },
         "service_url": "/auth/gh-login",
         "img": "https://icons-for-free.com/iconfiles/png/512/part+1+github-1320568339880199515.png",
@@ -107,7 +107,7 @@
         "name": "trello",
         "type": "trello",
         "account": true,
-        "actions": [{ "$oid": "603e3a6aa7b0800006576942"}],
+        "actions": [{ "$oid": "603e3a6aa7b0800006576942" }],
         "reactions": [{ "$oid": "603e3bfca7b0800006576946" }],
         "parse_map": {
             "access_token": "access_token",
