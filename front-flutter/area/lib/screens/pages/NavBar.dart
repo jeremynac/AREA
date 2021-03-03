@@ -20,17 +20,9 @@ class _NavBar extends State<NavBar> {
 
   var resp;
 
-  List<Widget> _widgetOptions = <Widget>[
-    BrowseAreas(),
-    CreateArea(),
-    MyAreas(),
-    MyProfile()
-  ];
+  List<Widget> _widgetOptions = <Widget>[BrowseAreas(), CreateArea(), MyAreas(), MyProfile()];
   void _onItemTapped(int index) {
     setState(() {
-      debugPrint('Selected tab:');
-      debugPrint(index.toString());
-      debugPrint('Token is currently:');
       _selectedIndex = index;
     });
   }

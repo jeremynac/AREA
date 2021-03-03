@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:area/constants.dart';
+import './components/body.dart';
 
 final controller1 = TextEditingController();
 final controller2 = TextEditingController();
@@ -23,10 +24,7 @@ class _CreateArea extends State<CreateArea> {
         backgroundColor: kPrimaryLightColor,
       ),
       backgroundColor: Colors.white,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[],
-      ),
+      body: Body(),
     );
   }
 }

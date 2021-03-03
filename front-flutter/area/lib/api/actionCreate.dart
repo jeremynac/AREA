@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:area/api/GlobalNetwork.dart';
 import 'package:http/http.dart' as http;
+import 'package:area/api/class/area.dart';
 
 Map<String, dynamic> example = {
   "actions": [
@@ -38,5 +39,28 @@ Future<Map<String, dynamic>> getActionAvailable() async {
   } else {
     userinfo['error'] = true;
     return userinfo;
+  }
+}
+
+Future<Map<String, dynamic>> getReactionAvailable() async {
+  final response = await http.get(urlArea + '/reaction/available', headers: headers);
+
+  Map<String, dynamic> userinfo = jsonDecode(response.body);
+  if (response.statusCode == 200) {
+    return userinfo;
+  } else {
+    userinfo['error'] = true;
+    return userinfo;
+  }
+}
+
+Future<bool> getReactionAvailablelll(ScriptCreation script) async {
+  Map<String, dynamic> body = script.toJson();
+  final response = await http.post(urlArea + '/script/create', headers: headers, body: body);
+
+  if (response.statusCode == 200) {
+    return true;
+  } else {
+    return false;
   }
 }

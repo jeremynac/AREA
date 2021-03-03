@@ -3,9 +3,12 @@ import 'package:area/constants.dart';
 import 'package:area/api/scripts.dart';
 
 class AreaCard extends StatefulWidget {
+  final Function(String) callback;
+
   const AreaCard({
     Key key,
     this.data,
+    this.callback,
   });
 
   final Map<String, dynamic> data;
@@ -70,8 +73,7 @@ class _AreaCardState extends State<AreaCard> {
                   setState(() {
                     isSwitched = value;
                   });
-                  bool test = await updateScriptActivation(
-                      widget.data['_id'], isSwitched);
+                  bool test = await updateScriptActivation(widget.data['_id'], isSwitched);
                   if (!test) {
                     isSwitched = !isSwitched;
                     errorUpdateAlertDialog(context);
@@ -84,16 +86,28 @@ class _AreaCardState extends State<AreaCard> {
           ),
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                for (var i in widget.data['action_parameters'].keys)
-                  Text(
-                    i + " : " + widget.data['action_parameters'][i],
-                    style: TextStyle(
-                      fontFamily: 'Ubuntu',
-                      color: Colors.black,
-                    ),
-                  ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    for (var i in widget.data['action_parameters'].keys)
+                      Text(
+                        i + " : " + (widget.data['action_parameters'][i] is String ? widget.data['action_parameters'][i] : widget.data['action_parameters'][i].toString()),
+                        style: TextStyle(
+                          fontFamily: 'Ubuntu',
+                          color: Colors.black,
+                        ),
+                      ),
+                  ],
+                ),
+                IconButton(
+                  icon: Icon(Icons.delete),
+                  color: Colors.red[700],
+                  onPressed: () {
+                    widget.callback(widget.data['_id']);
+                  },
+                ),
               ],
             ),
           ],

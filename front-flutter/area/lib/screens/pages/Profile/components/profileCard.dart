@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:area/api/profile.dart';
-import 'package:area/constants.dart';
+import 'package:area/components/rounded_input_field.dart';
 
 class ProfileCard extends StatefulWidget {
   @override
@@ -10,57 +10,79 @@ class ProfileCard extends StatefulWidget {
 class _ProfileCardState extends State<ProfileCard> {
   @override
   Widget build(BuildContext context) {
+    //bool hasChanged = false;
+    Size size = MediaQuery.of(context).size;
     return FutureBuilder(
       future: getUserInfo(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           return Card(
-            color: kPrimaryLightColor,
+            color: Colors.white,
+            elevation: 0.0,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15.0),
                 side: BorderSide(
-                  color: kPrimaryColor,
+                  color: Colors.white,
                   width: 2.0,
                 )),
             clipBehavior: Clip.antiAlias,
-            borderOnForeground: true,
             child: Padding(
               padding: EdgeInsets.only(top: 0, left: 6.0, right: 6.0, bottom: 6.0),
-              child: Row(
+              child: Column(
                 children: [
-                  Column(
+                  Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
-                        "Firstname :  " + (snapshot.data['firstname'] != null ? snapshot.data['firstname'] : "unknown"),
-                        style: TextStyle(
-                          fontFamily: 'Ubuntu',
-                          color: Colors.black,
-                        ),
+                      RoundedInputField(
+                        noIcon: true,
+                        labelText: "Firstname",
+                        sizeModifier: 0.55,
+                        controller: TextEditingController(text: snapshot.data['firstname'] != null ? snapshot.data['firstname'] : "unknown"),
+                        onChanged: (value) {
+                          snapshot.data['firstname'] = value;
+                          //hasChanged = true;
+                        },
                       ),
-                      Text(
-                        "Lastname  : " + (snapshot.data['lastname'] != null ? snapshot.data['lastname'] : "unknown"),
-                        style: TextStyle(
-                          fontFamily: 'Ubuntu',
-                          color: Colors.black,
-                        ),
-                      ),
-                      Text(
-                        "Username  : " + snapshot.data['username'],
-                        style: TextStyle(
-                          fontFamily: 'Ubuntu',
-                          color: Colors.black,
-                        ),
-                      ),
-                      Text(
-                        "Email           : " + (snapshot.data['email'] != null ? snapshot.data['email'] : "unknown"),
-                        style: TextStyle(
-                          fontFamily: 'Ubuntu',
-                          color: Colors.black,
-                        ),
+                      SizedBox(width: size.width * 0.03),
+                      RoundedInputField(
+                        noIcon: true,
+                        labelText: "Lastname",
+                        sizeModifier: 0.55,
+                        controller: TextEditingController(text: snapshot.data['lastname'] != null ? snapshot.data['lastname'] : "unknown"),
+                        onChanged: (value) {
+                          snapshot.data['lastname'] = value;
+                          //hasChanged = true;
+                        },
                       ),
                     ],
+                  ),
+                  RoundedInputField(
+                    noIcon: true,
+                    labelText: "Email",
+                    sizeModifier: 1.1,
+                    controller: TextEditingController(text: snapshot.data['email'] != null ? snapshot.data['email'] : "unknown"),
+                    onChanged: (value) {
+                      snapshot.data['email'] = value;
+                      //hasChanged = true;
+                    },
+                  ),
+                  RoundedInputField(
+                    noIcon: true,
+                    labelText: "Username",
+                    sizeModifier: 1.1,
+                    controller: TextEditingController(text: snapshot.data['username'] != null ? snapshot.data['username'] : "unknown"),
+                    onChanged: (value) {
+                      snapshot.data['username'] = value;
+                      //hasChanged = true;
+                    },
+                  ),
+                  const Divider(
+                    color: Colors.deepPurpleAccent,
+                    height: 20,
+                    thickness: 3,
+                    indent: 20,
+                    endIndent: 0,
                   ),
                 ],
               ),

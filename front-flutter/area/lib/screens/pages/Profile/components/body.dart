@@ -1,3 +1,4 @@
+import 'package:area/api/auth.dart';
 import 'package:area/api/profile.dart';
 import 'package:area/screens/pages/Profile/components/serviceCard.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +13,7 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    //Size size = MediaQuery.of(context).size;
     return FutureBuilder(
       future: getServiceAllStatus(),
       builder: (context, snapshot) {
@@ -20,20 +21,18 @@ class _BodyState extends State<Body> {
           return Container(
             child: ListView(
               children: <Widget>[
-                SizedBox(height: size.height * 0.01),
-                SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      ProfileCard(),
-                      for (var i in snapshot.data['services'])
-                        ServiceCard(data: i),
-                    ],
-                  ),
+                Column(
+                  children: [
+                    ProfileCard(),
+                    for (var i in snapshot.data['services']) ServiceCard(data: i),
+                  ],
                 ),
               ],
             ),
           );
         } else if (snapshot.hasError) {
+          disconnect();
+          Navigator.of(context).pushNamedAndRemoveUntil('/home', (Route<dynamic> route) => false);
           throw snapshot.error;
         } else {
           return Center(child: CircularProgressIndicator());
