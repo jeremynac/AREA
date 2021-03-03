@@ -1,3 +1,4 @@
+import 'package:area/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:area/api/profile.dart';
 import 'package:area/components/rounded_input_field.dart';
@@ -77,11 +78,11 @@ class _ProfileCardState extends State<ProfileCard> {
                       //hasChanged = true;
                     },
                   ),
-                  const Divider(
-                    color: Colors.deepPurpleAccent,
+                  Divider(
+                    color: kSecondayColor,
                     height: 20,
                     thickness: 3,
-                    indent: 20,
+                    indent: 5,
                     endIndent: 0,
                   ),
                 ],

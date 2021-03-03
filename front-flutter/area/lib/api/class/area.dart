@@ -4,7 +4,7 @@ class ScriptCreation {
   ReactionCreation reaction;
   bool activated;
   ScriptCreation(this.name, this.action, this.reaction, this.activated);
-  Map<String, dynamic> toJson() => {'name': name, 'action': action.toJson(), 'reaction': reaction.toJson()};
+  Map<String, dynamic> toJson() => {'name': name, 'action': action.toJson(), 'reaction': reaction.toJson(), 'activated': activated};
 }
 
 class ActionCreation {

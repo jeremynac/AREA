@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:area/constants.dart';
-import 'BrowseAreas/BrowseAreas.dart';
 import 'CreateArea/CreateArea.dart';
 import 'MyAreas/MyAreas.dart';
 import 'Profile/Profile.dart';
@@ -20,7 +19,7 @@ class _NavBar extends State<NavBar> {
 
   var resp;
 
-  List<Widget> _widgetOptions = <Widget>[BrowseAreas(), CreateArea(), MyAreas(), MyProfile()];
+  List<Widget> _widgetOptions = <Widget>[MyAreas(), CreateArea(), MyProfile()];
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -38,16 +37,12 @@ class _NavBar extends State<NavBar> {
         selectedFontSize: 0,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
+            icon: Icon(Icons.file_copy),
+            label: 'My Actions',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.add_box_outlined),
             label: 'Reactions',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.file_copy),
-            label: 'My Actions',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.account_circle),
@@ -56,7 +51,7 @@ class _NavBar extends State<NavBar> {
         ],
         currentIndex: _selectedIndex,
         backgroundColor: kPrimaryColor,
-        selectedItemColor: Colors.amber[800],
+        selectedItemColor: kSecondayColor,
         unselectedItemColor: Colors.white,
         type: BottomNavigationBarType.fixed,
         onTap: _onItemTapped,
