@@ -5,26 +5,20 @@ const Action = require('@schemas/schemaAction')
 const Account = require('@schemas/schemaAccount')
 const axios = require('axios')
 
-function makeBody(title, content, description, account) {
+function makeBody(title, content, description) {
     return {
-        body: {
-            "content": content,
-            "tts": false,
-            "embed": {
-                "title": title,
-                "description": description
-            }
-        },
-        header: {
-            'Authorization': `token ${account.access_token}`,
-            'client-id': process.env.DISCORD_CLIENT_ID
+        "content": content,
+        "tts": false,
+        "embed": {
+            "title": title,
+            "description": description
         }
     }
 }
 
 function getHeader(access_token) {
     return {
-        header: {
+        headers: {
             'Authorization': `token ${access_token}`,
             'client-id': process.env.DISCORD_CLIENT_ID
         }
@@ -47,7 +41,8 @@ async function discordSendMessage(account, parameters, script_vars) {
         return false
     
     await axios.post('https://discord.com/api/channels/' + channel_id + '/messages',
-        makeBody(parameters.title, parameters.content, parameters.description, account)
+        getHeader(account.access_token),
+        makeBody(parameters.title, parameters.content, parameters.description)
     ).then((response) => {
         console.log("Success : \n" + response);
         return true

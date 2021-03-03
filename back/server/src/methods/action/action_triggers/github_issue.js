@@ -4,16 +4,43 @@ const Services = require('@schemas/schemaService')
 const Action = require('@schemas/schemaAction')
 const Account = require('@schemas/schemaAccount')
 
-function getHeader(access_token) {
+function getHeaderJson(access_token) {
     return {
-        header: {
+        headers: {
+            'accept': "application/vnd.github.v3+json",
             'Authorization': `token ${access_token}`,
-            'client-id': process.env.DISCORD_CLIENT_ID
+            'client-id': process.env.GITHUB_CLIENT_ID
         }
     }
 }
 
 async function githubIssue(account, parameters, script_vars, last_activation) {
+    await axios.get('https://api.github.com/issues',
+        getHeaderJson(account.access_token)
+    ).then((response) => {
+        response.forEach(element => {
+            if (element.title.contains(parameters.issue_keyword)) {
+                if (script_vars.action_result) {
+                    if (script_vars.action_result.state != element.state) {
+                        script_vars.action_result = {
+                            'state' : element.state
+                        }
+                        return true
+                    }
+                    script_vars.action_result = {
+                        'state' : element.state
+                    }
+                }
+                script_vars.action_result = {
+                    'state' : element.state
+                }
+            }
+            return false
+        });
+    }).catch(e => {
+        console.log(e)
+    })
+    return false
 }
 
 

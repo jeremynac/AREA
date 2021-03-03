@@ -161,6 +161,7 @@ async function parseArgs(args, service_type) {
 async function processAccount(user_id, service_type, args) {
     try {
         let parsed_args = await parseArgs(args, service_type);
+        console.log('args', args)
         let success, found;
         if (user_id) {
             console.log('already logged in')
