@@ -21,11 +21,12 @@ async function addScriptUser(script_id, user_id) {
 }
 
 async function createScript(req) {
-    let action_id = req.body.action.action_id,
-        reaction_id = req.body.reaction.reaction_id;
-    let a_parameters = req.body.action.parameters,
-        r_parameters = req.body.reaction.parameters
+    let action_id = req.body.action,
+        reaction_id = req.body.reaction;
+    let a_parameters = req.body.action_parameters,
+        r_parameters = req.body.reaction_parameters
     let user_id = req.user._id
+    let activated = req.activated
     let check = await checkScriptCreation(user_id, action_id, reaction_id)
     console.log('ok')
     if (check) {
@@ -36,7 +37,8 @@ async function createScript(req) {
             action_parameters: a_parameters,
             reaction_parameters: r_parameters,
             last_activation: Math.floor(Date.now() / 1000),
-            script_vars: {}
+            script_vars: {},
+            activated: activated
         })
         console.log('script has been succesfully created')
         await script.save().then().catch()
@@ -55,6 +57,29 @@ async function checkScriptCreation(user_id, action_id, reaction_id) {
     return check_action && check_reaction;
 }
 
+async function updateScript(id, updated_script) {
+    try {
+        let script = await Script.findById(id)
+        if (script) {
+            Object.keys(updated_script).map(
+                key => {
+                    if (key) {
+                        script[key] = updated_script[key]
+                    }
+                }
+            )
+            await script.save()
+            console.log('modified script')
+            return true
+        }
+    } catch (e) {
+        console.log(e)
+        return false
+    }
+    return false
+}
+
 module.exports = {
-    createScript
+    createScript,
+    updateScript
 }
