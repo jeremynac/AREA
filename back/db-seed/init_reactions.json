@@ -37,29 +37,9 @@
         "service": { "$oid": "60377bbaa7a1e900072798d6" }
     },
     {
-        "_id": { "$oid": "603cb8eb98d4c60008cb2a1c" },
-        "name": "discord: sends a message",
-        "type": "discord-send-message",
-        "description": "Message someone on discord",
-        "parameters": [{
-            "name": "content",
-            "type": "String"
-        }, {
-            "name": "title",
-            "type": "String"
-        }, {
-            "name": "description",
-            "type": "String"
-        }, {
-            "type": "String",
-            "name": "channel_name"
-        }],
-        "service": { "$oid": "602bc4fd7233e600087eb9e0" }
-    },
-    {
         "_id": { "$oid": "603d23329b4fe60009c08a91" },
         "type": "facebook-post-page",
-        "name": "facebook post on page",
+        "name": "facebook: post on page",
         "description": "Post something on your facebook page",
         "parameters": [{
             "type": "String",
@@ -73,10 +53,10 @@
         "type": "github-fork",
         "description": "Forks to owners' repo",
         "parameters": [{
-            "name": "path_to_owner",
+            "name": "owner",
             "type": "String"
         }, {
-            "name": "path_to_repo",
+            "name": "repository",
             "type": "String"
         }],
         "service": { "$oid": "6037afafdcacf70009005f1b" }

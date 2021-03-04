@@ -10,7 +10,7 @@ const { checkFacebookMentionned } = require('@action_triggers/facebook_mentionne
 const { checkYoutubeVideoReceived } = require('@action_triggers/youtube_new_video')
 const { twitchStreamStarted } = require('@action_triggers/twitch_stream_started')
 const { twitchChannelFollowed } = require('@action_triggers/twitch_channel_followed')
-const { discordRecievedMessage } = require('@action_triggers/discord_recieved_message')
+const { discordRecievedMessage } = require('@action_triggers/discord_server_created')
 const { githubIssue } = require('@action_triggers/github_issue')
 const { trelloNotif } = require('@action_triggers/trello_notif')
 
@@ -40,8 +40,8 @@ async function filterAction(account, parameters, script_vars, last, action_type)
             return twitchStreamStarted(account, parameters, script_vars, last);
         case 'twitch-channel-followed':
             return twitchChannelFollowed(account, parameters, script_vars, last);
-        case 'discord-recieved-message':
-            return discordRecievedMessage(account, parameters, script_vars, last);
+        case 'discord-server-created':
+            return discordServerCreated(account, parameters, script_vars, last);
         case 'facebook-mentionned':
             return checkFacebookMentionned(account, parameters, script_vars, last)
         case 'github-issue':

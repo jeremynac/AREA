@@ -34,8 +34,6 @@ async function getPageToken(page_id, user_token) {
 }
 
 async function postToPage(page, content, account) {
-    // let page_token = await getPageToken(page_id, account.access_token)
-    // console.log('got page token', page_token)
     if (page.access_token) {
         var config = {
             method: 'post',
@@ -50,11 +48,6 @@ async function postToPage(page, content, account) {
             .catch(function(error) {
                 console.log(error);
             });
-        // let res = await axios.post("https://graph.facebook.com/v10.0/100500355443105/feed?message=test2&access_token=EAAEzaQ7g7wIBAH6kJKVBa7EXUQfEmvEPwPQCyupqCEKcKuS3m9ZB9KTwsZAJ485A4yvYD6Q1DoAA3pdFDnocl8K33euwrHHoFheAPcD9jYgZB5DT9dnjgJ8UCSlwRQ8wPpGTDKfZAucbZB79YLYYvvFsRgqVe3jREZBX1Ef0e3VofKB7OBjuRxAcrazc5Tj5B7nfzSHdb8EtZBaCI4GE8wT") //"https://graph.facebook.com/" + page_id + "/feed", { access_token: page_token, message: content })
-        // console.log('posted', res)
-        // if (res) {
-        //     return true
-        // }
     }
     return false
 }
@@ -66,7 +59,7 @@ async function reactFacebookPostPage(account, parameters, script_vars, last_acti
             console.log('got pages', res.data.data)
             let pages = res.data.data
             let page = getPage(pages, parameters.page_name)
-            let content = script_vars.action_result.text
+            let content = script_vars.action_result.message || script_vars.action_result.text
             return postToPage(page, content, account)
         }
         console.log('test', feed)
