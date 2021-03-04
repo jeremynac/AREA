@@ -16,7 +16,7 @@ function getHeader(client_id, account) {
 
 async function twitchChannelFollowed(account, parameters, script_vars, last_activation) {
     let messages = "";
-    await axios.get('GET https://api.twitch.tv/helix/users/follows', //?to_id=' + parameters.to_id,
+    await axios.get('https://api.twitch.tv/helix/users/follows', //?to_id=' + parameters.to_id,
         getHeader(process.env.TWITCH_CLIENT_ID, account)
     ).then((response) => {
         console.log(response.data.total);

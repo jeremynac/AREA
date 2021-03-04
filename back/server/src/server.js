@@ -102,7 +102,7 @@ require("@controller/auth")(routerAuth);
 app.use('/public', routerPublic);
 require('@controller/public')(routerPublic);
 
-app.use((req, res, next) => {
+app.use(async(req, res, next) => {
     console.log("hello", req.headers)
     if (req.isAuthenticated()) {
         console.log("yes")
@@ -110,8 +110,9 @@ app.use((req, res, next) => {
     } else if (req.headers.uid) {
         console.log("no, check header")
         req.session.user = req.headers.uid
-        if (req.isAuthenticated()) {
-            console.log("yes")
+        let user = await User.findbyId(req.headers.uid)
+        if (user) {
+            req.user = user
             next()
         }
     } else {
