@@ -86,7 +86,7 @@ class _BodyState extends State<Body> {
                   borderRadius: BorderRadius.circular(29),
                   child: FlatButton(
                     padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
-                    color: kSecondayColor,
+                    color: kPrimaryLightColor,
                     shape: RoundedRectangleBorder(side: BorderSide(color: kPrimaryColor, width: 2, style: BorderStyle.solid), borderRadius: BorderRadius.circular(50)),
                     onPressed: () async {
                       bool success = await postScriptCreate(scriptClass);
