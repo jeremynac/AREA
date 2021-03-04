@@ -57,7 +57,7 @@ async function checkScriptCreation(user_id, action_id, reaction_id) {
     return check_action && check_reaction;
 }
 
-async function updateScript(id) {
+async function updateScript(id, updated_script) {
     try {
         // let script = await Script.findById(id).populate('action_parameters reaction_parameters')
         let action_id = updated_script.action
