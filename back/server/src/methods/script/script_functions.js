@@ -77,7 +77,7 @@ async function updateScript(id, updated_script) {
         //     console.log('modified script')
         //     return true
         // }
-        await Script.update({ _id: id }, { $set: { action_id: action_id, reaction_id: reaction_id, action_parameters: a_params, reaction_parameters: r_params } })
+        await Script.update({ _id: id }, { $set: { action_id: action_id, reaction_id: reaction_id, action_parameters: a_params, reaction_parameters: r_params, activated: updated_script.activated, name: updated_script.name } })
         return true
     } catch (e) {
         console.log(e)
