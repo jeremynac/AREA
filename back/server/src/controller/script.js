@@ -57,7 +57,7 @@ module.exports = function(app) {
     app.put('/update', async(req, res) => {
         try {
             console.log(req.body.script)
-            let done = await updateScript(req.body.script._id)
+            let done = await updateScript(req.body.script._id, req.body.script)
             if (done) {
                 return res.status(200).json({ modified: true, id: req.body.script._id })
             } else {
@@ -65,7 +65,7 @@ module.exports = function(app) {
             }
         } catch (e) {
             console.log(e)
-            return res.status(401).json({ error: true })
+            return res.status(403).json({ error: true })
         }
     })
 
