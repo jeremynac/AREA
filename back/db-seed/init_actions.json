@@ -15,11 +15,11 @@
         "description": "You received an email on your gmail account that matches words",
         "parameters": [{
                 "type": "Boolean",
-                "name": "important"
+                "name": "is_it_important"
             },
             {
                 "type": "String",
-                "name": "word"
+                "name": "keyword"
             }
         ],
         "service": { "$oid": "601034a8779c01000abdc6b7" }

@@ -23,11 +23,11 @@ async function checkGmailReceivedMatch(account, parameters, script_vars, last_ac
     const gmail = google.gmail({ version: "v1", auth: oAuth2Client })
         // let author_params = parameters.author.toString()
     let messages = [];
-    let important = (parameters.important ? ' is:important' : '')
+    let important = (parameters.is_it_important ? ' is:important' : '')
     await gmail.users.messages.list({
             userId: 'me',
             format: 'RAW',
-            q: 'label:inbox after:' + last_activation.toString() + ' ' + parameters.word + important,
+            q: 'label:inbox after:' + last_activation.toString() + ' ' + parameters.keyword + important,
             // fields: ['id', 'internalDate', 'labelIds', 'payload'],
         }).then(m => {
             messages = m.data.messages || [];
@@ -46,7 +46,7 @@ async function checkGmailReceivedMatch(account, parameters, script_vars, last_ac
     if (messages.length > 0) {
         let data = messages[0]
         console.log(data)
-        script_vars.action_result = { text: "You have received" + messages.length + "email(s) that matched with " + parameters.word }
+        script_vars.action_result = { text: "You have received" + messages.length + "email(s) that matched with " + parameters.keyword }
             // script_vars.action_result.text = messages[0].
         return true
     } else {
