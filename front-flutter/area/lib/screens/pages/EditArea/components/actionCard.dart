@@ -6,22 +6,26 @@ import 'package:area/api/scripts.dart';
 
 class ActionCard extends StatefulWidget {
   final Function(ActionCreation) actionCallback;
+  final String initActionId;
+  final Map<String, dynamic> initParameters;
+  final int initDropdownvalue;
 
   const ActionCard({
     Key key,
     this.actionCallback,
+    this.initActionId,
+    this.initParameters,
+    this.initDropdownvalue = 0,
   }) : super(key: key);
 
   @override
-  _ActionCardState createState() => _ActionCardState();
+  _ActionCardState createState() => _ActionCardState(initDropdownvalue, initActionId);
 }
 
 class _ActionCardState extends State<ActionCard> {
-  int dropdownValue = 0;
-  String selectedId = "601033c4779c01000abdc6b5";
-  List<dynamic> argumentList = [
-    {"type": "String", "name": "author"}
-  ];
+  int dropdownValue;
+  String selectedId;
+  _ActionCardState(this.dropdownValue, this.selectedId);
   ActionCreation actionClass = ActionCreation("0", {});
 
   callback(Map<String, dynamic> data) {
@@ -40,18 +44,19 @@ class _ActionCardState extends State<ActionCard> {
             color: kLightGreyColor,
             elevation: 0.0,
             shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0),
-                side: BorderSide(
-                  color: kPrimaryColor,
-                  width: 2.0,
-                )),
+              borderRadius: BorderRadius.circular(10.0),
+              side: BorderSide(
+                color: kPrimaryColor,
+                width: 2.0,
+              ),
+            ),
             clipBehavior: Clip.antiAlias,
             child: Padding(
               padding: EdgeInsets.only(top: 6.0, left: 6.0, right: 6.0, bottom: 6.0),
               child: Column(
                 children: [
                   Text(
-                    "Add Action",
+                    "Edit Action",
                     style: TextStyle(
                       fontFamily: 'Ubuntu',
                       color: Colors.black,
@@ -77,7 +82,6 @@ class _ActionCardState extends State<ActionCard> {
                       setState(() {
                         dropdownValue = newValue;
                         selectedId = snapshot.data['actions'][newValue]['_id'];
-                        argumentList = snapshot.data['actions'][newValue]['parameters'];
                       });
                     },
                     items: [
@@ -91,6 +95,8 @@ class _ActionCardState extends State<ActionCard> {
                   DynamicForm(
                     data: snapshot.data['actions'][dropdownValue]['parameters'],
                     callback: callback,
+                    initArguments: widget.initParameters,
+                    withArgs: (selectedId == widget.initActionId),
                   ),
                 ],
               ),

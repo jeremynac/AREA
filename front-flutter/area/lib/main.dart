@@ -1,5 +1,5 @@
 import 'package:area/constants.dart';
-
+import 'screens/pages/EditArea/EditArea.dart';
 import 'screens/pages/NavBar.dart';
 import 'screens/Welcome/welcome_screen.dart';
 import 'package:flutter/material.dart';
@@ -36,6 +36,7 @@ void main() async {
       '/home': (BuildContext context) => new WelcomeScreen(),
       '/app': (BuildContext context) => new NavBar(),
       '/web': (BuildContext contex) => new CustomWebView(),
+      '/edit': (BuildContext context) => new EditArea(),
     },
   ));
 }

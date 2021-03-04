@@ -37,6 +37,7 @@ class _AreaCardState extends State<AreaCard> {
   _AreaCardState(this.isSwitched);
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Card(
       color: kPrimaryLightColor,
       shape: RoundedRectangleBorder(
@@ -87,13 +88,48 @@ class _AreaCardState extends State<AreaCard> {
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    Divider(
+                      color: Colors.black,
+                      height: 20,
+                      thickness: 3,
+                      indent: 5,
+                      endIndent: 0,
+                    ),
+                    Text(
+                      "Action parameters",
+                      style: TextStyle(
+                        fontFamily: 'Ubuntu',
+                        color: Colors.black,
+                        fontSize: 17,
+                      ),
+                    ),
                     for (var i in widget.data['action_parameters'].keys)
                       Text(
-                        i + " : " + (widget.data['action_parameters'][i] is String ? widget.data['action_parameters'][i] : widget.data['action_parameters'][i].toString()),
+                        "- " + i + " : " + (widget.data['action_parameters'][i] is String ? widget.data['action_parameters'][i] : widget.data['action_parameters'][i].toString()),
+                        style: TextStyle(
+                          fontFamily: 'Ubuntu',
+                          color: Colors.black,
+                        ),
+                      ),
+                    SizedBox(
+                      height: size.height * 0.01,
+                    ),
+                    Text(
+                      "Reaction parameters",
+                      style: TextStyle(
+                        fontFamily: 'Ubuntu',
+                        color: Colors.black,
+                        fontSize: 17,
+                      ),
+                    ),
+                    for (var i in widget.data['reaction_parameters'].keys)
+                      Text(
+                        "- " + i + " : " + (widget.data['reaction_parameters'][i] is String ? widget.data['reaction_parameters'][i] : widget.data['reaction_parameters'][i].toString()),
                         style: TextStyle(
                           fontFamily: 'Ubuntu',
                           color: Colors.black,
@@ -101,13 +137,28 @@ class _AreaCardState extends State<AreaCard> {
                       ),
                   ],
                 ),
-                IconButton(
-                  icon: Icon(Icons.delete),
-                  color: Colors.red[700],
-                  onPressed: () {
-                    widget.callback(widget.data['_id']);
-                  },
-                ),
+                Row(
+                  children: [
+                    IconButton(
+                      icon: Icon(Icons.edit),
+                      color: Colors.black,
+                      onPressed: () {
+                        Navigator.pushNamed(
+                          context,
+                          '/edit',
+                          arguments: (widget.data['_id']),
+                        );
+                      },
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.delete),
+                      color: Colors.red[700],
+                      onPressed: () {
+                        widget.callback(widget.data['_id']);
+                      },
+                    ),
+                  ],
+                )
               ],
             ),
           ],

@@ -4,54 +4,59 @@ import 'package:area/constants.dart';
 import './dynamicForm.dart';
 import 'package:area/api/scripts.dart';
 
-class ActionCard extends StatefulWidget {
-  final Function(ActionCreation) actionCallback;
+class ReactionCard extends StatefulWidget {
+  final Function(ReactionCreation) reactionCallback;
+  final String initReactionId;
+  final Map<String, dynamic> initParameters;
+  final int initDropdownvalue;
 
-  const ActionCard({
+  const ReactionCard({
     Key key,
-    this.actionCallback,
+    this.reactionCallback,
+    this.initReactionId,
+    this.initParameters,
+    this.initDropdownvalue = 0,
   }) : super(key: key);
 
   @override
-  _ActionCardState createState() => _ActionCardState();
+  _ReactionCardState createState() => _ReactionCardState(initDropdownvalue, initReactionId);
 }
 
-class _ActionCardState extends State<ActionCard> {
-  int dropdownValue = 0;
-  String selectedId = "601033c4779c01000abdc6b5";
-  List<dynamic> argumentList = [
-    {"type": "String", "name": "author"}
-  ];
-  ActionCreation actionClass = ActionCreation("0", {});
+class _ReactionCardState extends State<ReactionCard> {
+  int dropdownValue;
+  String selectedId;
+  _ReactionCardState(this.dropdownValue, this.selectedId);
+  ReactionCreation reactionClass = ReactionCreation("0", {});
 
   callback(Map<String, dynamic> data) {
-    actionClass.parameters = data;
-    actionClass.actionId = selectedId;
-    widget.actionCallback(actionClass);
+    reactionClass.parameters = data;
+    reactionClass.reactionId = selectedId;
+    widget.reactionCallback(reactionClass);
   }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: getActionAvailable(),
+      future: getReactionAvailable(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           return Card(
             color: kLightGreyColor,
             elevation: 0.0,
             shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0),
-                side: BorderSide(
-                  color: kPrimaryColor,
-                  width: 2.0,
-                )),
+              borderRadius: BorderRadius.circular(10.0),
+              side: BorderSide(
+                color: kPrimaryColor,
+                width: 2.0,
+              ),
+            ),
             clipBehavior: Clip.antiAlias,
             child: Padding(
               padding: EdgeInsets.only(top: 6.0, left: 6.0, right: 6.0, bottom: 6.0),
               child: Column(
                 children: [
                   Text(
-                    "Add Action",
+                    "Edit Reaction",
                     style: TextStyle(
                       fontFamily: 'Ubuntu',
                       color: Colors.black,
@@ -76,21 +81,22 @@ class _ActionCardState extends State<ActionCard> {
                     onChanged: (int newValue) {
                       setState(() {
                         dropdownValue = newValue;
-                        selectedId = snapshot.data['actions'][newValue]['_id'];
-                        argumentList = snapshot.data['actions'][newValue]['parameters'];
+                        selectedId = snapshot.data['reactions'][newValue]['_id'];
                       });
                     },
                     items: [
-                      for (var i = 0; i < snapshot.data['actions'].length; i++)
+                      for (var i = 0; i < snapshot.data['reactions'].length; i++)
                         DropdownMenuItem<int>(
                           value: i,
-                          child: Text(snapshot.data['actions'][i]['name']),
+                          child: Text(snapshot.data['reactions'][i]['name']),
                         ),
                     ],
                   ),
                   DynamicForm(
-                    data: snapshot.data['actions'][dropdownValue]['parameters'],
+                    data: snapshot.data['reactions'][dropdownValue]['parameters'],
                     callback: callback,
+                    initArguments: widget.initParameters,
+                    withArgs: (selectedId == widget.initReactionId),
                   ),
                 ],
               ),

@@ -7,6 +7,16 @@ class ScriptCreation {
   Map<String, dynamic> toJson() => {'name': name, 'action': action.toJson(), 'reaction': reaction.toJson(), 'activated': activated};
 }
 
+class ScriptEditing {
+  String name;
+  ActionCreation action;
+  ReactionCreation reaction;
+  bool activated;
+  String identifier;
+  ScriptEditing(this.name, this.action, this.reaction, this.activated, this.identifier);
+  Map<String, dynamic> toJson() => {'_id': identifier, 'name': name, 'action': action.toJson(), 'reaction': reaction.toJson(), 'activated': activated};
+}
+
 class ActionCreation {
   String actionId;
   Map<String, dynamic> parameters;
