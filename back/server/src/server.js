@@ -107,9 +107,9 @@ app.use((req, res, next) => {
     if (req.isAuthenticated()) {
         console.log("yes")
         next()
-    } else if (req.headers.user_id) {
+    } else if (req.headers.uid) {
         console.log("no, check header")
-        req.session.user = req.headers.user_id
+        req.session.user = req.headers.uid
         if (req.isAuthenticated()) {
             console.log("yes")
             next()
