@@ -39,7 +39,7 @@
             "id": "_json.sub"
         },
         "service_url": "/auth/go-login",
-        "img": "https://cdn.discordapp.com/attachments/798160246794354688/816004458340286514/btn_google_signin_dark_focus_web.png",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/2/2d/Google-favicon-2015.png",
         "loginIcn": "https://cdn.discordapp.com/attachments/798160246794354688/816004458340286514/btn_google_signin_dark_focus_web.png"
     },
     {
@@ -59,7 +59,7 @@
             "id": "_json.id"
         },
         "service_url": "/auth/di-login",
-        "img": "https://icons-for-free.com/iconfiles/png/512/part+1+github-1320568339880199515.png",
+        "img": "https://cdn4.iconfinder.com/data/icons/logos-and-brands/512/91_Discord_logo_logos-512.png",
         "loginIcn": "https://i.imgur.com/RBfcoBt.png"
     },
     {
