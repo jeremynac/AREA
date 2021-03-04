@@ -103,7 +103,7 @@ app.use('/public', routerPublic);
 require('@controller/public')(routerPublic);
 
 app.use((req, res, next) => {
-    console.log("hello")
+    console.log("hello", req.headers)
     if (req.isAuthenticated()) {
         console.log("yes")
         next()
