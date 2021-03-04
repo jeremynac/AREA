@@ -102,17 +102,17 @@ require("@controller/auth")(routerAuth);
 app.use('/public', routerPublic);
 require('@controller/public')(routerPublic);
 
-app.use((req, res, next) => {
-    console.log("hello")
+app.use(async(req, res, next) => {
+    console.log("hello", req.headers)
     if (req.isAuthenticated()) {
         console.log("yes")
         next()
-    } else if (req.headers.user_id) {
+    } else if (req.headers.uid) {
         console.log("no, check header")
-        passport.deserialize
-        req.session.user = req.headers.user_id
-        if (req.isAuthenticated()) {
-            console.log("yes")
+        req.session.user = req.headers.uid
+        let user = await User.findbyId(req.headers.uid)
+        if (user) {
+            req.user = user
             next()
         }
     } else {

@@ -11,35 +11,66 @@ function getHeader(headers, key) {
     return obj.value.toString()
 }
 
+async function getChannel(channel_name, yt) {
+    try {
+        let res = await yt.channels.list({
+            forUsername: channel_name,
+            maxResults: 1,
+            part: ['id', 'status']
+        })
+        console.log(res.data)
+        if (res.data.items) {
+            return res.data.items[0]
+        }
+    } catch (e) {
+        console.log(e)
+        return null
+    }
+}
+
+function getResult(snippet, id) {
+    let url = "https://www.youtube.com/watch?v=" + id.videoId
+    return {
+        text: snippet.title,
+        message: 'A new video: "' + snippet.title + '" was published by' + snippet.channelTitle + '\nhere is the link: ' + url,
+        url: snippet.url,
+    }
+}
+
 async function checkYoutubeVideoReceived(account, parameters, script_vars, last_activation) {
     console.log(account)
         // let gmail = new Gmail(account.access_token)
-    const oAuth2Client = new google.auth.OAuth2();
-    oAuth2Client.setCredentials({ access_token: account.access_token })
-        // oAuth2Client.setCredentials(account.refresh_token)
-    const yt = google.youtube({ version: 'v3', auth: auth })
-    let channel_id = parameters.channel_id
+    const oAuth2Client = new google.auth.OAuth2(process.env.GOOGLE_CLIENT_ID, process.env.GOOGLE_CLIENT_SECRET);
+    await oAuth2Client.setCredentials({ refresh_token: account.refresh_token })
+
+    const yt = google.youtube({ version: 'v3', auth: oAuth2Client })
+    let channel = await getChannel(parameters.channel_name, yt)
     let messages = [];
-    await yt.search.list({
-        channelId: channel_id,
-        maxResults: 10,
-        order: "date",
-        publishedAfter: last_activation.toString()
-    }).then(m => {
-        messages = m.data.messages || [];
-    }).catch(e => {
-        console.log(e)
-    })
-    console.log('fetching channel id: ', parameters.channel_id, 'after: ', last_activation)
-    consele.log('message', messages)
-    if (messages.length > 0) {
-        script_vars.action_result = { text: 'A video was published by ' + channel_id }
-        return true
-    } else {
+    let date = new Date(last_activation)
+    if (channel) {
+        await yt.search.list({
+                part: ['snippet'],
+                channelId: channel.id,
+                maxResults: 4,
+                order: "date",
+                publishedAfter: date,
+                type: 'video'
+            }).then(m => {
+                messages = m.data.items || [];
+            }).catch(e => {
+                console.log(e)
+            })
+            // console.log('fetching channel id: ', parameters.channel_id, 'after: ', last_activation)
+        console.log('message', messages)
+        if (messages.length > 0) {
+            script_vars.action_result = getResult(messages[0].snippet, messages[0].id)
+            console.log(script_vars.action_result)
+            return true
+        }
         return false
+            // console.log('fetched emails')
+            // return false
     }
-    // console.log('fetched emails')
-    // return false
 }
 
 

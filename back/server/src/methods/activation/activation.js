@@ -68,9 +68,9 @@ async function activateScript(script_id, accounts) {
         console.log('action is: ', script.action.type, '\nreaction is: ', script.reaction.type);
         let script_vars = script.variables || {}
         let action_happened = await activateAction(accounts, script.action_parameters, script_vars, script.last_activation, script.action.type)
-        script.last_activation = Math.floor(Date.now() / 1000)
+        let last_activation = Math.floor(Date.now() / 1000)
         script.variables = script_vars
-        await Script.updateOne({ "_id": script._id }, { $set: { variables: script_vars } })
+        await Script.updateOne({ "_id": script._id }, { $set: { variables: script_vars, last_activation: last_activation } })
         if (action_happened) {
             console.log("action happened, activating reaction")
             await activateReaction(accounts, script.reaction_parameters, script_vars, script.reaction.type)

@@ -42,14 +42,16 @@ async function checkFacebookMentionned(account, parameters, script_vars, last_ac
             console.log('got pages', res.data.data)
             let pages = res.data.data
             let page = getPage(pages, parameters.page_name)
-            let feed = await axios.get('https://graph.facebook.com' + '/v10.0/' + page.id + '/feed' + '/?access_token=' + page.access_token)
-            if (feed.data) {
-                console.log('check facebook mentionned', feed.data)
-                let posts = feed.data.data
-                let new_posts = checkNewPost(posts, last_activation)
-                if (new_posts[0]) {
-                    script_vars.action_result = { text: 'this was just published: ' + new_posts[0].message + ' on page ' + page.name }
-                    return true
+            if (page) {
+                let feed = await axios.get('https://graph.facebook.com' + '/v10.0/' + page.id + '/feed' + '/?access_token=' + page.access_token)
+                if (feed.data) {
+                    console.log('check facebook mentionned', feed.data)
+                    let posts = feed.data.data
+                    let new_posts = checkNewPost(posts, last_activation)
+                    if (new_posts[0]) {
+                        script_vars.action_result = { text: 'this was just published: ' + new_posts[0].message + ' on page ' + page.name }
+                        return true
+                    }
                 }
             }
         }

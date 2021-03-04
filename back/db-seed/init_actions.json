@@ -1,110 +1,102 @@
 [{
-    "_id": { "$oid": "601033c4779c01000abdc6b5" },
-    "name": "gmail: email received",
-    "type": "gmail-mail-received",
-    "description": "You received an email on your gmail account",
-    "parameters": [
-        {
+        "_id": { "$oid": "601033c4779c01000abdc6b5" },
+        "name": "gmail: email received",
+        "type": "gmail-mail-received",
+        "description": "You received an email on your gmail account",
+        "parameters": [{
             "type": "String",
             "name": "author"
-        }
-    ],
-    "service": { "$oid": "601034a8779c01000abdc6b7" }
-}, {
-    "_id": { "$oid": "6034ed97f6a933000952dcf4" },
-    "name": "gmail: email received that match",
-    "type": "gmail-mail-received-match",
-    "description": "You received an email on your gmail account that matches words",
-    "parameters": [
-        {
-            "type": "Boolean",
-            "name": "important"
-        },
-        {
-            "type": "String",
-            "name": "word"
-        }
-    ],
-    "service": { "$oid": "601034a8779c01000abdc6b7" }
-}, {
-    "_id": { "$oid": "603cb80f98d4c60008cb2a14" },
-    "name": "youtube: posted a new video",
-    "type": "youtube-new-video",
-    "description": "Notif when new video has been posted",
-    "parameters": [
-        {
-            "type": "Boolean",
-            "name": "important"
-        },
-        {
-            "type": "String",
-            "name": "word"
-        }
-    ],
-    "service": { "$oid": "601034a8779c01000abdc6b7" }
-}, {
-    "_id": { "$oid": "603cb81298d4c60008cb2a16" },
-    "name": "twitch: Notif when Stream starts",
-    "type": "twitch-stream-started",
-    "parameters": [{
-        "type": "String",
-        "name": "channel"
-    }],
-    "description": "Notif when someone starts a stream",
-    "service": { "$oid": "60377bbaa7a1e900072798d6" }
-}, {
-    "_id": { "$oid": "603dff57de0afb0006462ab6" },
-    "name": "twitch: channel is followed",
-    "type": "twitch-channel-followed",
-    "description": "Notif when the channel is followed",
-    "service": { "$oid": "60377bbaa7a1e900072798d6" }
-}, {
-    "_id": { "$oid": "603cb81498d4c60008cb2a18" },
-    "name": "discord: Recieved discord message",
-    "type": "discord-recieved-message",
-    "parameters": [{
-        "type": "String",
-        "name": "channel_name"
-    }],
-    "description": "Notif when you recieved a message on discord",
-    "service": { "$oid": "602bc4fd7233e600087eb9e0" }
-},
-{
-    "_id": { "$oid": "603cea1699eaca000863ccb1" },
-    "name": "facebook: mentionned",
-    "type": "facebook-mentionned",
-    "description": "You have been mentionned in a post",
-    "parameters": [{
-        "name": "posts",
-        "type": "Boolean"
+        }],
+        "service": { "$oid": "601034a8779c01000abdc6b7" }
     }, {
-        "name": "photos",
-        "type": "Boolean"
+        "_id": { "$oid": "6034ed97f6a933000952dcf4" },
+        "name": "gmail: email received that match",
+        "type": "gmail-mail-received-match",
+        "description": "You received an email on your gmail account that matches words",
+        "parameters": [{
+                "type": "Boolean",
+                "name": "important"
+            },
+            {
+                "type": "String",
+                "name": "word"
+            }
+        ],
+        "service": { "$oid": "601034a8779c01000abdc6b7" }
     }, {
-        "name": "comments",
-        "type": "Boolean"
-    }],
-    "service": { "$oid": "5fff3620c37c77753705f766" }
-},
-{
-    "_id": { "$oid": "603e3a68a7b0800006576940" },
-    "name": "github: issue keyword",
-    "type": "github-issue",
-    "description": "Notif when a issue found by keyword is open/closed",
-    "parameters": [{
-        "name": "issue_keyword",
-        "type": "String"
-    }],
-    "service": { "$oid": "6037afafdcacf70009005f1b" }
-},
-{
-    "_id": { "$oid": "603e3a6aa7b0800006576942" },
-    "name": "Trello: recieved notif",
-    "type": "trello-notif",
-    "description": "Activates everytime a Notif is given to the user",
-    "parameters": [{
-        "name": "username",
-        "type": "String"
-    }],
-    "service": { "$oid": "603b9c16f4930e000987dfaa" }
-}]
+        "_id": { "$oid": "603cb80f98d4c60008cb2a14" },
+        "name": "youtube: posted a new video",
+        "type": "youtube-new-video",
+        "description": "Notif when new video has been posted",
+        "parameters": [{
+            "type": "String",
+            "name": "channel_name"
+        }],
+        "service": { "$oid": "601034a8779c01000abdc6b7" }
+    }, {
+        "_id": { "$oid": "603cb81298d4c60008cb2a16" },
+        "name": "twitch: Notif when Stream starts",
+        "type": "twitch-stream-started",
+        "parameters": [{
+            "type": "String",
+            "name": "channel"
+        }],
+        "description": "Notif when someone starts a stream",
+        "service": { "$oid": "60377bbaa7a1e900072798d6" }
+    }, {
+        "_id": { "$oid": "603dff57de0afb0006462ab6" },
+        "name": "twitch: channel is followed",
+        "type": "twitch-channel-followed",
+        "description": "Notif when the channel is followed",
+        "service": { "$oid": "60377bbaa7a1e900072798d6" }
+    }, {
+        "_id": { "$oid": "603cb81498d4c60008cb2a18" },
+        "name": "discord: Recieved discord message",
+        "type": "discord-recieved-message",
+        "parameters": [{
+            "type": "String",
+            "name": "channel_name"
+        }],
+        "description": "Notif when you recieved a message on discord",
+        "service": { "$oid": "602bc4fd7233e600087eb9e0" }
+    },
+    {
+        "_id": { "$oid": "603cea1699eaca000863ccb1" },
+        "name": "facebook: mentionned",
+        "type": "facebook-mentionned",
+        "description": "You have been mentionned in a post",
+        "parameters": [{
+            "name": "posts",
+            "type": "Boolean"
+        }, {
+            "name": "photos",
+            "type": "Boolean"
+        }, {
+            "name": "comments",
+            "type": "Boolean"
+        }],
+        "service": { "$oid": "5fff3620c37c77753705f766" }
+    },
+    {
+        "_id": { "$oid": "603e3a68a7b0800006576940" },
+        "name": "github: issue keyword",
+        "type": "github-issue",
+        "description": "Notif when a issue found by keyword is open/closed",
+        "parameters": [{
+            "name": "issue_keyword",
+            "type": "String"
+        }],
+        "service": { "$oid": "6037afafdcacf70009005f1b" }
+    },
+    {
+        "_id": { "$oid": "603e3a6aa7b0800006576942" },
+        "name": "Trello: recieved notif",
+        "type": "trello-notif",
+        "description": "Activates everytime a Notif is given to the user",
+        "parameters": [{
+            "name": "username",
+            "type": "String"
+        }],
+        "service": { "$oid": "603b9c16f4930e000987dfaa" }
+    }
+]

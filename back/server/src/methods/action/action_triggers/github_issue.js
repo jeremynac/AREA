@@ -5,45 +5,45 @@ const Action = require('@schemas/schemaAction')
 const Account = require('@schemas/schemaAccount')
 const axios = require('axios')
 
-function getHeaderJson(access_token) {
-    return {
-        headers: {
-            'Accept': "application/vnd.github.v3+json",
-            'Authorization': 'token ' + access_token
-        }
-    }
+function dateToTime(date) {
+    return (Date.parse(date) / 1000)
 }
 
 async function githubIssue(account, parameters, script_vars, last_activation) {
-    await axios.get('https://api.github.com/issues',
-        getHeaderJson(account.access_token)
-    ).then((response) => {
-        response.data.forEach(element => {
-            if (element.title.contains(parameters.issue_keyword)) {
-                if (script_vars.action_result) {
-                    if (script_vars.action_result.state != element.state) {
+    var config = {
+        method: 'get',
+        url: 'https://api.github.com/issues',
+        headers: {
+            'Accept': "application/vnd.github.v3+json",
+            'Authorization': 'token ' + account.access_token
+        }
+    };
+    let activated = false
+    await axios(config)
+        .then(function(response) {
+            // console.log(response.data)
+            response.data.forEach(element => {
+                console.log(element.updated_at)
+                if (element.title.includes(parameters.issue_keyword)) {
+                    console.log(last_activation, dateToTime(element.updated_at))
+                    if (last_activation < dateToTime(element.updated_at)) {
                         script_vars.action_result = {
-                            'state': element.state,
-                            'text': "A issue with your keyword is now " + element.state
+                            'message': "An issue was open:\n" + element.body + "\nThe url is " + element.html_url,
+                            'title': element.title,
+                            'text': "A issue with keyword " + parameters.issue_keyword + " is now " + element.state,
+                            'url': element.html_url
                         }
+                        activated = true
                         return true
                     }
-                    script_vars.action_result = {
-                        'state': element.state
-                    }
                 }
-                script_vars.action_result = {
-                    'state': element.state
-                }
-            }
-            return false
+                return false
+            });
+        })
+        .catch(function(error) {
+            console.log(error);
         });
-    }).catch(e => {
-        console.log(e)
-    })
-    if (script_vars.action_result.text)
-        return true
-    return false
+    return activated
 }
 
 

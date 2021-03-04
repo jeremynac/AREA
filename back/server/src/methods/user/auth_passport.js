@@ -16,7 +16,7 @@ passport.serializeUser(function(user, done) {
 });
 
 passport.deserializeUser(function(id, done) {
-    console.log('deserialize')
+    console.log('deserialize', id)
     User.findOne({ _id: id })
         .then(user => {
             done(null, user);

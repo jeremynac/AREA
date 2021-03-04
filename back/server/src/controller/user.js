@@ -10,6 +10,8 @@ function auth(req, res, next) {
     console.log(req.session)
     if (req.isAuthenticated()) {
         next()
+    } else if (req.user) {
+        next()
     } else {
         return res.status(401).json({ error: 'not connected' })
     }
