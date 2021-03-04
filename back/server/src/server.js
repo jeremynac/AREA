@@ -109,7 +109,6 @@ app.use((req, res, next) => {
         next()
     } else if (req.headers.user_id) {
         console.log("no, check header")
-        passport.deserialize
         req.session.user = req.headers.user_id
         if (req.isAuthenticated()) {
             console.log("yes")
