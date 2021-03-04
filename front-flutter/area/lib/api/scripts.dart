@@ -97,7 +97,10 @@ Future<Map<String, dynamic>> getReactionAvailable() async {
 Future<bool> putScriptUpdate(ScriptEditing script) async {
   Map<String, dynamic> bod = script.toJson();
   final body = jsonEncode(bod);
-  final response = await http.put(urlArea + '/reaction/available', headers: headers, body: body);
+  print("SENDING UPDATE : " + body.toString());
+  final response = await http.put(urlArea + '/script/update', headers: headers, body: body);
+
+  print("STATUS CODE" + response.statusCode.toString());
 
   if (response.statusCode == 200) {
     return true;

@@ -14,7 +14,9 @@ class ScriptEditing {
   bool activated;
   String identifier;
   ScriptEditing(this.name, this.action, this.reaction, this.activated, this.identifier);
-  Map<String, dynamic> toJson() => {'_id': identifier, 'name': name, 'action': action.toJson(), 'reaction': reaction.toJson(), 'activated': activated};
+  Map<String, dynamic> toJson() => {
+        'script': {'_id': identifier, 'name': name, 'action': action.toJson(), 'reaction': reaction.toJson(), 'activated': activated}
+      };
 }
 
 class ActionCreation {

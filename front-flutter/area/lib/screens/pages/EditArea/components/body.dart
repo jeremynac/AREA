@@ -5,7 +5,6 @@ import './actionCard.dart';
 import './reactionCard.dart';
 import 'package:area/api/class/area.dart';
 import 'package:area/api/scripts.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class Body extends StatefulWidget {
   final String id;
@@ -21,15 +20,21 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
   ScriptEditing scriptClass = ScriptEditing("", ActionCreation("0", {}), ReactionCreation("0", {}), false, "");
+  bool unlocked1 = false;
+  bool unlocked2 = false;
 
   void initScriptClass(Map<String, dynamic> data) async {
-    final prefs = await SharedPreferences.getInstance();
-    prefs.setBool("isDone", false);
-    scriptClass.name = data['script']['name'];
-    scriptClass.activated = data['script']['activated'];
-    scriptClass.identifier = widget.id;
-    scriptClass.action = ActionCreation(data['script']['action'], data['script']['action_parameters']);
-    scriptClass.reaction = ReactionCreation(data['script']['reaction'], data['script']['reaction_parameters']);
+    if (data['script']['name'] == null) {
+      print("NULL DETECTED");
+      errorLoadDialog(context);
+    } else {
+      scriptClass.name = data['script']['name'];
+      scriptClass.activated = data['script']['activated'];
+      scriptClass.identifier = widget.id;
+      scriptClass.action = ActionCreation(data['script']['action'], data['script']['action_parameters']);
+      scriptClass.reaction = ReactionCreation(data['script']['reaction'], data['script']['reaction_parameters']);
+    }
+    print("scriptClass init to : " + scriptClass.toJson().toString());
   }
 
   Future<int> computeInitialValue(Map<String, dynamic> data) async {
@@ -71,12 +76,37 @@ class _BodyState extends State<Body> {
     );
   }
 
+  errorLoadDialog(BuildContext context) {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text("There was an error"),
+          content: Icon(
+            Icons.block,
+            color: Colors.redAccent,
+          ),
+        );
+      },
+    );
+  }
+
   actionCallback(ActionCreation data) {
-    scriptClass.action = data;
+    if (unlocked1) {
+      print("action callback called");
+      scriptClass.action = data;
+    } else {
+      unlocked1 = true;
+    }
   }
 
   reactionCallback(ReactionCreation data) {
-    scriptClass.reaction = data;
+    if (unlocked2) {
+      print("reaction callback called");
+      scriptClass.reaction = data;
+    } else {
+      unlocked2 = true;
+    }
   }
 
   nameCallback(String data) {
@@ -93,8 +123,9 @@ class _BodyState extends State<Body> {
     return FutureBuilder(
       future: getScriptById(widget.id),
       builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.done) {
+        if (snapshot.connectionState == ConnectionState.done && snapshot.data != null) {
           initScriptClass(snapshot.data);
+          print("Got script to edit: " + snapshot.data.toString());
           return Container(
             child: ListView(
               children: <Widget>[
@@ -115,6 +146,7 @@ class _BodyState extends State<Body> {
                         future: computeInitialValue(snapshot.data),
                         builder: (context, snapshot2) {
                           if (snapshot2.connectionState == ConnectionState.done) {
+                            print("INIT ACTION IS IS : " + snapshot2.data.toString());
                             return ActionCard(
                               initDropdownvalue: snapshot2.data,
                               actionCallback: actionCallback,
@@ -138,6 +170,7 @@ class _BodyState extends State<Body> {
                         future: computeInitialValue2(snapshot.data),
                         builder: (context, snapshot3) {
                           if (snapshot3.connectionState == ConnectionState.done) {
+                            print("INIT REACTION IS IS : " + snapshot3.data.toString());
                             return ReactionCard(
                               initDropdownvalue: snapshot3.data,
                               reactionCallback: reactionCallback,
