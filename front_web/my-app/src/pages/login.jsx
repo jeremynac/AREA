@@ -4,6 +4,9 @@ import { FormControlLabel, Paper, Avatar, Checkbox, Box, Link, Typography, Grid 
 import {useHistory} from "react-router-dom";
 import mainlogo from "../Components/Area.png"
 import {SignInButton, LoginTextField} from '../Components/Buttons';
+import { ImGoogle, ImFacebook, ImGithub, ImTwitch, ImTrello } from "react-icons/im";
+import { FaDiscord } from "react-icons/fa";
+import {GoogleButton, DiscordButton, FacebookButton, TrelloButton,GithubButton,TwitchButton} from '../Components/Buttons';
 
 import API from '../auth/requests'
 
@@ -42,23 +45,33 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function SignInSide() {
+export default function SignInSide(props) {
   const classes = useStyles();
   const history = useHistory();
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
   const navigateTo = () => history.push('/register');
-  const navigateToHome = () => history.push('/Homepage');
+  const navigateToHome = () => history.push('/Area');
   const signin = async () => {
     console.log(username, password)
     let res = await API.login(username, password)
     console.log("FETCH LOGIN");
     console.log(res);
-    // if (res) {
-    //   navigateToHome()
-    // }
+    if (res) {
+      navigateToHome()
+    }
   }
+
+  
+    const openInNewTab = (url) => {
+      const newWindow = window.open(url, '_blank', 'noopener,noreferrer')
+      if (newWindow) newWindow.opener = null
+    }
+
+
+
+
 
   return (
     <Grid container component="main" className={classes.root}>
@@ -108,6 +121,10 @@ export default function SignInSide() {
             >
               Sign In
             </SignInButton>
+            <GoogleButton color="contained" variant="extended" onClick={() => openInNewTab((process.env.REACT_APP_SERVER_URL) + '/auth/go-login' + '/' + 'test' )} size="small" >
+              <ImGoogle className={classes.extendedIcon} />
+              Login to google
+            </GoogleButton>
             <Grid container>
               <Grid item>
                 <Link href="#" variant="body2" onClick={navigateTo}>

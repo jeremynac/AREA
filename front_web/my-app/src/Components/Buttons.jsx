@@ -1,6 +1,6 @@
 import {withStyles } from '@material-ui/core/styles';
 import { green, purple } from '@material-ui/core/colors';
-import {Button, TextField} from '@material-ui/core';
+import {Button, TextField,Switch} from '@material-ui/core';
 
 const GoogleButton = withStyles((theme) => ({
     root: {
@@ -114,12 +114,41 @@ const LoginTextField = withStyles({
 const AddButton = withStyles((theme) => ({
   root: {
     color: theme.palette.getContrastText(purple[500]),
-    backgroundColor: "#6441a5",
+    backgroundColor: "#0C6291",
     '&:hover': {
-      backgroundColor: "#513586",
+      backgroundColor: "#0C6291",
     },
     borderRadius: "40px"
   },
 }))(Button);
 
-export {GoogleButton, DiscordButton, FacebookButton, TrelloButton,GithubButton,TwitchButton, SignInButton,RegisterButton,LoginTextField, AddButton  } ;
+const PurpleSwitch = withStyles({
+  switchBase: {
+    color: "#50409A",
+    '&$checked': {
+      color:  "#50409A",
+    },
+    '&$checked + $track': {
+      backgroundColor: "#50409A",
+    },
+  },
+  checked: {},
+  track: {},
+})(Switch);
+
+
+const OtherSwitch = withStyles({
+  switchBase: {
+    color: "#50409A",
+    '&$checked': {
+      color:  "#50409A",
+    },
+    '&$checked + $track': {
+      backgroundColor: "#50409A",
+    },
+  },
+  checked: {},
+  track: {},
+})(Switch);
+
+export {GoogleButton, DiscordButton, FacebookButton, TrelloButton,GithubButton,TwitchButton, SignInButton,RegisterButton,LoginTextField, AddButton, PurpleSwitch  } ;

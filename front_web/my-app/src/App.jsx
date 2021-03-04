@@ -8,9 +8,9 @@ import {
 import Login from './pages/login';
 import Register from './pages/register';
 import HomePage from './pages/homepage';
-import Epitech from './pages/Epitech';
+import Area from './pages/Epitech';
 import Profile from './pages/Profile';
-
+import AddArea from './pages/Addarea';
 
 
 function App() {
@@ -29,13 +29,15 @@ function App() {
           <Route path="/register">
             <Register />
           </Route>
-          <Route path="/Epitech">
-            <Epitech />
+          <Route path="/Area">
+            <Area />
           </Route>
           <Route path="/Profile">
             <Profile />
           </Route>
-         
+          <Route path="/AddArea">
+            <AddArea />
+          </Route>
         </Switch>
       </div>
     </Router>

@@ -1,6 +1,6 @@
 import axios from 'axios';
 axios.defaults.withCredentials = true
-axios.defaults.headers = {
+let headers = {
     user_id: localStorage.userID
 }
 let url = "https://area.gen-host.fr"
@@ -21,7 +21,7 @@ export default {
                 localStorage.setItem("email", email);
                 // localStorage.setItem("teacher", response.teacher);
                 localStorage.setItem("userID", response.userID);
-                axios.defaults.headers = {
+                headers = {
                     user_id: localStorage.userID
                 }
                 return true
@@ -98,11 +98,101 @@ export default {
     },
     getServiceAllStatus: async function() {
         try {
-            let res = await axios.get(url + '/service/all/status', {withCredentials: true});
+            let res = await axios.get(url + '/service/all/status', {headers: {'uid': localStorage.userID }});
             return res;
         } catch (err) {
             return err;
         }
     },
-
+    getUserScripts: async function() {
+        try {
+            let res = await axios.get(url + '/user/scripts', {headers: {'uid': localStorage.userID }});
+            if (res.data){
+                return res.data.scripts;
+            }
+            else{
+                return []
+            }
+        } catch (err) {
+            return err;
+        }
+    },
+    createScript: async function(name, action_id, reaction_id, a_parameters, r_parameters, activated) {
+        try {
+            let body = {
+                name: name,
+                action: {
+                    action_id: action_id,
+                    parameters: a_parameters
+                },
+                reaction: {
+                    reaction_id: reaction_id ,
+                    parameters: r_parameters
+                },
+                activated: activated
+            }
+            let res = await axios.post(url + '/script/create', body, {headers: {'uid': localStorage.userID }});
+            return res;
+        } catch (err) {
+            console.log(err)
+            return err;
+        }
+    },
+    updateScript: async function(id, name, action_id, reaction_id, a_parameters, r_parameters, activated) {
+        try {
+            let body = {
+                script: {
+                    _id: id,
+                    name: name,
+                    action: {
+                        action_id: action_id,
+                        parameters: a_parameters
+                    },
+                    reaction: {
+                        reaction_id: reaction_id ,
+                        parameters: r_parameters
+                    },
+                    activated: activated
+                }
+            }
+            let res = await axios.put(url + '/script/update', body, {headers: {'uid': localStorage.userID }});
+            console.log(res)
+            return res;
+        } catch (err) {
+            console.log('error', err)
+            return err;
+        }
+    },
+    activateScript: async function(id, activated) {
+        try {
+            let res = await axios.get(url + '/script/activate/?id=' + id + '&activated=' + activated, {headers: {'uid': localStorage.userID }});
+            return res;
+        } catch (err) {
+            return err;
+        }
+    },
+    deleteScript: async function(id) {
+        try {
+            let res = await axios.get(url + '/script/delete/?id=' + id, {headers: {'uid': localStorage.userID }});
+            return res;
+        } catch (err) {
+            return err;
+        }
+    },
+    getActions: async function() {
+        try {
+            let res = await axios.get(url + '/action/available', {headers: {'uid': localStorage.userID }});
+            return res.data.actions;
+        } catch (err) {
+            return err;
+        }
+    },
+    getReactions: async function() {
+        try {
+            let res = await axios.get(url + '/reaction/available', {headers: {'uid': localStorage.userID }});
+            return res.data.reactions;
+        } catch (err) {
+            return err;
+        }
+    },
 };

@@ -10,8 +10,6 @@ import {AddButton } from "../Components/Buttons";
 import { green, purple } from '@material-ui/core/colors';
 import mainlogo from "../Components/Area.png";
 import {useHistory} from "react-router-dom";
-import { createMuiTheme } from '@material-ui/core/styles';
-
 
 const drawerWidth = 240;
 
@@ -19,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     flexGrow: 1,
-    backgroundColor: '#FDFFFC',
+    backgroundColor: '#313866',
     height: '100vh',
   },
   appBar: {
@@ -89,10 +87,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(1),
     marginTop: theme.spacing(1),
   },
-  Cardcolor: {
-  }
 }));
-
 
 function ListItemLink(props) {
   return <ListItem button component="a" {...props} />;
@@ -111,9 +106,8 @@ const downloadfile = () => {
 export default function PersistentDrawerLeft() {
   const classes = useStyles();
   const history = useHistory();
-  const theme = useTheme();
 
-  
+  const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [auth, setAuth] = React.useState(true);
@@ -138,11 +132,11 @@ export default function PersistentDrawerLeft() {
         <div className={classes.drawerHeader} />
         <Grid container item spacing={3}>
           <Grid item xs={10}>
-            <AreaToggle/>
+            <AreaList/>
           </Grid>
           <Grid item xs={2} >
             <Card >
-              <CardContent className={classes.Cardcolor}>
+              <CardContent>
                 <img  src={mainlogo} className={classes.Cardheader} alt="fireSpot"/>
                 <Typography className={classes.title} color="textSecondary" gutterBottom>
                   EPITECH AREA APK

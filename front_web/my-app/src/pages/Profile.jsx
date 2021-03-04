@@ -6,11 +6,12 @@ import NavigationBar from "../Components/navbar";
 import { ImGoogle, ImFacebook, ImGithub, ImTwitch, ImTrello } from "react-icons/im";
 import { FaDiscord } from "react-icons/fa";
 import {GoogleButton, DiscordButton, FacebookButton, TrelloButton,GithubButton,TwitchButton} from '../Components/Buttons';
-import LoginCheck from '../Components/LoginCheck';
 import { purple } from '@material-ui/core/colors';
 import API from '../auth/requests';
 import { green } from '@material-ui/core/colors';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import {AddButton } from "../Components/Buttons";
+import {useHistory} from "react-router-dom";
 
 
 const drawerWidth = 240;
@@ -257,6 +258,8 @@ function GlobalButton(props) {
 export default function PersistentDrawerLeft() {
   const classes = useStyles();
   const theme = useTheme();
+  const history = useHistory();
+
   const [open, setOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [auth, setAuth] = React.useState(true);
@@ -264,7 +267,8 @@ export default function PersistentDrawerLeft() {
   const bull = <span className={classes.bullet}>•</span>;
 
   const isMenuOpen = Boolean(anchorEl);
-  
+  const navigateToArea = () => history.push('/Area');
+
   const handleMobileMenuClose = () => { setMobileMoreAnchorEl(null); };
   const handleMenuClose = () => { setAnchorEl(null); handleMobileMenuClose(); };
 
@@ -330,15 +334,12 @@ export default function PersistentDrawerLeft() {
                     Email : {localStorage.getItem("email")}
                   </Typography>
                 </CardContent>
-                <CardActions>
-                  <Button size="small">Change settings</Button>
-                </CardActions>
               </Card>
           </Grid>
-          <List item xs={3} spacing={3}>
+          <Grid item xs={3} spacing={3}>
             { myservices.map( (service) => (
               <li key={service.type}>
-                <Card className={classes.root}>
+                <Card className={classes.root} xs={4}>
                   <CardActions>
                     <GlobalButton service={service.service} />
                     {service.connected?<CheckCircleIcon style={{ color: green[500] }}/>:<div></div>}
@@ -348,7 +349,7 @@ export default function PersistentDrawerLeft() {
             )
             )
             }
-          </List>
+          </Grid>
       </Grid>
       </main>
     </div>

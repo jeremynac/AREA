@@ -15,16 +15,14 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import MailIcon from '@material-ui/icons/Mail';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import NotificationsIcon from '@material-ui/icons/Notifications';
-import { ImLibrary, ImFacebook2 } from "react-icons/im";
+import { ImLibrary } from "react-icons/im";
 import {useHistory} from "react-router-dom";
-import { green, purple } from '@material-ui/core/colors';
+import { purple } from '@material-ui/core/colors';
 import SettingsIcon from '@material-ui/icons/Settings';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
 
 
 const drawerWidth = 240;
@@ -32,13 +30,14 @@ const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
+
   },
   appBar: {
     transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    backgroundColor: purple[500],
+    backgroundColor: purple[700],
   },
   appBarShift: {
     width: `calc(100% - ${drawerWidth}px)`,
@@ -115,9 +114,9 @@ export default function PersistentDrawerLeft() {
   const handleMenuClose = () => { setAnchorEl(null); handleMobileMenuClose(); };
   const handleProfileMenuOpen = (event) => {  setAnchorEl(event.currentTarget); };
 
-  const navigateToEpitech = () => history.push('/Epitech');
+  const navigateToEpitech = () => history.push('/Area');
   const navigateToProfile = () => history.push('/Profile');
-
+  const navigateToAddArea = () => history.push('/Addarea');
 
   const menuId = 'primary-search-account-menu';
   //Profile drop down menu
@@ -145,24 +144,27 @@ export default function PersistentDrawerLeft() {
         })}
       >
         <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            className={clsx(classes.menuButton, open && classes.hide)}
-          >
-            <MenuIcon />
-          </IconButton>
           <Typography variant="h6">
             AREA
           </Typography>
           <div className={classes.toolbarButtons}>
             <IconButton edge="end" aria-label="account of current user" aria-controls={menuId} aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
+              onClick={navigateToEpitech}
               color="inherit"
             >
               <AccountCircle />
+            </IconButton>
+            <IconButton edge="end" aria-label="account of current user" aria-controls={menuId} aria-haspopup="true"
+              onClick={navigateToProfile}
+              color="inherit"
+            >
+              <SettingsIcon />
+            </IconButton>
+            <IconButton edge="end" aria-label="account of current user" aria-controls={menuId} aria-haspopup="true"
+              onClick={navigateToAddArea}
+              color="inherit"
+            >
+              <AddCircleIcon />
             </IconButton>
           </div>
         </Toolbar>
