@@ -1,6 +1,6 @@
 import 'package:area/constants.dart';
 import 'package:flutter/material.dart';
-import './components/body.dart';
+import './Webview.dart';
 
 class ServiceLoginScreen extends StatelessWidget {
   @override
@@ -16,7 +16,7 @@ class ServiceLoginScreen extends StatelessWidget {
         ),
         backgroundColor: kPrimaryColor,
       ),
-      body: Body(),
+      body: WebViewExample(),
     );
   }
 }

@@ -16,7 +16,9 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-  ScriptCreation scriptClass = ScriptCreation("", ActionCreation("0", {}), ReactionCreation("0", {}), false);
+  ScriptCreation scriptClass = ScriptCreation(
+      "", ActionCreation("0", {}), ReactionCreation("0", {}), false);
+  bool failure = false;
 
   errorSendAlertDialog(BuildContext context) {
     return showDialog(
@@ -49,6 +51,10 @@ class _BodyState extends State<Body> {
     scriptClass.activated = data;
   }
 
+  failCallback() {
+    failure = true;
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -68,6 +74,7 @@ class _BodyState extends State<Body> {
                 width: size.width * 0.9,
                 child: ActionCard(
                   actionCallback: actionCallback,
+                  failCallback: failCallback,
                 ),
               ),
               SizedBox(
@@ -77,29 +84,41 @@ class _BodyState extends State<Body> {
                 width: size.width * 0.9,
                 child: ReactionCard(
                   reactionCallback: reactionCallback,
+                  failCallback: failCallback,
                 ),
               ),
-              Container(
-                margin: EdgeInsets.symmetric(vertical: 10),
-                width: size.width * 0.8,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(29),
-                  child: FlatButton(
-                    padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
-                    color: kPrimaryLightColor,
-                    shape: RoundedRectangleBorder(side: BorderSide(color: kPrimaryColor, width: 2, style: BorderStyle.solid), borderRadius: BorderRadius.circular(50)),
-                    onPressed: () async {
-                      bool success = await postScriptCreate(scriptClass);
-                      if (!success) errorSendAlertDialog(context);
-                      print(scriptClass.toJson());
-                    },
-                    child: Text(
-                      "Submit",
-                      style: TextStyle(color: Colors.black),
+              if (!failure)
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: 10),
+                  width: size.width * 0.8,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(29),
+                    child: FlatButton(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 20, horizontal: 40),
+                      color: kPrimaryLightColor,
+                      shape: RoundedRectangleBorder(
+                          side: BorderSide(
+                              color: kPrimaryColor,
+                              width: 2,
+                              style: BorderStyle.solid),
+                          borderRadius: BorderRadius.circular(50)),
+                      onPressed: () async {
+                        if (failure) {
+                          errorSendAlertDialog(context);
+                          return;
+                        }
+                        bool success = await postScriptCreate(scriptClass);
+                        if (!success) errorSendAlertDialog(context);
+                        print(scriptClass.toJson());
+                      },
+                      child: Text(
+                        "Submit",
+                        style: TextStyle(color: Colors.black),
+                      ),
                     ),
                   ),
                 ),
-              ),
             ],
           ),
         ],

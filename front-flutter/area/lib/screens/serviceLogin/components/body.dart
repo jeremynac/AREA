@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:area/api/auth.dart';
-import './serviceCard.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -14,8 +13,9 @@ class _BodyState extends State<Body> {
     return FutureBuilder(
       future: getLoginServices(),
       builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.done && snapshot.data != null && snapshot.data['error'] != true) {
-          print("HEllo");
+        if (snapshot.connectionState == ConnectionState.done &&
+            snapshot.data != null &&
+            snapshot.data['error'] != true) {
           return Container(
             child: ListView(
               children: <Widget>[
