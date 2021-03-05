@@ -37,7 +37,6 @@ Future<bool> fetchLogin(String username, String password) async {
   print("test2");
   headers['Content-Type'] = 'application/json; charset=UTF-8';
 
-
   print(urlArea + '/auth/login');
   final response = await http.post(
     urlArea + '/auth/login',
@@ -87,5 +86,18 @@ void updateCookie(http.Response response) async {
     Map<String, dynamic> areas = jsonDecode(response.body);
     userID = areas['userID'];
     prefs.setString('user_id', userID);
+  }
+}
+
+Future<Map<String, dynamic>> getLoginServices() async {
+  final response = await http.get(urlArea + '/service/all', headers: headers);
+
+  Map<String, dynamic> services = jsonDecode(response.body);
+
+  if (response.statusCode == 200) {
+    return services;
+  } else {
+    services['error'] = true;
+    return services;
   }
 }

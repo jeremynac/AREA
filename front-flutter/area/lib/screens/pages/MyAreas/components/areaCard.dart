@@ -38,6 +38,7 @@ class _AreaCardState extends State<AreaCard> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    print(widget.data.toString());
     return Card(
       color: kPrimaryLightColor,
       shape: RoundedRectangleBorder(
@@ -74,8 +75,8 @@ class _AreaCardState extends State<AreaCard> {
                   setState(() {
                     isSwitched = value;
                   });
-                  bool test = await updateScriptActivation(widget.data['_id'], isSwitched);
-                  if (!test) {
+                  bool success = await updateScriptActivation(widget.data['_id'], isSwitched);
+                  if (!success) {
                     isSwitched = !isSwitched;
                     errorUpdateAlertDialog(context);
                   }
@@ -108,14 +109,15 @@ class _AreaCardState extends State<AreaCard> {
                         fontSize: 17,
                       ),
                     ),
-                    for (var i in widget.data['action_parameters'].keys)
-                      Text(
-                        "- " + i + " : " + (widget.data['action_parameters'][i] is String ? widget.data['action_parameters'][i] : widget.data['action_parameters'][i].toString()),
-                        style: TextStyle(
-                          fontFamily: 'Ubuntu',
-                          color: Colors.black,
+                    if (widget.data['actions_parameters'] != null)
+                      for (var i in widget.data['action_parameters'])
+                        Text(
+                          "- " + i + " : " + (widget.data['action_parameters'][i] is String ? widget.data['action_parameters'][i] : widget.data['action_parameters'][i].toString()),
+                          style: TextStyle(
+                            fontFamily: 'Ubuntu',
+                            color: Colors.black,
+                          ),
                         ),
-                      ),
                     SizedBox(
                       height: size.height * 0.01,
                     ),
@@ -127,14 +129,15 @@ class _AreaCardState extends State<AreaCard> {
                         fontSize: 17,
                       ),
                     ),
-                    for (var i in widget.data['reaction_parameters'].keys)
-                      Text(
-                        "- " + i + " : " + (widget.data['reaction_parameters'][i] is String ? widget.data['reaction_parameters'][i] : widget.data['reaction_parameters'][i].toString()),
-                        style: TextStyle(
-                          fontFamily: 'Ubuntu',
-                          color: Colors.black,
+                    if (widget.data['actions_parameters'] != null)
+                      for (var i in widget.data['reaction_parameters'])
+                        Text(
+                          "- " + i + " : " + (widget.data['reaction_parameters'][i] is String ? widget.data['reaction_parameters'][i] : widget.data['reaction_parameters'][i].toString()),
+                          style: TextStyle(
+                            fontFamily: 'Ubuntu',
+                            color: Colors.black,
+                          ),
                         ),
-                      ),
                   ],
                 ),
                 Row(
