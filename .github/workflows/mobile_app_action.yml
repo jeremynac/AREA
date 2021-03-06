@@ -15,7 +15,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
-      run: docker build ./front-flutter --file Dockerfile --tag flutter_area:latest
+      run: cd ./front-flutter && docker build . --file Dockerfile --tag flutter_area:latest
     - name: run container
       run: docker run --rm -it -v ./front-flutter/build/:/app/build/app/outputs/flutter-apk/ flutter_area:latest
     - name: COPY Release APK
