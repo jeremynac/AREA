@@ -74,7 +74,7 @@ module.exports = function(app) {
                         console.log(err)
                     })
                     console.log("connected or added account", user)
-                    return res.status(200).json({ new_account: new_account.value, new_user: true });
+                    return res.status(200).json({ new_account: new_account.value, new_user: true, userID: user._id });
                 }
             } catch (e) {
                 console.log(e)
@@ -121,7 +121,7 @@ module.exports = function(app) {
     // )
     app.get('/google/callback', (req, res) => {
         passport.authenticate('google', (err, user, new_account, success) => {
-            console.log('okok', err, new_account)
+            console.log('okok', err, new_account, user)
             try {
                 if (err) {
                     console.log("err")
@@ -135,7 +135,7 @@ module.exports = function(app) {
                     })
                     console.log("connected or added account", user)
                     res.headers = { test: 'test' }
-                    return res.status(200).json({ new_account: new_account.value, new_user: true });
+                    return res.status(200).json({ new_account: new_account.value, new_user: true, userID: user._id });
                 }
             } catch (e) {
                 console.log(e)
@@ -179,7 +179,7 @@ module.exports = function(app) {
                     })
                     console.log("err", user)
                     console.log("connected or added account", user)
-                    return res.status(200).json({ new_account: new_account.value, new_user: true });
+                    return res.status(200).json({ new_account: new_account.value, new_user: true, userID: user._id });
                 }
             } catch (e) {
                 console.log(e)
@@ -219,7 +219,7 @@ module.exports = function(app) {
                         console.log(err)
                     })
                     console.log("connected or added account", user)
-                    return res.status(200).json({ new_account: new_account.value, new_user: true });
+                    return res.status(200).json({ new_account: new_account.value, new_user: true, userID: user._id });
                 }
             } catch (e) {
                 console.log(e)
@@ -230,7 +230,7 @@ module.exports = function(app) {
     app.get('/di-login/:user_id', async(req, res) => {
         console.log('test')
         passport.authenticate('discord', {
-            scope: ['identify', 'email', 'guilds', 'guilds.join', 'gdm.join', 'messages.read', 'activities.read'],
+            scope: ['identify', 'email', 'guilds', 'guilds.join', 'gdm.join', 'messages.read'],
             prompt: 'consent',
             state: req.params.user_id
         })(req, res)
@@ -250,7 +250,7 @@ module.exports = function(app) {
                         console.log(err)
                     })
                     console.log("connected or added account", user)
-                    return res.status(200).json({ new_account: new_account.value, new_user: true });
+                    return res.status(200).json({ new_account: new_account.value, new_user: true, userID: user._id });
                 }
             } catch (e) {
                 console.log(e)
@@ -310,7 +310,7 @@ module.exports = function(app) {
                         console.log(err)
                     })
                     console.log("connected or added account", user)
-                    return res.status(200).json({ new_account: new_account.value, new_user: true });
+                    return res.status(200).json({ new_account: new_account.value, new_user: true, userID: user._id });
                 }
             } catch (e) {
                 console.log(e)
@@ -342,7 +342,7 @@ module.exports = function(app) {
                         console.log(err)
                     })
                     console.log("connected or added account", user)
-                    return res.status(200).json({ new_account: new_account.value, new_user: true });
+                    return res.status(200).json({ new_account: new_account.value, new_user: true, userID: user._id });
                 }
             } catch (e) {
                 console.log(e)
@@ -374,7 +374,7 @@ module.exports = function(app) {
                         console.log(err)
                     })
                     console.log("connected or added account", user)
-                    return res.status(200).json({ new_account: new_account.value, new_user: true });
+                    return res.status(200).json({ new_account: new_account.value, new_user: true, userID: user._id });
                 }
             } catch (e) {
                 console.log(e)
