@@ -95,7 +95,7 @@ services:
         links:
             - mongo
         volumes:
-            - .back/db-seed:/db-seed
+            - ./back/db-seed:/db-seed
         command:
             /back/db-seed/import.sh
         depends_on:
