@@ -1,0 +1,26 @@
+name: Client Mobile - Docker Flutter Build APK
+
+on:
+  push:
+    branches: [ dev-flutter ]
+  pull_request:
+    branches: [ dev-flutter ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build the Docker image
+      run: cd ./front-flutter && docker build . --file Dockerfile --tag flutter_area:latest
+    - name: run container
+      run: docker run -v `pwd`/front-flutter/build:/app/build/app/outputs/flutter-apk flutter_area:latest
+    - name: COPY Release APK
+      if: ${{ always() }}
+      uses: actions/upload-artifact@v2
+      with:
+        name: flutter_area_apk
+        path: ./front-flutter/build/*.apk

@@ -9,14 +9,47 @@ class ProfileCard extends StatefulWidget {
 }
 
 class _ProfileCardState extends State<ProfileCard> {
+  String username;
+  bool hasChanged = false;
+
+  errorEditDialog(BuildContext context) {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text("There was an error"),
+          content: Icon(
+            Icons.block,
+            color: Colors.redAccent,
+          ),
+        );
+      },
+    );
+  }
+
+  successEditDialog(BuildContext context) {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text("Username updated"),
+          content: Icon(
+            Icons.check,
+            color: Colors.greenAccent,
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    //bool hasChanged = false;
     Size size = MediaQuery.of(context).size;
     return FutureBuilder(
       future: getUserInfo(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
+          username = snapshot.data['username'];
           return Card(
             color: Colors.white,
             elevation: 0.0,
@@ -31,52 +64,48 @@ class _ProfileCardState extends State<ProfileCard> {
               padding: EdgeInsets.only(top: 0, left: 6.0, right: 6.0, bottom: 6.0),
               child: Column(
                 children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      RoundedInputField(
-                        noIcon: true,
-                        labelText: "Firstname",
-                        sizeModifier: 0.55,
-                        controller: TextEditingController(text: snapshot.data['firstname'] != null ? snapshot.data['firstname'] : "unknown"),
-                        onChanged: (value) {
-                          snapshot.data['firstname'] = value;
-                          //hasChanged = true;
-                        },
-                      ),
-                      SizedBox(width: size.width * 0.03),
-                      RoundedInputField(
-                        noIcon: true,
-                        labelText: "Lastname",
-                        sizeModifier: 0.55,
-                        controller: TextEditingController(text: snapshot.data['lastname'] != null ? snapshot.data['lastname'] : "unknown"),
-                        onChanged: (value) {
-                          snapshot.data['lastname'] = value;
-                          //hasChanged = true;
-                        },
-                      ),
-                    ],
-                  ),
-                  RoundedInputField(
-                    noIcon: true,
-                    labelText: "Email",
-                    sizeModifier: 1.1,
-                    controller: TextEditingController(text: snapshot.data['email'] != null ? snapshot.data['email'] : "unknown"),
-                    onChanged: (value) {
-                      snapshot.data['email'] = value;
-                      //hasChanged = true;
-                    },
-                  ),
                   RoundedInputField(
                     noIcon: true,
                     labelText: "Username",
                     sizeModifier: 1.1,
                     controller: TextEditingController(text: snapshot.data['username'] != null ? snapshot.data['username'] : "unknown"),
                     onChanged: (value) {
-                      snapshot.data['username'] = value;
-                      //hasChanged = true;
+                      username = value;
                     },
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Transform.scale(
+                        scale: 0.8,
+                        child: Container(
+                          margin: EdgeInsets.symmetric(vertical: 10),
+                          width: size.width * 0.3,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(29),
+                            child: FlatButton(
+                              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
+                              color: kPrimaryLightColor,
+                              shape: RoundedRectangleBorder(side: BorderSide(color: kPrimaryColor, width: 2, style: BorderStyle.solid), borderRadius: BorderRadius.circular(50)),
+                              onPressed: () async {
+                                bool success = await postUpdateUserInfo(username);
+                                if (!success)
+                                  errorEditDialog(context);
+                                else
+                                  successEditDialog(context);
+                              },
+                              child: Text(
+                                "Edit",
+                                style: TextStyle(color: Colors.black),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: size.width * 0.01,
+                      )
+                    ],
                   ),
                   Divider(
                     color: kSecondayColor,

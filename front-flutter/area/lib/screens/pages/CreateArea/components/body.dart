@@ -16,8 +16,7 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-  ScriptCreation scriptClass = ScriptCreation(
-      "", ActionCreation("0", {}), ReactionCreation("0", {}), false);
+  ScriptCreation scriptClass = ScriptCreation("", ActionCreation("0", {}), ReactionCreation("0", {}), false);
   bool failure = false;
 
   errorSendAlertDialog(BuildContext context) {
@@ -29,6 +28,21 @@ class _BodyState extends State<Body> {
           content: Icon(
             Icons.block,
             color: Colors.redAccent,
+          ),
+        );
+      },
+    );
+  }
+
+  successSendDialog(BuildContext context) {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text("Area Created"),
+          content: Icon(
+            Icons.check,
+            color: Colors.greenAccent,
           ),
         );
       },
@@ -94,22 +108,19 @@ class _BodyState extends State<Body> {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(29),
                     child: FlatButton(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 20, horizontal: 40),
+                      padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
                       color: kPrimaryLightColor,
-                      shape: RoundedRectangleBorder(
-                          side: BorderSide(
-                              color: kPrimaryColor,
-                              width: 2,
-                              style: BorderStyle.solid),
-                          borderRadius: BorderRadius.circular(50)),
+                      shape: RoundedRectangleBorder(side: BorderSide(color: kPrimaryColor, width: 2, style: BorderStyle.solid), borderRadius: BorderRadius.circular(50)),
                       onPressed: () async {
                         if (failure) {
                           errorSendAlertDialog(context);
                           return;
                         }
                         bool success = await postScriptCreate(scriptClass);
-                        if (!success) errorSendAlertDialog(context);
+                        if (!success)
+                          errorSendAlertDialog(context);
+                        else
+                          successSendDialog(context);
                         print(scriptClass.toJson());
                       },
                       child: Text(

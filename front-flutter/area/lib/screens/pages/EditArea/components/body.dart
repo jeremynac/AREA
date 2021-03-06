@@ -19,7 +19,8 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-  ScriptEditing scriptClass = ScriptEditing("", ActionCreation("0", {}), ReactionCreation("0", {}), false, "");
+  ScriptEditing scriptClass = ScriptEditing(
+      "", ActionCreation("0", {}), ReactionCreation("0", {}), false, "");
   bool unlocked1 = false;
   bool unlocked2 = false;
 
@@ -31,8 +32,10 @@ class _BodyState extends State<Body> {
       scriptClass.name = data['script']['name'];
       scriptClass.activated = data['script']['activated'];
       scriptClass.identifier = widget.id;
-      scriptClass.action = ActionCreation(data['script']['action'], data['script']['action_parameters']);
-      scriptClass.reaction = ReactionCreation(data['script']['reaction'], data['script']['reaction_parameters']);
+      scriptClass.action = ActionCreation(
+          data['script']['action'], data['script']['action_parameters']);
+      scriptClass.reaction = ReactionCreation(
+          data['script']['reaction'], data['script']['reaction_parameters']);
     }
     print("scriptClass init to : " + scriptClass.toJson().toString());
   }
@@ -123,7 +126,8 @@ class _BodyState extends State<Body> {
     return FutureBuilder(
       future: getScriptById(widget.id),
       builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.done && snapshot.data != null) {
+        if (snapshot.connectionState == ConnectionState.done &&
+            snapshot.data != null) {
           initScriptClass(snapshot.data);
           print("Got script to edit: " + snapshot.data.toString());
           return Container(
@@ -145,13 +149,16 @@ class _BodyState extends State<Body> {
                       child: FutureBuilder(
                         future: computeInitialValue(snapshot.data),
                         builder: (context, snapshot2) {
-                          if (snapshot2.connectionState == ConnectionState.done) {
-                            print("INIT ACTION IS IS : " + snapshot2.data.toString());
+                          if (snapshot2.connectionState ==
+                              ConnectionState.done) {
+                            print("INIT ACTION IS IS : " +
+                                snapshot2.data.toString());
                             return ActionCard(
                               initDropdownvalue: snapshot2.data,
                               actionCallback: actionCallback,
                               initActionId: snapshot.data['script']['action'],
-                              initParameters: snapshot.data['script']['action_parameters'],
+                              initParameters: snapshot.data['script']
+                                  ['action_parameters'],
                             );
                           } else if (snapshot.hasError) {
                             throw snapshot.error;
@@ -169,13 +176,17 @@ class _BodyState extends State<Body> {
                       child: FutureBuilder(
                         future: computeInitialValue2(snapshot.data),
                         builder: (context, snapshot3) {
-                          if (snapshot3.connectionState == ConnectionState.done) {
-                            print("INIT REACTION IS IS : " + snapshot3.data.toString());
+                          if (snapshot3.connectionState ==
+                              ConnectionState.done) {
+                            print("INIT REACTION IS IS : " +
+                                snapshot3.data.toString());
                             return ReactionCard(
                               initDropdownvalue: snapshot3.data,
                               reactionCallback: reactionCallback,
-                              initReactionId: snapshot.data['script']['reaction'],
-                              initParameters: snapshot.data['script']['reaction_parameters'],
+                              initReactionId: snapshot.data['script']
+                                  ['reaction'],
+                              initParameters: snapshot.data['script']
+                                  ['reaction_parameters'],
                             );
                           } else if (snapshot.hasError) {
                             throw snapshot.error;
@@ -191,12 +202,22 @@ class _BodyState extends State<Body> {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(29),
                         child: FlatButton(
-                          padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
+                          padding: EdgeInsets.symmetric(
+                              vertical: 20, horizontal: 40),
                           color: kPrimaryLightColor,
-                          shape: RoundedRectangleBorder(side: BorderSide(color: kPrimaryColor, width: 2, style: BorderStyle.solid), borderRadius: BorderRadius.circular(50)),
+                          shape: RoundedRectangleBorder(
+                              side: BorderSide(
+                                  color: kPrimaryColor,
+                                  width: 2,
+                                  style: BorderStyle.solid),
+                              borderRadius: BorderRadius.circular(50)),
                           onPressed: () async {
                             bool success = await putScriptUpdate(scriptClass);
-                            if (!success) errorSendAlertDialog(context);
+                            if (!success)
+                              errorSendAlertDialog(context);
+                            else
+                              Navigator.of(context).pushNamedAndRemoveUntil(
+                                  '/app', (Route<dynamic> route) => false);
                           },
                           child: Text(
                             "Edit",
