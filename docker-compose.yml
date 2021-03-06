@@ -7,16 +7,21 @@ services:
             - ./front-flutter/build/:/app/build/app/outputs/flutter-apk/
     client_web:
         container_name: front
-        build: ./front
+        build: ./front-web/front-react
         tty: true
-        depends_on:
-            - client_mobile
-            - server
+        #depends_on:
+        #    - client_mobile
+        #    - server
+        environment:
+            PORT: 8081
+            REACT_APP_SERVER_URL: https://area.gen-host.fr
+        volumes:
+          - ./front-react/src/:/my-app/src
         ports:
             - "8081:8081"
         restart: on-failure
         networks:
-            - front_net
+            - front_net          
     server:
         container_name: back
         build: ./back/server
