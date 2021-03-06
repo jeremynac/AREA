@@ -128,15 +128,17 @@ async function findOrCreateUser(service_type, args) {
         let user = await findUserByAccount(service_type, args)
         if (user) {
             console.log('found user', user)
+            return [user, false, true]
         } else {
             console.log('not found user')
             user = await createUserAndAccount(service_type, args)
             console.log('new user:', user)
+            return [user, true, true]
         }
         return user;
     } catch (e) {
         console.log(e)
-        return null
+        return [null, false, false]
     }
 }
 
@@ -173,10 +175,12 @@ async function processAccount(user_id, service_type, args) {
             }
         } else {
             console.log('not logged in')
-            let user = await findOrCreateUser(service_type, parsed_args);
+            let res = await findOrCreateUser(service_type, parsed_args);
             console.log('got user')
-            if (user) {
-                return { user_id: user, new_account: true, success: true }
+            if (res[1]) { //new user
+                return { user_id: res[0], new_account: true, success: true }
+            } else if (res[2]) {
+                return { user_id: res[0], new_account: false, success: true }
             } else {
                 return { user_id: null, new_account: false, success: false }
             }
