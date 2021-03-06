@@ -25,6 +25,11 @@ Ici on différencie notre production (master) des branches de dev (dev-*)
 - **dev-back**: Regroupe toutes les fonctionnalités prêtes dans le back.
 - **dev-back-\***: Chaque fonctionnalité du back est dans une branche précise et pull-requesté par la suite dans dev-back.
 
+### Arborescence globale
+
+![atl text](https://user-images.githubusercontent.com/62656340/110210107-75b33000-7e90-11eb-99a3-9838a9341505.png)
+
+
 ### Passage d'une branche à l'autre:
 Pour passer d'une branche à l'autre, on utilise des Pull request. L'idée de base était d'utiliser des Githubs Actions mais les limites imposés par Epitech nous ont forcé à abandonner cette idée. On vérifie à chaque Pull Request que ça merge correctement.
 
