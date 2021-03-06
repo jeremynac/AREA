@@ -105,7 +105,7 @@ app.use('/public', routerPublic);
 require('@controller/public')(routerPublic);
 
 app.get('/about.json', async(req, res) => {
-    let about = await getAbout()
+    let about = await getAbout(req)
     return res.status(200).json(about)
 })
 

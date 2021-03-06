@@ -1,14 +1,11 @@
 const express = require('express')
-const User = require('@schemas/schemaUser')
-const Script = require('@schemas/schemaScript')
 const Service = require('@schemas/schemaService')
-const Action = require('@schemas/schemaAction')
 
-async function getAbout() {
+async function getAbout(req) {
     try {
-        let ip = ctx.request.ip;
+        let ip = req.ip;
         let time = Math.floor(Date.now() / 1000);
-        let services = await Service.find().select('name actions reactions').populate('actions', 'name description').populate('reactions', 'name description')
+        let services = await Service.find().select('name actions reactions -_id').populate('actions', 'name description -_id').populate('reactions', 'name description -_id')
         return {
             client: {
                 host: ip
@@ -18,7 +15,8 @@ async function getAbout() {
                 services: services
             }
         }
-    } catch {
+    } catch (e) {
+        console.log(e)
         return { error: 'true' }
     }
 }
