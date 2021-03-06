@@ -80,4 +80,16 @@ module.exports = function(app) {
             return res.status(500).json({ error: e })
         }
     })
+
+    app.put('/account/delete', async(req, res) => {
+        try {
+            console.log('test', req.query)
+            await Account.deleteOne({ user: req.user._id, service: req.query.service_id })
+            return res.status(200).json({ deleted: true })
+        } catch (e) {
+            console.log(e)
+            return res.status(500).json({ error: e })
+        }
+    })
+
 }

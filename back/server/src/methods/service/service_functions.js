@@ -9,9 +9,13 @@ async function findUserByServiceAccount(service_type, profile) {
     try {
         let service = await Service.findOne({ type: service_type }).select('')
         console.log(service)
-        let account = await Account.find({ service_id: profile.id, service: service._id })
+        let account = await Account.findOne({ service_id: profile.id, service: service._id })
         console.log('test', account)
-        return account[0] || null
+        if (account) {
+            return account.user
+        } else {
+            return null
+        }
     } catch (e) {
         console.log(e)
         return null

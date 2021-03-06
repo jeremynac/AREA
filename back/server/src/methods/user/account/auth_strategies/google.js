@@ -17,6 +17,7 @@ const GoStrategy = new GoogleStrategy({
         let processed = await processAccount(req.query.state, 'google', profile);
         console.log('ok', processed)
         let user = await User.findById(processed.user_id)
+        console.log(user)
         return cb(null, user, { value: processed.new_account })
     }
 );
