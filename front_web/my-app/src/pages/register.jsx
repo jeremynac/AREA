@@ -54,12 +54,13 @@ export default function SignInSide() {
   // const [email, setEmail] = useState('')
 
   const navigateToHome = () => history.push('/');
+  const navigateToProfile = () => history.push('/Profile');
 
   const register = async () => {
      console.log(username, password)
      let res = await API.register(username, password)
      if (res) {
-       navigateToHome()
+      navigateToProfile()
      }
    }
 

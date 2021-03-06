@@ -16,6 +16,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import AccountCircle from '@material-ui/icons/AccountCircle';
+import Widgets from '@material-ui/icons/Widgets';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import { ImLibrary } from "react-icons/im";
@@ -152,19 +153,19 @@ export default function PersistentDrawerLeft() {
               onClick={navigateToEpitech}
               color="inherit"
             >
-              <AccountCircle />
+              <Widgets style={{ fontSize: 40 }} />
             </IconButton>
             <IconButton edge="end" aria-label="account of current user" aria-controls={menuId} aria-haspopup="true"
               onClick={navigateToProfile}
               color="inherit"
             >
-              <SettingsIcon />
+              <AccountCircle style={{ fontSize: 40 }} />
             </IconButton>
             <IconButton edge="end" aria-label="account of current user" aria-controls={menuId} aria-haspopup="true"
               onClick={navigateToAddArea}
               color="inherit"
             >
-              <AddCircleIcon />
+              <AddCircleIcon style={{ fontSize: 40 }} />
             </IconButton>
           </div>
         </Toolbar>

@@ -122,6 +122,7 @@ export default function PersistentDrawerLeft() {
 
   const isMenuOpen = Boolean(anchorEl);
   const handleMobileMenuClose = () => { setMobileMoreAnchorEl(null); };
+  const navigateToProfile = () => history.push('/Profile');
   const handleMenuClose = () => { setAnchorEl(null); handleMobileMenuClose(); };
 
   const menuId = 'primary-search-account-menu';
