@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:area/api/auth.dart';
+import './serviceCard.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -19,13 +20,14 @@ class _BodyState extends State<Body> {
           return Container(
             child: ListView(
               children: <Widget>[
-                for (var i in snapshot.data['services']) Text(i['name']),
+                for (var i in snapshot.data['services']) ServiceCard(data: i),
               ],
             ),
           );
         } else if (snapshot.hasError) {
           throw snapshot.error;
         } else {
+          print(snapshot.data.toString());
           return Center(child: CircularProgressIndicator());
         }
       },

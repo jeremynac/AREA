@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:area/constants.dart';
-/* import 'package:webview_flutter/webview_flutter.dart';
-import '../CustomWebView.dart'; */
+import './Webview.dart';
+import 'package:area/api/GlobalNetwork.dart';
 
 class ServiceCard extends StatelessWidget {
   final Map<String, dynamic> data;
@@ -32,7 +32,9 @@ class ServiceCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Image.network(
-                  ((data['img'] != null) ? data['img'] : 'https://cdn.discordapp.com/attachments/798160246794354688/813858802045681664/Area.png'),
+                  ((data['img'] != null)
+                      ? data['img']
+                      : 'https://cdn.discordapp.com/attachments/798160246794354688/813858802045681664/Area.png'),
                   height: 45,
                   width: 55,
                 ),
@@ -48,10 +50,14 @@ class ServiceCard extends StatelessWidget {
             ),
             FlatButton(
               onPressed: () {
-                Navigator.pushNamed(
+                Navigator.push(
                   context,
-                  '/web',
-                  arguments: (data),
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return WebViewLogin(
+                          baseUrl: urlArea + data['service_url'] + "/0");
+                    },
+                  ),
                 );
               },
               child: Image.network(

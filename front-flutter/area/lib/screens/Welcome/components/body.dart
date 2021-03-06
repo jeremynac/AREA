@@ -17,11 +17,11 @@ class Body extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            SizedBox(height: size.height * 0.05),
             Text(
               "WELCOME TO AREA",
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: size.height * 0.05),
             SvgPicture.asset(
               "assets/icons/Area.svg",
               height: size.height * 0.45,

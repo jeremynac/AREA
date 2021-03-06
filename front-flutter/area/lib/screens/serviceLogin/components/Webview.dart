@@ -25,14 +25,23 @@ The navigation delegate is set to block navigation to the youtube website.
 </html>
 ''';
 
-class WebViewExample extends StatefulWidget {
+class WebViewLogin extends StatefulWidget {
+  final String baseUrl;
+
+  const WebViewLogin({
+    Key key,
+    this.baseUrl,
+  }) : super(key: key);
   @override
-  _WebViewExampleState createState() => _WebViewExampleState();
+  _WebViewLoginState createState() => _WebViewLoginState(baseUrl);
 }
 
-class _WebViewExampleState extends State<WebViewExample> {
+class _WebViewLoginState extends State<WebViewLogin> {
   final Completer<WebViewController> _controller =
       Completer<WebViewController>();
+  final String baseUrl;
+
+  _WebViewLoginState(this.baseUrl);
 
   @override
   void initState() {
@@ -55,8 +64,9 @@ class _WebViewExampleState extends State<WebViewExample> {
       // to allow calling Scaffold.of(context) so we can show a snackbar.
       body: Builder(builder: (BuildContext context) {
         return WebView(
-          userAgent: "Mozilla/5.0 (Linux; U; Android 4.4.2; en-us; SCH-I535 Build/KOT49H) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30",
-          initialUrl: 'https://area.gen-host.fr/auth/go-login/fdfsdf',
+          userAgent:
+              "Mozilla/5.0 (Linux; U; Android 4.4.2; en-us; SCH-I535 Build/KOT49H) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30",
+          initialUrl: baseUrl,
           javascriptMode: JavascriptMode.unrestricted,
           onWebViewCreated: (WebViewController webViewController) {
             _controller.complete(webViewController);

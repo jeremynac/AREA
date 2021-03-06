@@ -79,9 +79,11 @@ void updateCookie(http.Response response) async {
   String rawCookie = response.headers['set-cookie'];
   if (rawCookie != null) {
     int index = rawCookie.indexOf(';');
-    headers['cookie'] = (index == -1) ? rawCookie : rawCookie.substring(0, index);
+    headers['cookie'] =
+        (index == -1) ? rawCookie : rawCookie.substring(0, index);
     final prefs = await SharedPreferences.getInstance();
-    prefs.setString('cookie', (index == -1) ? rawCookie : rawCookie.substring(0, index));
+    prefs.setString(
+        'cookie', (index == -1) ? rawCookie : rawCookie.substring(0, index));
 
     Map<String, dynamic> areas = jsonDecode(response.body);
     userID = areas['userID'];
@@ -90,10 +92,11 @@ void updateCookie(http.Response response) async {
 }
 
 Future<Map<String, dynamic>> getLoginServices() async {
-  final response = await http.get(urlArea + '/service/all', headers: headers);
+  final response =
+      await http.get(urlArea + '/public/services', headers: headers);
 
   Map<String, dynamic> services = jsonDecode(response.body);
-
+  print(services);
   if (response.statusCode == 200) {
     return services;
   } else {
