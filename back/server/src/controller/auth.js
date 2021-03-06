@@ -121,7 +121,7 @@ module.exports = function(app) {
     // )
     app.get('/google/callback', (req, res) => {
         passport.authenticate('google', (err, user, new_account, success) => {
-            console.log('okok', err, new_account)
+            console.log('okok', err, new_account, user)
             try {
                 if (err) {
                     console.log("err")
