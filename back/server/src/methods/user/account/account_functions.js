@@ -162,7 +162,7 @@ async function processAccount(user_id, service_type, args) {
     try {
         let parsed_args = await parseArgs(args, service_type);
         let success, found;
-        if (user_id) {
+        if (user_id && user_id.length == 24) {
             console.log('already logged in')
             found = await findUserByAccount(service_type, parsed_args)
             console.log('found', found)
