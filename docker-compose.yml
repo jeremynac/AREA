@@ -39,6 +39,28 @@ services:
         volumes:
           - .back/server/src:/app/src
         restart: on-failure
+    server-deployed:
+        container_name: back
+        build: ./back/server
+        depends_on:
+            - mongo
+            - mongo-seed
+            - mongo-express
+        networks:
+            - back_net
+            - front_net
+        environment:
+            PORT: 8084
+            MONGO_USER: admin
+            MONGO_PASSWORD: adpass
+            MONGO_HOST: mongo
+        ports:
+            - "8084:8084"
+        env_file:
+            - back/server/.env_deployed
+        volumes:
+          - .back/server/src:/app/src
+        restart: on-failure
     mongo:
         container_name: mongo
         image: mongo
