@@ -74,7 +74,7 @@ module.exports = function(app) {
                         console.log(err)
                     })
                     console.log("connected or added account", user)
-                    return res.status(200).json({ new_account: new_account.value, new_user: true });
+                    return res.status(200).json({ new_account: new_account.value, new_user: true, userID: user._id });
                 }
             } catch (e) {
                 console.log(e)
@@ -135,7 +135,7 @@ module.exports = function(app) {
                     })
                     console.log("connected or added account", user)
                     res.headers = { test: 'test' }
-                    return res.status(200).json({ new_account: new_account.value, new_user: true });
+                    return res.status(200).json({ new_account: new_account.value, new_user: true, userID: user._id });
                 }
             } catch (e) {
                 console.log(e)
@@ -179,7 +179,7 @@ module.exports = function(app) {
                     })
                     console.log("err", user)
                     console.log("connected or added account", user)
-                    return res.status(200).json({ new_account: new_account.value, new_user: true });
+                    return res.status(200).json({ new_account: new_account.value, new_user: true, userID: user._id });
                 }
             } catch (e) {
                 console.log(e)
@@ -219,7 +219,7 @@ module.exports = function(app) {
                         console.log(err)
                     })
                     console.log("connected or added account", user)
-                    return res.status(200).json({ new_account: new_account.value, new_user: true });
+                    return res.status(200).json({ new_account: new_account.value, new_user: true, userID: user._id });
                 }
             } catch (e) {
                 console.log(e)
@@ -250,7 +250,7 @@ module.exports = function(app) {
                         console.log(err)
                     })
                     console.log("connected or added account", user)
-                    return res.status(200).json({ new_account: new_account.value, new_user: true });
+                    return res.status(200).json({ new_account: new_account.value, new_user: true, userID: user._id });
                 }
             } catch (e) {
                 console.log(e)
@@ -310,7 +310,7 @@ module.exports = function(app) {
                         console.log(err)
                     })
                     console.log("connected or added account", user)
-                    return res.status(200).json({ new_account: new_account.value, new_user: true });
+                    return res.status(200).json({ new_account: new_account.value, new_user: true, userID: user._id });
                 }
             } catch (e) {
                 console.log(e)
@@ -342,7 +342,7 @@ module.exports = function(app) {
                         console.log(err)
                     })
                     console.log("connected or added account", user)
-                    return res.status(200).json({ new_account: new_account.value, new_user: true });
+                    return res.status(200).json({ new_account: new_account.value, new_user: true, userID: user._id });
                 }
             } catch (e) {
                 console.log(e)
@@ -374,7 +374,7 @@ module.exports = function(app) {
                         console.log(err)
                     })
                     console.log("connected or added account", user)
-                    return res.status(200).json({ new_account: new_account.value, new_user: true });
+                    return res.status(200).json({ new_account: new_account.value, new_user: true, userID: user._id });
                 }
             } catch (e) {
                 console.log(e)
