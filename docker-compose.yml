@@ -1,24 +1,43 @@
 version: '3'
 services:
+    client_mobile:
+        container_name: flutter_area
+        build: ./front-flutter
+        volumes:
+            - ./front-flutter/build/:/app/build/app/outputs/flutter-apk/
+    client_web:
+        container_name: front
+        build: ./front
+        tty: true
+        depends_on:
+            - client_mobile
+            - server
+        ports:
+            - "8081:8081"
+        restart: on-failure
+        networks:
+            - front_net
     server:
-        container_name: server
-        build: ./server
+        container_name: back
+        build: ./back/server
         depends_on:
             - mongo
+            - mongo-seed
+            - mongo-express
         networks:
             - back_net
             - front_net
         environment:
-            PORT: 8084
+            PORT: 8080
             MONGO_USER: admin
             MONGO_PASSWORD: adpass
             MONGO_HOST: mongo
         ports:
-            - "8084:8084"
+            - "8080:8080"
         env_file:
-            - server/.env
+            - back/server/.env
         volumes:
-          - ./server/src:/app/src
+          - .back/server/src:/app/src
         restart: on-failure
     mongo:
         container_name: mongo
@@ -38,7 +57,7 @@ services:
         image: mongo-express
         restart: always
         ports:
-            - 8081:8081
+            - 8085:8081
         environment:
             ME_CONFIG_MONGODB_ADMINUSERNAME: admin
             ME_CONFIG_MONGODB_ADMINPASSWORD: adpass
@@ -49,9 +68,9 @@ services:
         links:
             - mongo
         volumes:
-            - ./db-seed:/db-seed
+            - .back/db-seed:/db-seed
         command:
-            /db-seed/import.sh
+            /back/db-seed/import.sh
         depends_on:
             - mongo
         networks:
