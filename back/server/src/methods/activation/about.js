@@ -8,7 +8,7 @@ async function getAbout() {
     try {
         let ip = ctx.request.ip;
         let time = Math.floor(Date.now() / 1000);
-        let services = await Service.find().populate('actions', 'name description').populate('reactions', 'name description')
+        let services = await Service.find().select('name actions reactions').populate('actions', 'name description').populate('reactions', 'name description')
         return {
             client: {
                 host: ip
