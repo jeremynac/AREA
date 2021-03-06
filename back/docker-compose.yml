@@ -1,14 +1,5 @@
 version: '3'
 services:
-    # front:
-    #     container_name: front
-    #     build: ./front
-    #     tty: true
-    #     ports:
-    #         - "8080:8080"
-    #     restart: on-failure
-    #     networks:
-    #         - front_net
     server:
         container_name: server
         build: ./server
