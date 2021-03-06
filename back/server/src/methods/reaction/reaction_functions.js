@@ -7,6 +7,11 @@ const { checkConnected, getAccountForService } = require('@account/account_funct
 const { reactGmailSendEmail } = require("@reactions/gmail_send")
 const { reactGmailSendSummary } = require("@reactions/gmail_send_summary")
 const { reactFacebookPostPage } = require('@reactions/facebook_post_page')
+const { twitchClipStream } = require('@reactions/twitch_clip_stream')
+const { discordSendMessage } = require('@reactions/discord_send_message')
+const { githubFork } = require('@reactions/github_fork')
+const { trelloLabel } = require('@reactions/trello_label')
+
 
 async function activateReaction(accounts, parameters, script_vars, reaction_type) {
     let account_check = await getReactionAccount(accounts, reaction_type)
@@ -25,8 +30,16 @@ async function filterReaction(account, parameters, script_vars, reaction_type) {
             return reactGmailSendEmail(account, parameters, script_vars)
         case 'gmail-send-summary':
             return reactGmailSendSummary(account, parameters, script_vars)
+        case 'twitch-clip-stream':
+            return twitchClipStream(account, parameters, script_vars);
+        case 'discord-send-message':
+            return discordSendMessage(account, parameters, script_vars);
         case 'facebook-post-page':
             return reactFacebookPostPage(account, parameters, script_vars)
+        case 'github-fork':
+            return githubFork(account, parameters, script_vars);
+        case 'trello-label':
+            return trelloLabel(account, parameters, script_vars)
         default:
             return false
     }

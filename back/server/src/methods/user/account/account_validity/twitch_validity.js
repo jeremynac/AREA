@@ -40,7 +40,7 @@ async function refreshTwitchToken(account) {
     let res = await axios(config)
         // res.raise_for_status()
     console.log('refreshed twitch', res.access_token)
-    await updateAccount(accoutn._id, res.access_token, res.expires_in)
+    await updateAccount(account._id, res.access_token, res.expires_in)
     return true
 }
 

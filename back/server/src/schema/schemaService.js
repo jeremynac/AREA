@@ -29,7 +29,7 @@ const schemaService = mongoose.Schema({
         type: String,
         require: false
     },
-    login_icon: {
+    loginIcn: {
         type: String,
         require: false
     },

@@ -41,8 +41,14 @@ function makeBody(to, from, subject, message) {
 }
 
 async function sendMessage(from, auth, to, content) {
-    let summary = await summarizeText(content)
-    var raw = makeBody(to, from, 'summary', summary);
+    let summary = content
+    try {
+        summary = await summarizeText(content)
+    } catch (e) {
+        console.log(e)
+        summary = content
+    }
+    var raw = makeBody(to, from, 'This is a summary', summary);
     const gmail = google.gmail({ version: "v1", auth: auth })
     gmail.users.messages.s
     gmail.users.messages.send({
@@ -59,7 +65,7 @@ async function reactGmailSendSummary(account, parameters, script_vars) {
     try {
         const oAuth2Client = new google.auth.OAuth2();
         oAuth2Client.setCredentials({ access_token: account.access_token })
-        await sendMessage(account.email, oAuth2Client, parameters.to, script_vars.action_result.text)
+        await sendMessage(account.email, oAuth2Client, parameters.to, script_vars.action_result.message || script_vars.action_result.text)
             // oAuth2Client.setCredentials(account.refresh_token)
         const gmail = google.gmail({ version: "v1", auth: oAuth2Client })
     } catch (e) {

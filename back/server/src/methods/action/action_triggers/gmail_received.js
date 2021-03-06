@@ -24,7 +24,6 @@ async function checkGmailReceived(account, parameters, script_vars, last_activat
         userId: 'me',
         q: 'label:inbox ' + 'from:' + parameters.author + ' after:' + last_activation.toString(),
         // fields: ['id', 'internalDate', 'labelIds', 'payload'],
-        max: 1
     }).then(m => {
         messages = m.data.messages || [];
     }).catch(e => {
@@ -41,6 +40,7 @@ async function checkGmailReceived(account, parameters, script_vars, last_activat
         //     console.log('test')
         // })
     if (messages.length > 0) {
+        script_vars.action_result = { text: "You have received" + messages.length + "email by author" + parameters.author }
         return true
     } else {
         return false

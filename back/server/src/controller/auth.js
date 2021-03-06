@@ -55,7 +55,7 @@ module.exports = function(app) {
         // console.log('test', req.params.user_id)
         passport.authenticate('facebook', {
             state: req.params.user_id,
-            scope: ['email', 'user_friends', 'manage_pages', 'user_likes', 'user_posts', 'public_profile', 'pages_show_list', 'pages_manage_metadata', 'pages_manage_read_engagement', 'pages_manage_posts']
+            scope: ['user_friends', 'user_likes', 'user_posts', 'public_profile', 'pages_show_list', 'pages_manage_metadata', 'pages_read_engagement', 'pages_manage_posts']
         })(req, res, next);
     })
     app.get('/facebook/callback', async(req, res, next) => {
@@ -74,7 +74,7 @@ module.exports = function(app) {
                         console.log(err)
                     })
                     console.log("connected or added account", user)
-                    return res.status(200).json({ new_account: new_account.value, new_user: true });
+                    return res.status(200).json({ new_account: new_account.value, new_user: true, userID: user._id });
                 }
             } catch (e) {
                 console.log(e)
@@ -94,7 +94,10 @@ module.exports = function(app) {
                 "https://www.googleapis.com/auth/gmail.modify",
                 "https://www.googleapis.com/auth/gmail.compose",
                 "https://www.googleapis.com/auth/gmail.send",
-                "https://www.googleapis.com/auth/gmail.addons.current.action.compose"
+                "https://www.googleapis.com/auth/gmail.addons.current.action.compose",
+                "https://www.googleapis.com/auth/youtube",
+                "https://www.googleapis.com/auth/youtube.force-ssl"
+
             ],
             state: req.params.user_id,
             accessType: 'offline',
@@ -131,7 +134,8 @@ module.exports = function(app) {
                         console.log(err)
                     })
                     console.log("connected or added account", user)
-                    return res.status(200).json({ new_account: new_account.value, new_user: true });
+                    res.headers = { test: 'test' }
+                    return res.status(200).json({ new_account: new_account.value, new_user: true, userID: user._id });
                 }
             } catch (e) {
                 console.log(e)
@@ -175,7 +179,7 @@ module.exports = function(app) {
                     })
                     console.log("err", user)
                     console.log("connected or added account", user)
-                    return res.status(200).json({ new_account: new_account.value, new_user: true });
+                    return res.status(200).json({ new_account: new_account.value, new_user: true, userID: user._id });
                 }
             } catch (e) {
                 console.log(e)
@@ -215,7 +219,7 @@ module.exports = function(app) {
                         console.log(err)
                     })
                     console.log("connected or added account", user)
-                    return res.status(200).json({ new_account: new_account.value, new_user: true });
+                    return res.status(200).json({ new_account: new_account.value, new_user: true, userID: user._id });
                 }
             } catch (e) {
                 console.log(e)
@@ -226,7 +230,7 @@ module.exports = function(app) {
     app.get('/di-login/:user_id', async(req, res) => {
         console.log('test')
         passport.authenticate('discord', {
-            scope: ['identify', 'email', 'guilds', 'guilds.join'],
+            scope: ['identify', 'email', 'guilds', 'guilds.join', 'gdm.join', 'messages.read', 'activities.read'],
             prompt: 'consent',
             state: req.params.user_id
         })(req, res)
@@ -246,7 +250,7 @@ module.exports = function(app) {
                         console.log(err)
                     })
                     console.log("connected or added account", user)
-                    return res.status(200).json({ new_account: new_account.value, new_user: true });
+                    return res.status(200).json({ new_account: new_account.value, new_user: true, userID: user._id });
                 }
             } catch (e) {
                 console.log(e)
@@ -286,7 +290,7 @@ module.exports = function(app) {
         // console.log(req.params.user_id);
         console.log('test')
         passport.authenticate('twitch', {
-            scope: ['user_read'],
+            scope: ['user_read', 'clips:edit'],
             state: req.params.user_id
         })(req, res)
     })
@@ -306,7 +310,7 @@ module.exports = function(app) {
                         console.log(err)
                     })
                     console.log("connected or added account", user)
-                    return res.status(200).json({ new_account: new_account.value, new_user: true });
+                    return res.status(200).json({ new_account: new_account.value, new_user: true, userID: user._id });
                 }
             } catch (e) {
                 console.log(e)
@@ -338,7 +342,7 @@ module.exports = function(app) {
                         console.log(err)
                     })
                     console.log("connected or added account", user)
-                    return res.status(200).json({ new_account: new_account.value, new_user: true });
+                    return res.status(200).json({ new_account: new_account.value, new_user: true, userID: user._id });
                 }
             } catch (e) {
                 console.log(e)
@@ -348,8 +352,9 @@ module.exports = function(app) {
     })
 
     app.get('/trello-login/:user_id', (req, res) => {
+        req.session.user_id = req.params.user_id
         passport.authenticate('trello', {
-                state: req.params.user_id
+                state: req.params.user_id,
             })(req, res)
             // return res.redirect(process.env.TRELLO_AUTHORIZE + '/' + '?expiration=never' + '&name=MyPersonalToken' + '&scope=' + process.env.TRELLO_SCOPE + '&response_type=token' + '&key=' + process.env.TRELLO_KEY + '&state=' + req.params.user_id + '&secret=' + process.env.TRELLO_CLIENT_SECRET + /*'&callback_method=postMessage' +*/ '&return_url=' + process.env.SERVER_URL + process.env.TRELLO_CALLBACK)
     })
@@ -369,7 +374,7 @@ module.exports = function(app) {
                         console.log(err)
                     })
                     console.log("connected or added account", user)
-                    return res.status(200).json({ new_account: new_account.value, new_user: true });
+                    return res.status(200).json({ new_account: new_account.value, new_user: true, userID: user._id });
                 }
             } catch (e) {
                 console.log(e)

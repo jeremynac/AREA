@@ -10,6 +10,8 @@ function auth(req, res, next) {
     console.log(req.session)
     if (req.isAuthenticated()) {
         next()
+    } else if (req.user) {
+        next()
     } else {
         return res.status(401).json({ error: 'not connected' })
     }
@@ -33,6 +35,7 @@ module.exports = function(app) {
         user.firstname = req.body.firstname
         user.lastname = req.body.lastname
         user.username = req.body.username
+        user.email = req.body.email
         user.save().then(() => {
                 return res.status(200).json({ ok: true })
             })

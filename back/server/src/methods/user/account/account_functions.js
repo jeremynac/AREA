@@ -47,14 +47,12 @@ async function checkConnected(user_id, service_id, need_account) {
 
 async function getAccountForService(accounts, service_id) {
     let account = accounts.find(a => {
-        console.log(a.service, service_id, JSON.stringify(a.service), JSON.stringify(service_id), typeof(a.service), typeof(service_id))
         if (JSON.stringify(a.service) === JSON.stringify(service_id)) {
             return true
         } else {
             return false
         }
     });
-    console.log(account, accounts, service_id)
     if (account) {
         return account;
     } else {
@@ -74,9 +72,9 @@ async function findUserByAccount(service_type, args) {
 }
 
 async function createAccount(service_type, args) {
-    console.log('find service', service_type)
+    console.log('find service', service_type, args)
     const service = await Service.findOne({ type: service_type }).select()
-    let account = new Account({ service: service, access_token: args.access_token, refresh_token: args.refresh_token, authorization_code: args.authorization_code, username: args.username, email: args.email })
+    let account = new Account({ service: service, access_token: args.access_token, refresh_token: args.refresh_token, authorization_code: args.authorization_code, username: args.username, email: args.email, expire: args.expire, service_id: args.id })
         // aaccount.save();
     Object.entries(args).map((key, index) => {
         account.key = args[key]
@@ -113,7 +111,7 @@ async function createUserAndAccount(service_type, args) {
         email: args.email,
         firstname: args.firstname,
         lastname: args.lastname,
-        username: args.email,
+        username: args.username || args.email || args.name,
         img: args.img,
         accounts: [account]
     })
@@ -161,6 +159,7 @@ async function parseArgs(args, service_type) {
 async function processAccount(user_id, service_type, args) {
     try {
         let parsed_args = await parseArgs(args, service_type);
+        console.log('args', args)
         let success, found;
         if (user_id && user_id.length == 24) {
             console.log('already logged in')
@@ -177,7 +176,7 @@ async function processAccount(user_id, service_type, args) {
             let user = await findOrCreateUser(service_type, parsed_args);
             console.log('got user')
             if (user) {
-                return { user_id: user, new_account: false, success: true }
+                return { user_id: user, new_account: true, success: true }
             } else {
                 return { user_id: null, new_account: false, success: false }
             }
