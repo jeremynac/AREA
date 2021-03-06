@@ -13,7 +13,8 @@ const { json } = require('body-parser');
 const schedule = require('node-schedule');
 const { scheduleActivation } = require('@activation/schedule');
 const User = require("@schemas/schemaUser");
-// const session = require('session')
+const { getAbout } = require("@activation/about")
+    // const session = require('session')
 
 
 // CONNECT TO DB
@@ -102,6 +103,11 @@ require("@controller/auth")(routerAuth);
 
 app.use('/public', routerPublic);
 require('@controller/public')(routerPublic);
+
+app.get('/about.json', async(req, res) => {
+    let about = await getAbout()
+    return res.status(200).json(about)
+})
 
 app.use(async(req, res, next) => {
     console.log("hello", req.headers)
