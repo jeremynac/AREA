@@ -73,11 +73,20 @@ module.exports = function(app) {
     })
 
     app.get('/info', async(req, res) => {
-        try {
-            let user = await User.findById(req.user._id).select("firstname lastname email username");
-            return res.status(200).json(user)
-        } catch (e) {
-            return res.status(500).json({ error: e })
-        }
-    })
+            try {
+                let user = await User.findById(req.user._id).select("firstname lastname email username");
+                return res.status(200).json(user)
+            } catch (e) {
+                return res.status(500).json({ error: e })
+            }
+        })
+        // app.put('/service/delete' async(req, res) => {
+        //     try {
+        //         let user = await User.findById(req.user._id).select("firstname lastname email username");
+        //         return res.status(200).json(user)
+        //     } catch (e) {
+        //         return res.status(500).json({ error: e })
+        //     }
+        // })
+
 }
