@@ -121,8 +121,8 @@ export default function AreaToggle() {
                                 inputProps={{ 'aria-labelledby': 'switch-list-label-wifi' }} >
                             </PurpleSwitch>
                             <PopoverPopupEDIT id={script._id} update={updateScripts}/>
-                            <IconButton aria-label="delete">
-                                <DeleteIcon onChange={()=>{handleDeleteScript(script._id)}}/>
+                            <IconButton aria-label="delete" onClick={()=>{handleDeleteScript(script._id)}}>
+                                <DeleteIcon/>
                             </IconButton>
                         </ListItem>
                         <Divider/>

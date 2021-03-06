@@ -327,11 +327,8 @@ export default function PersistentDrawerLeft() {
               <Card  className={classes.root}>
                 <CardContent>
                   <Typography variant="h5" color="textSecondary" gutterBottom> Profile </Typography>
-                  <Typography variant="body1" component="h2"> First Name : {localStorage.getItem("firstname")} </Typography>
-                  <Typography variant="body1" component="h2"> Last Name : {localStorage.getItem("lastname")} </Typography>
-                  <Typography className={classes.pos} color="textSecondary"> Username : {localStorage.getItem("userID")} </Typography>
                   <Typography variant="body1" component="p">
-                    Email : {localStorage.getItem("email")}
+                    {localStorage.getItem("email")}
                   </Typography>
                 </CardContent>
               </Card>

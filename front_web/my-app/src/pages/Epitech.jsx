@@ -101,7 +101,7 @@ const FileDownload = require('js-file-download');
 
 const downloadfile = () => {
   Axios({
-    url: 'https://filebin.net/98p2l0mizf076qns',
+    url: 'https://picsum.photos/200',
     method: 'GET',
     responseType: 'blob', // Important  
   }).then((response) => {

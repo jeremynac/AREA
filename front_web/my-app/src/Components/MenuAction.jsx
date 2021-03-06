@@ -8,7 +8,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 import { makeStyles } from '@material-ui/core/styles';
 import Parameters from './Params'
-import {Modal, Select} from '@material-ui/core';
+import {Modal, Select, Card} from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -62,8 +62,7 @@ export default function MenuListComposition(props) {
 
 
   return (
-    <div className={classes.root}>
-
+    <Card className={classes.root}>
       <div>
         <h1>
         {props.title}
@@ -93,6 +92,7 @@ export default function MenuListComposition(props) {
               <Paper> */}
                 {/* <ClickAwayListener onClickAway={handleClose}> */}
                   <div>
+
                   <Parameters handleChange={props.handleChangeParams} params={props.item.parameters || []}/>
                   {/* <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}> */}
                     </div>
@@ -102,9 +102,11 @@ export default function MenuListComposition(props) {
             </Grow>
           )} */}
         {/* </Modal> */}
+
         <Select
           labelId="action"
           id="demo-simple-select"
+          fullWidth
           value={item.name}
           onChange={handleChangeItem} 
         >
@@ -120,6 +122,6 @@ export default function MenuListComposition(props) {
           </p>
         }
       </div>
-    </div>
+    </Card>
   );
 }

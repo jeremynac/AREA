@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import {List,ListItem,ListItemText,Card, ListSubheader,IconButton, CardActions,Menu,MenuItem, TextField, Select} from '@material-ui/core';
+import {List,ListItem,ListItemText,Card, ListSubheader,IconButton, CardActions,Menu,MenuItem, TextField, Select,Grid} from '@material-ui/core';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import AddIcon from '@material-ui/icons/Add';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -81,29 +81,59 @@ export default function AreaList(props) {
   useEffect(()=> {
     async function fetchAPI() {
         console.log("Fetching Login...")
-        API.getActions().then(res=>{
-            console.log(res)
-            if (res) {
-                setactions(res)
-                if (res[0]) {
-                  setaction(res[0])
+        try {
+        let res1 = await API.getActions()
+            console.log(res1)
+            if (res1) {
+                setactions(res1)
+                if (res1[0]) {
+                  setaction(res1[0])
                 }
             }
-        }).catch(e=>{
-            console.log(e)
-        })
-        API.getReactions().then(res=>{
-          console.log(res)
-          if (res) {
-              setreactions(res)
-              if (res[0]) {
-                setreaction(res[0])
+        let res2 = await API.getReactions()
+          console.log(res2)
+          if (res2) {
+              setreactions(res2)
+              if (res2[0]) {
+                setreaction(res2[0])
               }
           }
-        }).catch(e=>{
-            console.log(e)
-        })
-    };
+        if (props.id) {
+          let res3 = await API.getScript(props.id)
+            console.log(res3)
+            if (res3) {
+              console.log(actions)
+                // console.log(res.script.action == actions[0]._id)
+                let i = 0, a, r;
+                for (i in actions) {
+                  if (actions[i]._id == res3.script.action) {
+                    a = actions[i]
+                  }
+                }
+                for (i in reactions) {
+                  if (reactions[i]._id == res3.script.reaction) {
+                    r = reactions[i]
+                  }
+                }
+                if (a) {
+                  setaction(a)
+                }
+                if (r) {
+                  setreaction(r)
+                }
+                // setaction(actions.find(a => res.script.action == a._id))
+                // console.log(action)
+                // setreaction(reactions.find(r => res.script.reaction == r._id))
+                // reactions.find(r => res.script.reaction == r._id)
+                // console.log(reaction)
+                setname(res3.script.name)
+                setactivated(res3.script.activated)
+              }
+            }
+          } catch(e) {
+              console.log(e)
+          }
+        }
     console.log("print 2")
     fetchAPI()
 }, []);
@@ -122,7 +152,7 @@ export default function AreaList(props) {
   }
 
   return (
-    <Card>
+    <Card >
         <ListSubheader>ADD AREA </ListSubheader>
           <CardActions>
           <LoginTextField
@@ -145,11 +175,10 @@ export default function AreaList(props) {
           </CardActions>
           <CardActions>
             <MenuListComposition title={'Action'} items={actions} item={action} handleChangeItem={(value)=>{setaction(value)}} handleChangeParams={(key, value)=> handleChangeParams(key, value, 1)}/>
-          </CardActions>
-          <CardActions>
             <MenuListComposition title={'Reaction'} items={reactions} item={reaction} handleChangeItem={(value)=>{setreaction(value)}} handleChangeParams={(key, value)=> handleChangeParams(key, value, 0)}/>
           </CardActions>
           <AddButton className={classes.padding} onClick={()=>{submit()}} >SUBMIT</AddButton>
     </Card>
+
   );
 }

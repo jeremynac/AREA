@@ -4,19 +4,8 @@ import { FormControlLabel, Paper, Checkbox, Link, Typography, Grid , CssBaseline
 import {useHistory} from "react-router-dom";
 import {SignInButton, LoginTextField} from '../Components/Buttons';
 import mainlogo from "../Components/Area.png"
+import API from '../auth/requests';
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -60,19 +49,22 @@ export default function SignInSide() {
   const classes = useStyles();
   const history = useHistory();
 
-  // const [username, setUsername] = useState('')
-  // const [password, setPassword] = useState('')
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
   // const [email, setEmail] = useState('')
 
-  // const register = async () => {
-  //   console.log(username, password)
-  //   let res = await API.login(username, password)
-  //   if (res) {
-  //     navigateToHome()
-  //   }
-  // }
+  const navigateToHome = () => history.push('/');
+
+  const register = async () => {
+     console.log(username, password)
+     let res = await API.register(username, password)
+     if (res) {
+       navigateToHome()
+     }
+   }
 
   const navigateTo = () => history.push('/');
+
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
@@ -94,6 +86,7 @@ export default function SignInSide() {
               name="email"
               autoComplete="email"
               autoFocus
+              onChange={(e)=>{setUsername(e.target.value)}}
             />
             <LoginTextField
               variant="outlined"
@@ -105,36 +98,9 @@ export default function SignInSide() {
               type="password"
               id="password"
               autoComplete="current-password"
-            />
-            <Grid container spacing={2}>
-              <Grid item xs >
-                  <LoginTextField
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  name="First Name"
-                  label="First Name"
-                  type="First Name"
-                  id="First Name"
-                  autoComplete="First Name"
-                />
-              </Grid>
+              onChange={(e)=>{setPassword(e.target.value)}}
 
-              <Grid item xs>
-                <LoginTextField
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  name="Last Name"
-                  label="Last Name"
-                  type="Last Name"
-                  id="Last Name"
-                  autoComplete="Last Name"
-                />
-              </Grid>
-            </Grid>
+            />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
@@ -144,10 +110,10 @@ export default function SignInSide() {
                 fullWidth
                 variant="contained"
                 className={classes.submit}
-                // onClick={}
+                onClick={()=> {register()}}
                 // className={classes.submit}
               >
-                Sign In
+                Sign Up
               </SignInButton>
               <Grid container>
               <Grid item >

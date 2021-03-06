@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import {List,ListItem,ListItemText,Card, ListSubheader,IconButton, CardActions,Menu,MenuItem, TextField, Select} from '@material-ui/core';
+import {List,ListItem,ListItemText,Card, ListSubheader,IconButton, CardActions,Menu,MenuItem, TextField, Select, Divider} from '@material-ui/core';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import AddIcon from '@material-ui/icons/Add';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -11,7 +11,15 @@ import {SignInButton, LoginTextField} from './Buttons';
 import MenuListComposition from './MenuAction';
 import MenuListCompositionREACTION from './MenuReaction';
 
+
+const useStyles = makeStyles((theme) => ({
+  padding: {
+    margin: theme.spacing(2),
+    
+  },
+}));
 function Param(props) {
+    const classes = useStyles();
     const [value, setvalue] = useState('')
     const handleChange = (e) => {
       setvalue(e.target.value)
@@ -20,17 +28,17 @@ function Param(props) {
     switch(props.type){
       case 'String':
         return (
-          <Card>
+            <CardActions className={classes.padding}>
             {props.name}
-            <TextField onChange={handleChange} value={value} placeholder={props.name}/>
-          </Card>
+            <TextField className={classes.padding} onChange={handleChange} value={value} placeholder={props.name}/>
+            </CardActions>
         )
       case 'Boolean':
         return (
-          <Card>
+            <CardActions className={classes.padding}>
             {props.name}
-            <PurpleSwitch onChange={handleChange} value={value} />
-          </Card>
+            <PurpleSwitch className={classes.padding} onChange={handleChange} value={value} />
+            </CardActions>
         )
       default: 
           return (

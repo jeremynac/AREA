@@ -54,7 +54,7 @@ export default function SignInSide(props) {
   const navigateTo = () => history.push('/register');
   const navigateToHome = () => history.push('/Area');
   const signin = async () => {
-    console.log(username, password)
+  console.log(username, password)
     let res = await API.login(username, password)
     console.log("FETCH LOGIN");
     console.log(res);
@@ -64,10 +64,10 @@ export default function SignInSide(props) {
   }
 
   
-    const openInNewTab = (url) => {
-      const newWindow = window.open(url, '_blank', 'noopener,noreferrer')
-      if (newWindow) newWindow.opener = null
-    }
+const openInNewTab = (url) => {
+    const newWindow = window.open(url, '_blank', 'noopener,noreferrer')
+    if (newWindow) newWindow.opener = null
+}
 
 
 

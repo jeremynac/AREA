@@ -36,19 +36,20 @@ export default {
     //register API
     //returns EMPTY on success
     //returns error message on failure
-    register: async function(email, password, firstname, lastname) {
+    register: async function(email, password) {
         try {
-        const body = { username: email, password: password, firstname: firstname, lastname: lastname, /* teacher: teacher */ };
+        const body = { username: email, password: password};
         console.log('url', process.env.REACT_APP_SERVER_URL)
-            const { data: response, status: statusid } = await axios.post('/auth/register', body);
-            console.log('url', process.env.SERVER_URL)
+            const { data: response, status: statusid } = await axios.post(process.env.REACT_APP_SERVER_URL + '/auth/register', body);
+            console.log('url', process.env.REACT_APP_SERVER_URL, statusid)
             if (statusid === 200) {
                 // localStorage.setItem("token", response.user.token);
-                localStorage.setItem("firstname", firstname);
-                localStorage.setItem("lastname", lastname);
                 localStorage.setItem("email", email);
-                localStorage.setItem("userID", response.userID);
-                //localStorage.setItem("teacher", teacher);
+                //localStorage.setItem("userID", response.userID);
+                localStorage.setItem("userID", response.success);
+                headers = {
+                    user_id: localStorage.userID
+                }
                 return true; //
             }
             return false; //
@@ -195,4 +196,12 @@ export default {
             return err;
         }
     },
+    getScript: async function(id) {
+        try {
+            let res = await axios.get(url + '/script/information/?id=' + id, {headers: {'uid': localStorage.userID }});
+            return res.data;
+        } catch (err) {
+            return err;
+        }
+    }
 };
