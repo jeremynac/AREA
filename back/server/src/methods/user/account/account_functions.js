@@ -161,7 +161,7 @@ async function processAccount(user_id, service_type, args) {
         let parsed_args = await parseArgs(args, service_type);
         console.log('args', args)
         let success, found;
-        if (user_id) {
+        if (user_id && user_id.length == 24) {
             console.log('already logged in')
             found = await findUserByAccount(service_type, parsed_args)
             console.log('found', found)
@@ -176,7 +176,7 @@ async function processAccount(user_id, service_type, args) {
             let user = await findOrCreateUser(service_type, parsed_args);
             console.log('got user')
             if (user) {
-                return { user_id: user, new_account: false, success: true }
+                return { user_id: user, new_account: true, success: true }
             } else {
                 return { user_id: null, new_account: false, success: false }
             }
