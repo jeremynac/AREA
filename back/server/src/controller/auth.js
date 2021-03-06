@@ -134,6 +134,7 @@ module.exports = function(app) {
                         console.log(err)
                     })
                     console.log("connected or added account", user)
+                    res.headers = { test: 'test' }
                     return res.status(200).json({ new_account: new_account.value, new_user: true });
                 }
             } catch (e) {
@@ -229,7 +230,7 @@ module.exports = function(app) {
     app.get('/di-login/:user_id', async(req, res) => {
         console.log('test')
         passport.authenticate('discord', {
-            scope: ['identify', 'email', 'guilds', 'guilds.join', 'gdm.join'],
+            scope: ['identify', 'email', 'guilds', 'guilds.join', 'gdm.join', 'messages.read', 'activities.read'],
             prompt: 'consent',
             state: req.params.user_id
         })(req, res)

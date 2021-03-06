@@ -10,7 +10,7 @@ async function githubFork(account, parameters, script_vars) {
 
     var config = {
         method: 'post',
-        url: 'https://api.github.com/repos/' + parameters.path_to_owner + '/' + parameters.path_to_repo + '/forks',
+        url: 'https://api.github.com/repos/' + parameters.owner + '/' + parameters.repository + '/forks',
         headers: {
             'Authorization': 'token ' + account.access_token
         }
