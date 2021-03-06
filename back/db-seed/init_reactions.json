@@ -1,13 +1,84 @@
 [{
-        "_id": { "$oid": "5fff3620c3a3e2f146ce9aa3" },
-        "name": "like post",
-        "description": "like something",
-        "service": "5fff3620c37c77753705f766"
+        "_id": { "$oid": "602ba5c897914b000773055f" },
+        "type": "gmail-send-email",
+        "name": "send an email",
+        "description": "send an email to someone",
+        "parameters": [{
+                "type": "String",
+                "name": "to"
+            },
+            {
+                "type": "String",
+                "name": "content"
+            }
+        ],
+        "service": { "$oid": "601034a8779c01000abdc6b7" }
     },
     {
-        "_id": { "$oid": "60018a136c7bd76663a84619" },
-        "name": "dislike post",
-        "description": "dislike something",
-        "service": "5fff3620c37c77753705f766"
+        "_id": { "$oid": "6034ca21e7864400074e00c1" },
+        "type": "gmail-send-summary",
+        "name": "send an summary by email",
+        "description": "Take a text and send summarized version to your email",
+        "parameters": [{
+            "type": "String",
+            "name": "to"
+        }],
+        "service": { "$oid": "601034a8779c01000abdc6b7" }
+    },
+    {
+        "_id": { "$oid": "603cb8e798d4c60008cb2a1a" },
+        "name": "twitch: Clips on a stream",
+        "type": "twitch-clip-stream",
+        "description": "Clips on a given stream",
+        "parameters": [{
+            "name": "broadcaster_name",
+            "type": "String"
+        }],
+        "service": { "$oid": "60377bbaa7a1e900072798d6" }
+    },
+    {
+        "_id": { "$oid": "603d23329b4fe60009c08a91" },
+        "type": "facebook-post-page",
+        "name": "facebook: post on page",
+        "description": "Post something on your facebook page",
+        "parameters": [{
+            "type": "String",
+            "name": "page_name"
+        }],
+        "service": { "$oid": "5fff3620c37c77753705f766" }
+    },
+    {
+        "_id": { "$oid": "603e3bfaa7b0800006576944" },
+        "name": "github: fork",
+        "type": "github-fork",
+        "description": "Forks to owners' repo",
+        "parameters": [{
+            "name": "owner",
+            "type": "String"
+        }, {
+            "name": "repository",
+            "type": "String"
+        }],
+        "service": { "$oid": "6037afafdcacf70009005f1b" }
+    },
+    {
+        "_id": { "$oid": "603e3bfca7b0800006576946" },
+        "name": "Trello: create label",
+        "type": "trello-label",
+        "description": "Creates a label with a given name on a given Board",
+        "parameters": [{
+            "name": "username",
+            "type": "String"
+        }, {
+            "name": "label_name",
+            "type": "String"
+        }, {
+            "name": "board_url",
+            "type": "String"
+        }, {
+            "name": "color",
+            "type": "String"
+        }],
+        "service": { "$oid": "603b9c16f4930e000987dfaa" }
     }
 ]

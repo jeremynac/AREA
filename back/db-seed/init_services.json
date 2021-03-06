@@ -4,14 +4,120 @@
         "type": "facebook",
         "account": true,
         "actions": [{ "$oid": "5fff3620a0efdc70962fefa4" }, { "$oid": "60018a13cab6dd49d2ba5a95" }],
-        "reactions": [{ "$oid": "5fff3620c3a3e2f146ce9aa3" }, { "$oid": "60018a136c7bd76663a84619" }]
+        "reactions": [{ "$oid": "5fff3620c3a3e2f146ce9aa3" }, { "$oid": "60018a136c7bd76663a84619" }],
+        "parse_map": {
+            "access_token": "access_token",
+            "refresh_token": "refresh_token",
+            "expire": "expire",
+            "email": "email",
+            "username": "email",
+            "name": "displayName",
+            "firstname": "name.givenName",
+            "lastname": "name.familyName",
+            "id": "id"
+        },
+        "service_url": "/auth/fb-login",
+        "img": "https://cdn3.iconfinder.com/data/icons/capsocial-round/500/facebook-512.png",
+        "loginIcn": "https://brandets.com/wp-content/uploads/2020/01/button.jpg"
     },
     {
         "_id": { "$oid": "601034a8779c01000abdc6b7" },
         "name": "google",
         "type": "google",
         "account": true,
-        "actions": [{ "$oid": "601033c4779c01000abdc6b5" }],
-        "reactions": []
+        "actions": [{ "$oid": "601033c4779c01000abdc6b5" }, { "$oid": "603cb80f98d4c60008cb2a14" }],
+        "reactions": [{ "$oid": "602ba5c897914b000773055f" }],
+        "parse_map": {
+            "access_token": "access_token",
+            "refresh_token": "refresh_token",
+            "expire": "expire",
+            "email": "_json.email",
+            "username": "_json.email",
+            "name": "displayName",
+            "firstname": "_json.given_name",
+            "lastname": "_json.family_name",
+            "id": "_json.sub"
+        },
+        "service_url": "/auth/go-login",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/2/2d/Google-favicon-2015.png",
+        "loginIcn": "https://cdn.discordapp.com/attachments/798160246794354688/816004458340286514/btn_google_signin_dark_focus_web.png"
+    },
+    {
+        "_id": { "$oid": "602bc4fd7233e600087eb9e0" },
+        "name": "discord",
+        "type": "discord",
+        "account": true,
+        "actions": [{ "$oid": "603cb81498d4c60008cb2a18" }],
+        "reactions": [{ "$oid": "603cb8eb98d4c60008cb2a1c" }],
+        "parse_map": {
+            "access_token": "access_token",
+            "refresh_token": "refresh_token",
+            "expire": "expire",
+            "email": "_json.email",
+            "username": "_json.username",
+            "name": "_json.username",
+            "id": "_json.id"
+        },
+        "service_url": "/auth/di-login",
+        "img": "https://cdn4.iconfinder.com/data/icons/logos-and-brands/512/91_Discord_logo_logos-512.png",
+        "loginIcn": "https://i.imgur.com/RBfcoBt.png"
+    },
+    {
+        "_id": { "$oid": "60377bbaa7a1e900072798d6" },
+        "name": "twitch",
+        "type": "twitch",
+        "account": true,
+        "actions": [{ "$oid": "603cb81298d4c60008cb2a16" }, { "$oid": "603dff57de0afb0006462ab6" }],
+        "reactions": [{ "$oid": "603cb8e798d4c60008cb2a1a" }],
+        "parse_map": {
+            "access_token": "access_token",
+            "refresh_token": "refresh_token",
+            "expire": "expire",
+            "email": "email",
+            "username": "login",
+            "name": "display_name",
+            "id": "id"
+        },
+        "service_url": "/auth/twitch-login",
+        "img": "https://cdn0.iconfinder.com/data/icons/social-network-7/50/16-512.png",
+        "loginIcn": "https://cdn.discordapp.com/attachments/798160246794354688/816262752586825758/DLL08H_UMAAja7g.jpg"
+    },
+    {
+        "_id": { "$oid": "6037afafdcacf70009005f1b" },
+        "name": "github",
+        "type": "github",
+        "account": true,
+        "actions": [{ "$oid": "603e3a68a7b0800006576940" }],
+        "reactions": [{ "$oid": "603e3bfaa7b0800006576944" }],
+        "parse_map": {
+            "access_token": "access_token",
+            "refresh_token": "refresh_token",
+            "expire": "expire",
+            "email": "_json.email",
+            "username": "_json.login",
+            "name": "_json.login",
+            "id": "_json.id"
+        },
+        "service_url": "/auth/gh-login",
+        "img": "https://icons-for-free.com/iconfiles/png/512/part+1+github-1320568339880199515.png",
+        "loginIcn": "https://cdn.discordapp.com/attachments/798160246794354688/816263409825611816/87408584-df26bb80-c5ed-11ea-99bf-23477b7b221d.png"
+    },
+    {
+        "_id": { "$oid": "603b9c16f4930e000987dfaa" },
+        "name": "trello",
+        "type": "trello",
+        "account": true,
+        "actions": [{ "$oid": "603e3a6aa7b0800006576942" }],
+        "reactions": [{ "$oid": "603e3bfca7b0800006576946" }],
+        "parse_map": {
+            "access_token": "access_token",
+            "email": "_json.email",
+            "username": "_json.username",
+            "name": "displayName",
+            "id": "id"
+        },
+        "service_url": "/auth/trello-login",
+        "img": "https://cdn.iconscout.com/icon/free/png-256/trello-226534.png",
+        "loginIcn": "https://cdn.discordapp.com/attachments/798160246794354688/816263764265271296/file-M4EgfO2Uel.png"
     }
 ]

@@ -13,13 +13,13 @@ services:
             - client_mobile
             - server
         ports:
-            - "8081:8080"
+            - "8081:8081"
         restart: on-failure
         networks:
             - front_net
     server:
         container_name: back
-        build: ./back/back
+        build: ./back/server
         depends_on:
             - mongo
             - mongo-seed
@@ -28,16 +28,16 @@ services:
             - back_net
             - front_net
         environment:
-            PORT: 8084
+            PORT: 8080
             MONGO_USER: admin
             MONGO_PASSWORD: adpass
             MONGO_HOST: mongo
         ports:
-            - "8084:8084"
+            - "8080:8080"
         env_file:
-            - back/.env
+            - back/server/.env
         volumes:
-          - ./back/src:/app/src
+          - .back/server/src:/app/src
         restart: on-failure
     mongo:
         container_name: mongo
@@ -68,9 +68,9 @@ services:
         links:
             - mongo
         volumes:
-            - ./db-seed:/db-seed
+            - .back/db-seed:/db-seed
         command:
-            /db-seed/import.sh
+            /back/db-seed/import.sh
         depends_on:
             - mongo
         networks:
