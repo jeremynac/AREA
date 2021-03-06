@@ -230,7 +230,7 @@ module.exports = function(app) {
     app.get('/di-login/:user_id', async(req, res) => {
         console.log('test')
         passport.authenticate('discord', {
-            scope: ['identify', 'email', 'guilds', 'guilds.join', 'gdm.join', 'messages.read', 'activities.read'],
+            scope: ['identify', 'email', 'guilds', 'guilds.join', 'gdm.join', 'messages.read'],
             prompt: 'consent',
             state: req.params.user_id
         })(req, res)
