@@ -1,7 +1,5 @@
 FROM node:13-alpine
 
-WORKDIR /app
-
 COPY package*.json ./
 
 RUN npm install -g nodemon
@@ -14,4 +12,4 @@ RUN ls -t
 
 EXPOSE 28000
 
-CMD ["nodemon", "src/server.js"]
+CMD ["node", "src/server.js"]
