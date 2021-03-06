@@ -28,51 +28,18 @@ class _ProfileCardState extends State<ProfileCard> {
                 )),
             clipBehavior: Clip.antiAlias,
             child: Padding(
-              padding: EdgeInsets.only(top: 0, left: 6.0, right: 6.0, bottom: 6.0),
+              padding:
+                  EdgeInsets.only(top: 0, left: 6.0, right: 6.0, bottom: 6.0),
               child: Column(
                 children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      RoundedInputField(
-                        noIcon: true,
-                        labelText: "Firstname",
-                        sizeModifier: 0.55,
-                        controller: TextEditingController(text: snapshot.data['firstname'] != null ? snapshot.data['firstname'] : "unknown"),
-                        onChanged: (value) {
-                          snapshot.data['firstname'] = value;
-                          //hasChanged = true;
-                        },
-                      ),
-                      SizedBox(width: size.width * 0.03),
-                      RoundedInputField(
-                        noIcon: true,
-                        labelText: "Lastname",
-                        sizeModifier: 0.55,
-                        controller: TextEditingController(text: snapshot.data['lastname'] != null ? snapshot.data['lastname'] : "unknown"),
-                        onChanged: (value) {
-                          snapshot.data['lastname'] = value;
-                          //hasChanged = true;
-                        },
-                      ),
-                    ],
-                  ),
-                  RoundedInputField(
-                    noIcon: true,
-                    labelText: "Email",
-                    sizeModifier: 1.1,
-                    controller: TextEditingController(text: snapshot.data['email'] != null ? snapshot.data['email'] : "unknown"),
-                    onChanged: (value) {
-                      snapshot.data['email'] = value;
-                      //hasChanged = true;
-                    },
-                  ),
                   RoundedInputField(
                     noIcon: true,
                     labelText: "Username",
                     sizeModifier: 1.1,
-                    controller: TextEditingController(text: snapshot.data['username'] != null ? snapshot.data['username'] : "unknown"),
+                    controller: TextEditingController(
+                        text: snapshot.data['username'] != null
+                            ? snapshot.data['username']
+                            : "unknown"),
                     onChanged: (value) {
                       snapshot.data['username'] = value;
                       //hasChanged = true;
