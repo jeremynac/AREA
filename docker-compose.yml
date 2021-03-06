@@ -1,0 +1,83 @@
+version: '3'
+services:
+    client_mobile:
+        container_name: flutter_area
+        build: ./front-flutter
+        volumes:
+            - ./front-flutter/build/:/app/build/app/outputs/flutter-apk/
+    client_web:
+        container_name: front
+        build: ./front
+        tty: true
+        depends_on:
+            - client_mobile
+            - server
+        ports:
+            - "8081:8080"
+        restart: on-failure
+        networks:
+            - front_net
+    server:
+        container_name: back
+        build: ./back/back
+        depends_on:
+            - mongo
+            - mongo-seed
+            - mongo-express
+        networks:
+            - back_net
+            - front_net
+        environment:
+            PORT: 8084
+            MONGO_USER: admin
+            MONGO_PASSWORD: adpass
+            MONGO_HOST: mongo
+        ports:
+            - "8084:8084"
+        env_file:
+            - back/.env
+        volumes:
+          - ./back/src:/app/src
+        restart: on-failure
+    mongo:
+        container_name: mongo
+        image: mongo
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: admin
+            MONGO_INITDB_ROOT_PASSWORD: adpass
+            MONGO_INITDB_DATABASE: dbapp
+        ports:
+            - "27017:27017"
+        volumes:
+            - db-data:/data/db
+        networks:
+            - back_net
+        restart: on-failure
+    mongo-express:
+        image: mongo-express
+        restart: always
+        ports:
+            - 8085:8081
+        environment:
+            ME_CONFIG_MONGODB_ADMINUSERNAME: admin
+            ME_CONFIG_MONGODB_ADMINPASSWORD: adpass
+        networks:
+                - back_net
+    mongo-seed:
+        image: mongo
+        links:
+            - mongo
+        volumes:
+            - ./db-seed:/db-seed
+        command:
+            /db-seed/import.sh
+        depends_on:
+            - mongo
+        networks:
+            - back_net
+networks:
+    back_net:
+    front_net:
+volumes:
+    db-data:
+    db-seed:
