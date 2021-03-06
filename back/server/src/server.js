@@ -12,6 +12,7 @@ const cors = require("cors");
 const { json } = require('body-parser');
 const schedule = require('node-schedule');
 const { scheduleActivation } = require('@activation/schedule');
+const User = require("@schemas/schemaUser");
 // const session = require('session')
 
 
@@ -110,7 +111,7 @@ app.use(async(req, res, next) => {
     } else if (req.headers.uid) {
         console.log("no, check header")
         req.session.user = req.headers.uid
-        let user = await User.findbyId(req.headers.uid)
+        let user = await User.findById(req.headers.uid)
         if (user) {
             req.user = user
             next()

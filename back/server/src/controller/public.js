@@ -6,7 +6,7 @@ const Action = require('@schemas/schemaAction')
 module.exports = function(app) {
     app.get('/services', async(req, res) => {
         try {
-            let services = await Services.find().select('name account')
+            let services = await Services.find().select('name account service_url img loginIcn')
             return res.status(200).json({ services: services })
         } catch (e) {
             console.log(e)
