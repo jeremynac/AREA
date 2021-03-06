@@ -17,7 +17,7 @@ jobs:
     - name: Build the Docker image
       run: cd ./front-flutter && docker build . --file Dockerfile --tag flutter_area:latest
     - name: run container
-      run: docker run --rm -it -v ./front-flutter/build/:/app/build/app/outputs/flutter-apk/ flutter_area:latest
+      run: docker run -v `pwd`/front-flutter/build:/app/build/app/outputs/flutter-apk flutter_area:latest
     - name: COPY Release APK
       if: ${{ always() }}
       uses: actions/upload-artifact@v2
