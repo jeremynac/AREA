@@ -51,13 +51,13 @@
         "service": { "$oid": "60377bbaa7a1e900072798d6" }
     }, {
         "_id": { "$oid": "603cb81498d4c60008cb2a18" },
-        "name": "discord: A new server discord was created with keyword",
+        "name": "discord: New server created",
         "type": "discord-server-created",
         "parameters": [{
             "type": "String",
             "name": "server_keyword"
         }],
-        "description": "Notif when you have a new server in your list in discord",
+        "description": "Notif when you have a new server in your list in discord, that matches a keyword",
         "service": { "$oid": "602bc4fd7233e600087eb9e0" }
     },
     {
