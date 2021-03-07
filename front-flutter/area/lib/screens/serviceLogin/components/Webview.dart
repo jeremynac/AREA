@@ -1,3 +1,4 @@
+import 'package:area/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_cookie_manager/webview_cookie_manager.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -31,42 +32,32 @@ class _MyAppState extends State<WebViewLogin> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Plugin example app'),
-          actions: [
-            IconButton(
-              icon: Icon(Icons.ac_unit),
-              onPressed: () async {
-                // TEST CODE
-                await cookieManager.getCookies(null);
-              },
-            )
-          ],
-        ),
-        body: WebView(
-          userAgent: "Mozilla/5.0 (Linux; U; Android 4.4.2; en-us; SCH-I535 Build/KOT49H) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30",
-          initialUrl: baseUrl,
-          javascriptMode: JavascriptMode.unrestricted,
-          onWebViewCreated: (controller) async {},
-          onPageFinished: (_) async {
-            final gotCookies = await cookieManager.getCookies("https://area.gen-host.fr");
-            SharedPreferences prefs = await SharedPreferences.getInstance();
-            for (var item in gotCookies) {
-              prefs.setString('cookie', item.toString().split(';')[0]);
-              print("test00");
-              print(prefs.getString('cookie'));
-              print("test01");
-              bool isAuthbis = await isAuth();
-              if (gotCookies != null && isAuthbis)
-                Navigator.of(context).pushNamedAndRemoveUntil('/app', (Route<dynamic> route) => false);
-              else {
-                print("FAILED");
-              }
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: kPrimaryColor,
+        title: const Text('Login with Social'),
+      ),
+      body: WebView(
+        userAgent: "Mozilla/5.0 (Linux; U; Android 4.4.2; en-us; SCH-I535 Build/KOT49H) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30",
+        initialUrl: baseUrl,
+        javascriptMode: JavascriptMode.unrestricted,
+        onWebViewCreated: (controller) async {},
+        onPageFinished: (_) async {
+          final gotCookies = await cookieManager.getCookies("https://area.gen-host.fr");
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          for (var item in gotCookies) {
+            prefs.setString('cookie', item.toString().split(';')[0]);
+            print("test00");
+            print(prefs.getString('cookie'));
+            print("test01");
+            bool isAuthbis = await isAuth();
+            if (gotCookies != null && isAuthbis)
+              Navigator.of(context).pushNamedAndRemoveUntil('/app', (Route<dynamic> route) => false);
+            else {
+              print("FAILED");
             }
-          },
-        ),
+          }
+        },
       ),
     );
   }
