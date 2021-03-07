@@ -151,8 +151,6 @@ class _BodyState extends State<Body> {
                         builder: (context, snapshot2) {
                           if (snapshot2.connectionState ==
                               ConnectionState.done) {
-                            print("INIT ACTION IS IS : " +
-                                snapshot2.data.toString());
                             return ActionCard(
                               initDropdownvalue: snapshot2.data,
                               actionCallback: actionCallback,
@@ -178,8 +176,6 @@ class _BodyState extends State<Body> {
                         builder: (context, snapshot3) {
                           if (snapshot3.connectionState ==
                               ConnectionState.done) {
-                            print("INIT REACTION IS IS : " +
-                                snapshot3.data.toString());
                             return ReactionCard(
                               initDropdownvalue: snapshot3.data,
                               reactionCallback: reactionCallback,

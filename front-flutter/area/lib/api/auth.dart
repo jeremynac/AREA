@@ -17,7 +17,14 @@ Future<bool> isAuth() async {
   final response = await http.get(urlArea + '/auth/isauth', headers: headers);
 
   Map<String, dynamic> isConnected = jsonDecode(response.body);
+  print("test2");
+  print(isConnected);
+  print("test3");
+  print(cookie);
+  print("test4");
   if (response.statusCode == 200 && isConnected['connected'] == true) {
+    userID = isConnected['userID'];
+    prefs.setString('user_id', userID);
     headers['cookie'] = cookie;
     return true;
   } else {
@@ -79,11 +86,9 @@ void updateCookie(http.Response response) async {
   String rawCookie = response.headers['set-cookie'];
   if (rawCookie != null) {
     int index = rawCookie.indexOf(';');
-    headers['cookie'] =
-        (index == -1) ? rawCookie : rawCookie.substring(0, index);
+    headers['cookie'] = (index == -1) ? rawCookie : rawCookie.substring(0, index);
     final prefs = await SharedPreferences.getInstance();
-    prefs.setString(
-        'cookie', (index == -1) ? rawCookie : rawCookie.substring(0, index));
+    prefs.setString('cookie', (index == -1) ? rawCookie : rawCookie.substring(0, index));
 
     Map<String, dynamic> areas = jsonDecode(response.body);
     userID = areas['userID'];
@@ -92,15 +97,20 @@ void updateCookie(http.Response response) async {
 }
 
 Future<Map<String, dynamic>> getLoginServices() async {
-  final response =
-      await http.get(urlArea + '/public/services', headers: headers);
+  try {
+    final response = await http.get(urlArea + '/public/services', headers: headers);
 
-  Map<String, dynamic> services = jsonDecode(response.body);
-  print(services);
-  if (response.statusCode == 200) {
-    return services;
-  } else {
-    services['error'] = true;
-    return services;
+    Map<String, dynamic> services = jsonDecode(response.body);
+    print(services);
+    if (response.statusCode == 200) {
+      return services;
+    } else {
+      services['error'] = true;
+      return services;
+    }
+  } catch (e) {
+    print(e);
+    await Future.delayed(const Duration(seconds: 2), () {});
+    return getLoginServices();
   }
 }

@@ -75,8 +75,7 @@ class _AreaCardState extends State<AreaCard> {
                   setState(() {
                     isSwitched = value;
                   });
-                  bool success = await updateScriptActivation(
-                      widget.data['_id'], isSwitched);
+                  bool success = await updateScriptActivation(widget.data['_id'], isSwitched);
                   if (!success) {
                     isSwitched = !isSwitched;
                     errorUpdateAlertDialog(context);
@@ -113,13 +112,7 @@ class _AreaCardState extends State<AreaCard> {
                     if (widget.data['action_parameters'] != null)
                       for (var i in widget.data['action_parameters'].keys)
                         Text(
-                          "- " +
-                              i +
-                              " : " +
-                              (widget.data['action_parameters'][i] is String
-                                  ? widget.data['action_parameters'][i]
-                                  : widget.data['action_parameters'][i]
-                                      .toString()),
+                          "- " + i + " : " + (widget.data['action_parameters'][i] is String ? widget.data['action_parameters'][i] : widget.data['action_parameters'][i].toString()),
                           style: TextStyle(
                             fontFamily: 'Ubuntu',
                             color: Colors.black,
@@ -139,13 +132,7 @@ class _AreaCardState extends State<AreaCard> {
                     if (widget.data['reaction_parameters'] != null)
                       for (var i in widget.data['reaction_parameters'].keys)
                         Text(
-                          "- " +
-                              i +
-                              " : " +
-                              (widget.data['reaction_parameters'][i] is String
-                                  ? widget.data['reaction_parameters'][i]
-                                  : widget.data['reaction_parameters'][i]
-                                      .toString()),
+                          "- " + i + " : " + (widget.data['reaction_parameters'][i] is String ? widget.data['reaction_parameters'][i] : widget.data['reaction_parameters'][i].toString()),
                           style: TextStyle(
                             fontFamily: 'Ubuntu',
                             color: Colors.black,
