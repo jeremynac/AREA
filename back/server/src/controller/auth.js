@@ -45,7 +45,7 @@ module.exports = function(app) {
     })
 
     app.get('/isauth', async(req, res) => {
-        if (req.isAuthenticated()) {
+        if (req.isAuthenticated() || req.headers.uid) {
             return res.status(200).json({ connected: true, userID: req.user._id })
         } else {
             return res.status(200).json({ connected: false })
