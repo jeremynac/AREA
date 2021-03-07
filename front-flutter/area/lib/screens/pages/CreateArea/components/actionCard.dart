@@ -38,7 +38,6 @@ class _ActionCardState extends State<ActionCard> {
       future: getActionAvailable(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
-          print("Got actions -> " + snapshot.data.toString());
           if (snapshot.data['actions'].length == 0) {
             widget.failCallback();
             return Column(

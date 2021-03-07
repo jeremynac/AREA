@@ -47,15 +47,8 @@ class _MyAppState extends State<WebViewLogin> {
           SharedPreferences prefs = await SharedPreferences.getInstance();
           for (var item in gotCookies) {
             prefs.setString('cookie', item.toString().split(';')[0]);
-            print("test00");
-            print(prefs.getString('cookie'));
-            print("test01");
             bool isAuthbis = await isAuth();
-            if (gotCookies != null && isAuthbis)
-              Navigator.of(context).pushNamedAndRemoveUntil('/app', (Route<dynamic> route) => false);
-            else {
-              print("FAILED");
-            }
+            if (gotCookies != null && isAuthbis) Navigator.of(context).pushNamedAndRemoveUntil('/app', (Route<dynamic> route) => false);
           }
         },
       ),

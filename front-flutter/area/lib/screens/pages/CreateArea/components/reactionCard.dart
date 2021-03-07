@@ -95,7 +95,6 @@ class _ReactionCardState extends State<ReactionCard> {
                           dropdownValue = newValue;
                           selectedId = snapshot.data['reactions'][newValue]['_id'];
                           argumentList = snapshot.data['reactions'][newValue]['parameters'];
-                          print(argumentList);
                         });
                       },
                       items: [

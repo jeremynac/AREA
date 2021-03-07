@@ -13,12 +13,12 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
-    //Size size = MediaQuery.of(context).size;
     return FutureBuilder(
       future: getServiceAllStatus(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
-          return Container(
+          return Padding(
+            padding: EdgeInsets.only(top: 0, left: 6.0, right: 6.0, bottom: 6.0),
             child: ListView(
               children: <Widget>[
                 Column(

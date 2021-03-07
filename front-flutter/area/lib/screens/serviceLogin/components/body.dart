@@ -14,9 +14,7 @@ class _BodyState extends State<Body> {
     return FutureBuilder(
       future: getLoginServices(),
       builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.done &&
-            snapshot.data != null &&
-            snapshot.data['error'] != true) {
+        if (snapshot.connectionState == ConnectionState.done && snapshot.data != null && snapshot.data['error'] != true) {
           return Container(
             child: ListView(
               children: <Widget>[
@@ -27,7 +25,6 @@ class _BodyState extends State<Body> {
         } else if (snapshot.hasError) {
           throw snapshot.error;
         } else {
-          print(snapshot.data.toString());
           return Center(child: CircularProgressIndicator());
         }
       },

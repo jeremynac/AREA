@@ -30,7 +30,6 @@ class _BodyState extends State<Body> {
   callback(String id) async {
     await getScriptDelete(id);
     refreshList();
-    print("Callback success");
   }
 
   Future<List<AreaCard>> updateAndGetAreas() async {

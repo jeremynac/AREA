@@ -49,7 +49,6 @@ class ServiceCard extends StatelessWidget {
             if (data['connected'] == false && data['service']['service_url'] != null)
               FlatButton(
                 onPressed: () {
-                  print(data);
                   Navigator.pushNamed(
                     context,
                     '/web',

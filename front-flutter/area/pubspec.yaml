@@ -30,6 +30,7 @@ dependencies:
   url_launcher:
   shared_preferences:
   webview_flutter:
+  icon_badge: ^0.0.1+5
   webview_cookie_manager:
   cupertino_icons: ^1.0.0
 

@@ -121,7 +121,6 @@ class _BodyState extends State<Body> {
                           errorSendAlertDialog(context);
                         else
                           successSendDialog(context);
-                        print(scriptClass.toJson());
                       },
                       child: Text(
                         "Submit",
