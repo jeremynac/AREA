@@ -1,15 +1,8 @@
-// Copyright 2018 The Chromium Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-
-// ignore_for_file: public_member_api_docs
-
-import 'dart:async';
-import 'dart:convert';
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:webview_cookie_manager/webview_cookie_manager.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:area/api/auth.dart';
 
 class WebViewLogin extends StatefulWidget {
   final String baseUrl;
@@ -24,7 +17,6 @@ class WebViewLogin extends StatefulWidget {
 class _MyAppState extends State<WebViewLogin> {
   final cookieManager = WebviewCookieManager();
   final String baseUrl;
-  final String _url = 'https://youtube.com';
   final String cookieValue = 'some-cookie-value';
   final String domain = 'youtube.com';
   final String cookieName = 'connect.sid';
@@ -54,19 +46,25 @@ class _MyAppState extends State<WebViewLogin> {
           ],
         ),
         body: WebView(
-          userAgent:
-              "Mozilla/5.0 (Linux; U; Android 4.4.2; en-us; SCH-I535 Build/KOT49H) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30",
+          userAgent: "Mozilla/5.0 (Linux; U; Android 4.4.2; en-us; SCH-I535 Build/KOT49H) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30",
           initialUrl: baseUrl,
           javascriptMode: JavascriptMode.unrestricted,
-          onWebViewCreated: (controller) async {
-          },
+          onWebViewCreated: (controller) async {},
           onPageFinished: (_) async {
             final gotCookies = await cookieManager.getCookies("https://area.gen-host.fr");
-            print("COOKIE");
+            SharedPreferences prefs = await SharedPreferences.getInstance();
             for (var item in gotCookies) {
-              print(item);
+              prefs.setString('cookie', item.toString().split(';')[0]);
+              print("test00");
+              print(prefs.getString('cookie'));
+              print("test01");
+              bool isAuthbis = await isAuth();
+              if (gotCookies != null && isAuthbis)
+                Navigator.of(context).pushNamedAndRemoveUntil('/app', (Route<dynamic> route) => false);
+              else {
+                print("FAILED");
+              }
             }
-            print("ENDCOOKIE");
           },
         ),
       ),
