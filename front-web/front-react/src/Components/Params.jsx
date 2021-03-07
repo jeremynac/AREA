@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import {List,ListItem,ListItemText,Card, ListSubheader,IconButton, CardActions,Menu,MenuItem, TextField, Select, Divider} from '@material-ui/core';
+import {List,ListItem,ListItemText,Card, ListSubheader,IconButton, CardActions,Menu,MenuItem, TextField, Select, Divider, Button} from '@material-ui/core';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import AddIcon from '@material-ui/icons/Add';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 function Param(props) {
     const classes = useStyles();
-    const [value, setvalue] = useState('')
+    const [value, setvalue] = useState(props.value)
     const handleChange = (e) => {
       setvalue(e.target.value)
       props.handleChange(props.name, value)
@@ -30,14 +30,14 @@ function Param(props) {
         return (
             <CardActions className={classes.padding}>
             {props.name}
-            <TextField className={classes.padding} onChange={handleChange} value={value} placeholder={props.name}/>
+            <LoginTextField fullWidth variant="outlined" className={classes.padding} onChange={handleChange} value={value} placeholder={props.name}/>
             </CardActions>
         )
       case 'Boolean':
         return (
             <CardActions className={classes.padding}>
             {props.name}
-            <PurpleSwitch className={classes.padding} onChange={handleChange} value={value} />
+            <PurpleSwitch className={classes.padding} onChange={handleChange} value={props.value} />
             </CardActions>
         )
       default: 
@@ -56,7 +56,7 @@ export default function Parameters(props) {
       <div>
       {
         props.params.map((p)=>(
-          <Param handleChange={handleChange} name={p.name} type={p.type} key={p.name}/>
+            <Param handleChange={handleChange} value={props.param?props.param[p.name]: ''} name={p.name} type={p.type} key={p.name}/>
       ))
       }
     </div>)

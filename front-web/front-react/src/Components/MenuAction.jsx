@@ -13,6 +13,7 @@ import {Modal, Select, Card} from '@material-ui/core';
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
+    margin: 'auto',
   },
   paper: {
     marginRight: theme.spacing(2),
@@ -93,7 +94,7 @@ export default function MenuListComposition(props) {
                 {/* <ClickAwayListener onClickAway={handleClose}> */}
                   <div>
 
-                  <Parameters handleChange={props.handleChangeParams} params={props.item.parameters || []}/>
+                  <Parameters handleChange={props.handleChangeParams} params={props.item.parameters || []} param={props.params}/>
                   {/* <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}> */}
                     </div>
                   {/* </MenuList> */}
@@ -104,6 +105,8 @@ export default function MenuListComposition(props) {
         {/* </Modal> */}
 
         <Select
+          variant="outlined"
+          color="primary"
           labelId="action"
           id="demo-simple-select"
           fullWidth
@@ -112,7 +115,7 @@ export default function MenuListComposition(props) {
         >
           {
             props.items.map((item)=>( 
-            <MenuItem key={item.name} value={item}>{item.name}</MenuItem>
+            <MenuItem  key={item.name} value={item}>{item.name}</MenuItem>
             ))
           } 
         </Select>

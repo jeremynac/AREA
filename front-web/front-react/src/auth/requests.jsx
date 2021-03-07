@@ -3,7 +3,7 @@ axios.defaults.withCredentials = true
 let headers = {
     user_id: localStorage.userID
 }
-let url = "https://area.gen-host.fr"
+let url = process.env.REACT_APP_SERVER_URL
 
 export default {
     //login API
@@ -83,19 +83,29 @@ export default {
     },
     //isAuth API
     //returns 
-    isAuth: function() {
-        return (localStorage.getItem("token") !== null);
+    isAuth: async function() {
+        try {
+            let res = await axios.get(url + '/auth/isauth', {headers: {'uid': localStorage.userID }});
+            console.log(res.data)
+            if (res.data.connected === true){
+                return true;
+            } else{
+                return false;
+            }
+        } catch (err) {
+            return false;
+        }
     },
     logout: async function() {
         try {
-            console.log('logging out')
-            await axios.get('/user/logout');
-            console.log('logged out')
-        } catch (e) {
-            console.log("Error: ", e);
+            localStorage.setItem('userID', "");
+            headers = {
+                user_id: ""
+            }
+            return true;
+        } catch (err) {
+            return false;
         }
-        localStorage.clear();
-        window.location = "/";
     },
     getServiceAllStatus: async function() {
         try {
@@ -202,6 +212,27 @@ export default {
             return res.data;
         } catch (err) {
             return err;
+        }
+    },
+    getNotifs: async function() {
+        try {
+            let res = await axios.get(url + '/user/notifications', {headers: {'uid': localStorage.userID }});
+            return res.data.notifs;
+        } catch (err) {
+            return [];
+        }
+    },
+    readNotifs: async function() {
+        try {
+            let res = await axios({
+                method: 'put', 
+                url: url + '/user/notifications/read', 
+                headers: {'uid': localStorage.userID }
+            });
+            console.log(res)
+            return true;
+        } catch (err) {
+            return false;
         }
     }
 };

@@ -12,7 +12,6 @@ import Area from './pages/Epitech';
 import Profile from './pages/Profile';
 import AddArea from './pages/Addarea';
 
-
 function App() {
   return (
     <div className="App">
@@ -22,9 +21,6 @@ function App() {
         <Switch>
         <Route exact path="/">
             < Login/>
-          </Route>
-          <Route path="/homepage">
-            <HomePage />
           </Route>
           <Route path="/register">
             <Register />

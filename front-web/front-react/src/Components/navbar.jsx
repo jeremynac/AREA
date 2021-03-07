@@ -1,20 +1,10 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
-import Typography from '@material-ui/core/Typography';
+// import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import Widgets from '@material-ui/icons/Widgets';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -24,21 +14,27 @@ import {useHistory} from "react-router-dom";
 import { purple } from '@material-ui/core/colors';
 import SettingsIcon from '@material-ui/icons/Settings';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
-
+import NotificationsIcon from '@material-ui/icons/Notifications';
+import API from '../auth/requests';
+import Notifs from './Notifs'
+import PopupState, { bindTrigger, bindPopover } from 'material-ui-popup-state';
+import {Badge, ListItemIcon, ListItemText, ListItem, Button, Modal, Popover, IconButton, List, Toolbar, AppBar, CssBaseline, Drawer} from '@material-ui/core';
 
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
-
+  },
+  nobg:{
+    background:'transparent'
   },
   appBar: {
     transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    backgroundColor: purple[700],
+    backgroundColor: '#6F35A5',
   },
   appBarShift: {
     width: `calc(100% - ${drawerWidth}px)`,
@@ -88,6 +84,9 @@ const useStyles = makeStyles((theme) => ({
   toolbarButtons: {
     marginLeft: 'auto',
   },
+  Padding: {
+    marginLeft: theme.spacing(2),
+  },
 }));
 
 //function ListItemLink(props) {
@@ -98,11 +97,16 @@ export default function PersistentDrawerLeft() {
   const classes = useStyles();
   const history = useHistory();
 
+  let notifs_delay = 5000
+
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const [notifopen, setnotifopen] = useState(false)
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [auth, setAuth] = React.useState(true);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const [notifs, setnotifs] = useState([])
+  const [notifanchor, setnotifanchor] = useState(null)
   const bull = <span className={classes.bullet}>•</span>;
 
 
@@ -116,8 +120,11 @@ export default function PersistentDrawerLeft() {
   const handleProfileMenuOpen = (event) => {  setAnchorEl(event.currentTarget); };
 
   const navigateToEpitech = () => history.push('/Area');
+  const navigateToLogin = () => history.push('/');
   const navigateToProfile = () => history.push('/Profile');
   const navigateToAddArea = () => history.push('/Addarea');
+  const navigateToArea = () => history.push('/Area');
+  
 
   const menuId = 'primary-search-account-menu';
   //Profile drop down menu
@@ -135,6 +142,64 @@ export default function PersistentDrawerLeft() {
       <MenuItem onClick={navigateToProfile}>Profile</MenuItem>
     </Menu>
   );
+  useEffect(()  => {
+    async function CheckLogin() {
+      if (await API.isAuth() == false)
+        navigateToLogin()
+    }
+    CheckLogin()
+    fetchNotifs()
+  }, []);
+
+
+  const disconnectFront = () => {
+    API.logout();
+    navigateToLogin();
+  }
+
+  const fetchNotifs = () => {
+    API.getNotifs().then(
+      res=>{
+        console.log('notifs', res)
+        setnotifs(res)
+      }
+    ).catch(
+      e=>{
+        console.log(e)
+      }
+    )
+  }
+
+  const readNotifs = () => {
+    API.readNotifs()
+    .then(res=>{
+      console.log('notifications read')
+    })
+    .catch(e=>{
+      console.log(e)
+    })
+  }
+
+  const handleNotifsOpen = () => {
+    setnotifopen(true);
+    readNotifs()
+  }
+
+  const handleNotifsClose = () => {
+    setnotifopen(false); 
+    fetchNotifs()
+  }
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+        console.log("update notifs")
+        if (!notifopen){
+          fetchNotifs();
+        }
+    }, notifs_delay);
+    return () => clearInterval(interval);
+  }, [fetchNotifs, notifs_delay]);
+
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -145,9 +210,9 @@ export default function PersistentDrawerLeft() {
         })}
       >
         <Toolbar>
-          <Typography variant="h6">
-            AREA
-          </Typography>
+          <Button onClick={navigateToArea} style={{ fontSize: 25 }} color="inherit">
+          <b>AREA</b>
+          </Button>
           <div className={classes.toolbarButtons}>
             <IconButton edge="end" aria-label="account of current user" aria-controls={menuId} aria-haspopup="true"
               onClick={navigateToEpitech}
@@ -167,6 +232,46 @@ export default function PersistentDrawerLeft() {
             >
               <AddCircleIcon style={{ fontSize: 40 }} />
             </IconButton>
+            <Button color="inherit" onClick={handleNotifsOpen}>
+            <PopupState popupId="demo-popup-popover2" style={{background: 'none', opacity: 0.5}} onClos>
+              {(popupState) => (
+                <div style={{background: 'none'}}>
+                  <IconButton variant="contained" color="inherit" {...bindTrigger(popupState)}>
+                    <Badge badgeContent={notifs.length > 0?notifs.length:''} color={notifs.length > 0?"primary":''}>
+                      <NotificationsIcon style={{ fontSize: 40 }}/>
+                    </Badge>
+                  </IconButton>
+                  <Popover
+                    {...bindPopover(popupState)}
+                    anchorOrigin={{
+                      vertical: 'bottom',
+                      horizontal: 'center',
+                    }}
+                    transformOrigin={{
+                      vertical: 'top',
+                      horizontal: 'center',
+                    }}
+                    PaperProps={{
+                      style: {
+                        backgroundColor: 'rgba(111, 53, 165, 0.8)',//255, 255, 255, 0.7',
+                        boxShadow: 'none',
+                      },
+                    }}
+                    onClose={()=>{handleNotifsClose(); popupState.close()}}
+                    // style={{backgroundColor: 'transparent', opacity: 0.5}}
+                  >
+                    <Notifs notifs={notifs || []} />
+                  </Popover>
+                </div>
+              )}
+            </PopupState>
+            </Button>
+            <Button className={classes.Padding} variant="outlined" edge="end" aria-label="account of current user" aria-controls={menuId} aria-haspopup="true"
+              onClick={disconnectFront}
+              color="inherit"
+            >
+              Log Out
+            </Button>
           </div>
         </Toolbar>
       </AppBar>

@@ -1,15 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import './App.css';
-import { FormControlLabel, Paper, Avatar, Checkbox, Box, Link, Typography, Grid , TextField, CssBaseline , Button, makeStyles } from '@material-ui/core';
+import { FormControlLabel, Paper, Avatar, Checkbox, Box, Link, Typography, Grid , TextField, CssBaseline , Button, makeStyles, Popover, Modal } from '@material-ui/core';
 import {useHistory} from "react-router-dom";
 import mainlogo from "../Components/Area.png"
 import {SignInButton, LoginTextField} from '../Components/Buttons';
 import { ImGoogle, ImFacebook, ImGithub, ImTwitch, ImTrello } from "react-icons/im";
 import { FaDiscord } from "react-icons/fa";
-import {GoogleButton, DiscordButton, FacebookButton, TrelloButton,GithubButton,TwitchButton} from '../Components/Buttons';
+import {DiscordButton, FacebookButton, TrelloButton,GithubButton,TwitchButton} from '../Components/Buttons';
+import GoogleButton from 'react-google-button';
 
 import API from '../auth/requests'
-
+let url2 = "http://localhost:8080"
 const useStyles = makeStyles((theme) => ({
   root: {
     height: '100vh',
@@ -42,6 +43,9 @@ const useStyles = makeStyles((theme) => ({
   Cardheader: {
     width: "100px",
     height: "100px"
+  },
+  Padding: {
+    margin: theme.spacing(1),
   }
 }));
 
@@ -50,9 +54,23 @@ export default function SignInSide(props) {
   const history = useHistory();
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [error, setError] = useState(null)
+  const [open, setopen] = useState(false)
 
   const navigateTo = () => history.push('/register');
   const navigateToHome = () => history.push('/Area');
+
+  function displayError(on, errortext="ERROR") {
+    var elem = document.getElementById('error')
+    elem.style.color = 'red'
+    if (on) {
+      elem.innerText = "WRONG EMAIL OR PASSWORD"
+    }
+    else
+    {
+      elem.innerText = ''
+    }
+  }
   const signin = async () => {
   console.log(username, password)
     let res = await API.login(username, password)
@@ -61,18 +79,46 @@ export default function SignInSide(props) {
     if (res) {
       navigateToHome()
     }
+    else {
+      displayError(true, "WRONG EMAIL OR PASSWORD")
+    }
   }
 
   
 const openInNewTab = (url) => {
-    const newWindow = window.open(url, '_blank', 'noopener,noreferrer')
-    if (newWindow) newWindow.opener = null
+  // const popupWindow = window.open(
+  //   url,
+  //   "_blank",
+  //   "width=800, height=600",
+  // );
+  let w = window.open(url + '/?react=true')
+  // if (newWindow) newWindow.opener = null
+  if (window.focus) {
+    w.focus()
+  }
+  console.log(w)
 }
 
+useEffect(()  => {
+  async function fetchData() {
+  if (await API.isAuth() == true)
+    navigateToHome()
+  }
+  window.addEventListener("message", event => {
+    // console.log('test')
+    // console.log(event.data, event.origin)
+    localStorage.setItem('userID', event.data.userID)
+    if (event.origin === 'https://area.gen-host.fr' || event.origin === 'http://localhost:8080') {
+      localStorage.setItem('userID', event.data.user_id)
+      navigateToHome()
+      console.log(event.data)
+    }
+    // const { token, ok } = event.data;
+  });
+  fetchData()
+}, []);
 
-
-
-
+  
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
@@ -83,6 +129,7 @@ const openInNewTab = (url) => {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
+            <h3 id='error'></h3>
             <LoginTextField
               variant="outlined"
               margin="normal"
@@ -121,10 +168,19 @@ const openInNewTab = (url) => {
             >
               Sign In
             </SignInButton>
-            <GoogleButton color="contained" variant="extended" onClick={() => openInNewTab((process.env.REACT_APP_SERVER_URL) + '/auth/go-login' + '/' + 'test' )} size="small" >
+            <GoogleButton className={classes.Padding} color="contained" variant="extended" onClick={() => openInNewTab( process.env.REACT_APP_SERVER_URL + '/auth/go-login' + '/' + 'test' )} size="small" >
               <ImGoogle className={classes.extendedIcon} />
               Login to google
             </GoogleButton>
+            <GithubButton className={classes.Padding} color="contained" variant="extended" onClick={() => openInNewTab((process.env.REACT_APP_SERVER_URL) + '/auth/gh-login' + '/' + 'test' )} size="small">
+              <ImGithub className={classes.extendedIcon} />
+              Login to Github</GithubButton>
+              <FacebookButton className={classes.Padding} color="contained" variant="extended" onClick={() => openInNewTab((process.env.REACT_APP_SERVER_URL) + '/auth/fb-login' + '/' + 'test')} size="small">
+              <ImFacebook className={classes.extendedIcon} />
+              Login to Facebook</FacebookButton>
+            {/* <Modal open={open} onClose={()=>{setopen(false)}}>
+              <iframe src={process.env.REACT_APP_SERVER_URL + '/auth/go-login' + '/' + 'test'} />
+            </Modal> */}
             <Grid container>
               <Grid item>
                 <Link href="#" variant="body2" onClick={navigateTo}>
