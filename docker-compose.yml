@@ -6,8 +6,8 @@ services:
         volumes:
             # - ./front-flutter/build/:/app/build/app/outputs/flutter-apk/
             - apk-download:/app/build/app/outputs/flutter-apk/
-    client_web:
-        container_name: front
+    client_web-deployed:
+        container_name: front_area-deployed
         build: ./front-web/front-react
         tty: true
         depends_on:
@@ -24,13 +24,13 @@ services:
         restart: on-failure
         networks:
             - front_net
-    client_web_dev:
-        container_name: front
+    client_web:
+        container_name: front_area
         build: ./front-web/front-react
         tty: true
         depends_on:
            - client_mobile
-        #    - server
+           - server
         environment:
             PORT: 8081
             REACT_APP_SERVER_URL: http://localhost:8080
@@ -43,7 +43,7 @@ services:
         networks:
             - front_net
     server:
-        container_name: back
+        container_name: back_area
         build: ./back/server
         depends_on:
             - mongo
@@ -65,7 +65,7 @@ services:
           - ./back/server/src:/app/src
         restart: on-failure
     server-deployed:
-        container_name: back-deployed
+        container_name: back_area-deployed
         build: ./back/server
         depends_on:
             - mongo

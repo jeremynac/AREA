@@ -151,7 +151,7 @@ export default function PersistentDrawerLeft() {
                 <Typography className={classes.title} color="textSecondary" gutterBottom>
                   EPITECH AREA APK
                 </Typography>
-                <a href='../../public/apk/app-arm64-v8a-release.apk' download style={{color: "rgba(0, 0, 0, 0)"}}><AddButton className={classes.ButtonDownload}>DOWNLOAD</AddButton></a>
+                <a href='/apk/app-arm64-v8a-release.apk' download="client.apk" style={{color: "rgba(0, 0, 0, 0)"}}><AddButton className={classes.ButtonDownload}>DOWNLOAD</AddButton></a>
               </CardContent>
             </Card>
           </Grid>
