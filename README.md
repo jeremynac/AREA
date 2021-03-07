@@ -40,4 +40,6 @@ Server:
 - Passport.js
 
 # Documentation
-You can find our documentation in /docs
+You can find our documentation in:
+- [Docs server](./docs/back)
+- [Docs mobile app](./docs/front_mobile)
