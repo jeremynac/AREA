@@ -1,7 +1,9 @@
 const User = require('@schemas/schemaUser')
+const Notification = require('@schemas/schemaNotification')
 const Service = require('@schemas/schemaService')
 const Action = require('@schemas/schemaAction')
 const Reaction = require('@schemas/schemaReaction')
+const user = require('../../controller/user')
 
 async function getUserServices(user_id) {
     let user = await User.findById(user_id).select('accounts').populate('accounts', 'service')
@@ -37,9 +39,25 @@ async function getUserServicesStatus(user_id) {
     return services
 }
 
+async function addNotif(message, user_id) {
+    try {
+        let date = Date.now()
+        let user = await User.findById(user_id)
+        console.log('adding notif')
+        let notif = await new Notification({ message: message, date: date })
+        user.notifications.push(notif)
+        await user.save()
+        await notif.save()
+    } catch (e) {
+        console.log(e)
+    }
+
+}
+
 module.exports = {
     getUserServices,
     getUserActions,
     getUserReactions,
-    getUserServicesStatus
+    getUserServicesStatus,
+    addNotif
 }

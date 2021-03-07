@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const { Account } = require('./schemaAccount')
 const { Script } = require('./schemaScript')
+const { Notification } = require('./schemaNotification')
 
 const schemaUser = mongoose.Schema({
     username: {
@@ -30,6 +31,10 @@ const schemaUser = mongoose.Schema({
     scripts: [{
         type: mongoose.Types.ObjectId,
         ref: "Script",
+    }],
+    notifications: [{
+        type: mongoose.Types.ObjectId,
+        ref: "Notification"
     }],
     img: {
         type: String,

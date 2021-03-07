@@ -5,6 +5,7 @@ const Services = require('@schemas/schemaService')
 const Action = require('@schemas/schemaAction')
 const { checkAction } = require('@action/action_functions')
 const { checkReaction } = require('@reaction/reaction_functions')
+const { addNotif } = require('@user/user_functions')
 
 async function addScriptUser(script_id, user_id) {
     try {
@@ -42,7 +43,10 @@ async function createScript(req) {
         })
         console.log('script has been succesfully created')
         await script.save().then().catch()
-        await addScriptUser(script._id, user_id)
+        let done = await addScriptUser(script._id, user_id)
+        if (done) {
+            await addNotif("Your area: " + script.name + "was successfully created !", user_id)
+        }
         return script._id
     } else {
         console.log('problem script')
