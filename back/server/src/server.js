@@ -143,7 +143,7 @@ app.use((req, res) => {
 })
 
 app.listen(process.env.PORT, () => {
-    scheduleActivation('1h')
+    scheduleActivation(process.env.DELAY)
 })
 
 /*
