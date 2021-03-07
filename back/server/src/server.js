@@ -33,7 +33,7 @@ app.use(require('express-session')({
     resave: false,
     saveUninitialized: false,
     cookie: {
-        maxAge: 3600000 //1 hour
+        maxAge: 3600000
     }
 }));
 app.use(passport.initialize());
@@ -45,9 +45,6 @@ app.use(function(req, res, next) {
         "Access-Control-Allow-Methods",
         "GET, POST, OPTIONS, PUT, PATCH, DELETE"
     );
-    // res.setHeader('Access-Control-Allow-Origin', '*');
-    // res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type,Accept, Authortization');
-    // res.setHeader('Acces-Control-Allow-Methods','GET, POST, PATCH, DELETE');
     res.setHeader("Access-Control-Allow-Credentials", true);
     next();
 });
@@ -133,6 +130,7 @@ require("@controller/reaction")(routerReaction);
 
 app.use("/service", routerService);
 require("@controller/service")(routerService);
+
 
 app.use((req, res) => {
     try {} catch (e) {

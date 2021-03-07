@@ -4,19 +4,21 @@ services:
         container_name: flutter_area
         build: ./front-flutter
         volumes:
-            - ./front-flutter/build/:/app/build/app/outputs/flutter-apk/
+            # - ./front-flutter/build/:/app/build/app/outputs/flutter-apk/
+            - apk-download:/app/build/app/outputs/flutter-apk/
     client_web:
         container_name: front
         build: ./front-web/front-react
         tty: true
-        #depends_on:
-        #    - client_mobile
+        depends_on:
+           - client_mobile
         #    - server
         environment:
             PORT: 8081
             REACT_APP_SERVER_URL: https://area.gen-host.fr
         volumes:
-          - ./front-web/front-react/src/:/app/src/
+            - ./front-web/front-react/src/:/app/src/
+            - apk-download:/app/public/apk/
         ports:
             - "8081:8081"
         restart: on-failure
@@ -26,14 +28,15 @@ services:
         container_name: front
         build: ./front-web/front-react
         tty: true
-        #depends_on:
-        #    - client_mobile
+        depends_on:
+           - client_mobile
         #    - server
         environment:
             PORT: 8081
             REACT_APP_SERVER_URL: http://localhost:8080
         volumes:
-          - ./front-web/front-react/src/:/app/src/
+            - ./front-web/front-react/src/:/app/src/
+            - apk-download:/app/public/apk/
         ports:
             - "8081:8081"
         restart: on-failure
@@ -125,3 +128,4 @@ networks:
 volumes:
     db-data:
     db-seed:
+    apk-download:
