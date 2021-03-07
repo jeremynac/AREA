@@ -45,7 +45,7 @@ async function createScript(req) {
         await script.save().then().catch()
         let done = await addScriptUser(script._id, user_id)
         if (done) {
-            await addNotif("Your area: " + script.name + "was successfully created !", user_id)
+            await addNotif("Your area: \'" + script.name + "\' was successfully created !", user_id)
         }
         return script._id
     } else {

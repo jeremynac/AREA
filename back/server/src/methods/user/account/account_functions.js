@@ -171,7 +171,7 @@ async function processAccount(user_id, service_type, args) {
             if (!found) { //check that no user already has an account with those credentials
                 success = await addAccountToUser(user_id, service_type, parsed_args);
                 if (success) {
-                    await addNotif("You are now authenticated to: " + service_type, user_id)
+                    await addNotif("You are now authenticated to: " + service_type + '.', user_id)
                 }
                 return { user_id: null, new_account: true, success: success };
             } else {
