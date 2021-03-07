@@ -187,7 +187,7 @@ export default function PersistentDrawerLeft() {
 
   const handleNotifsClose = () => {
     setnotifopen(false); 
-    setnotifanchor(null)
+    fetchNotifs()
   }
 
   useEffect(() => {
@@ -237,7 +237,7 @@ export default function PersistentDrawerLeft() {
               {(popupState) => (
                 <div style={{background: 'none'}}>
                   <IconButton variant="contained" color="inherit" {...bindTrigger(popupState)}>
-                    <Badge badgeContent={notifs.length > 0?notifs.length:''} color="primary">
+                    <Badge badgeContent={notifs.length > 0?notifs.length:''} color={notifs.length > 0?"primary":''}>
                       <NotificationsIcon style={{ fontSize: 40 }}/>
                     </Badge>
                   </IconButton>
@@ -257,7 +257,7 @@ export default function PersistentDrawerLeft() {
                         boxShadow: 'none',
                       },
                     }}
-                    onclose={handleNotifsClose}
+                    onClose={()=>{handleNotifsClose(); popupState.close()}}
                     // style={{backgroundColor: 'transparent', opacity: 0.5}}
                   >
                     <Notifs notifs={notifs || []} />

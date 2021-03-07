@@ -224,7 +224,12 @@ export default {
     },
     readNotifs: async function() {
         try {
-            let res = await axios.put(url + '/user/notifications/read', {headers: {'uid': localStorage.userID }});
+            let res = await axios({
+                method: 'put', 
+                url: url + '/user/notifications/read', 
+                headers: {'uid': localStorage.userID }
+            });
+            console.log(res)
             return true;
         } catch (err) {
             return false;
