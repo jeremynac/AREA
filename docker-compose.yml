@@ -42,7 +42,7 @@ services:
         env_file:
             - back/server/.env
         volumes:
-          - .back/server/src:/app/src
+          - ./back/server/src:/app/src
         restart: on-failure
     server-deployed:
         container_name: back
@@ -64,7 +64,7 @@ services:
         env_file:
             - back/server/.env_deployed
         volumes:
-          - .back/server/src:/app/src
+          - ./back/server/src:/app/src
         restart: on-failure
     mongo:
         container_name: mongo

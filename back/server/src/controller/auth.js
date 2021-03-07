@@ -85,6 +85,7 @@ module.exports = function(app) {
 
     app.get('/go-login/:user_id', async(req, res) => {
         // console.log(req.params.user_id);
+        req.session.react = req.query.react
         passport.authenticate('google', {
             scope: [
                 'https://www.googleapis.com/auth/gmail.readonly',
@@ -133,9 +134,16 @@ module.exports = function(app) {
                     req.logIn(user, function(err) {
                         console.log(err)
                     })
-                    console.log("connected or added account", user)
+                    console.log("connected or added account", user, req.session)
                     res.headers = { test: 'test' }
-                    return res.status(200).json({ new_account: new_account.value, new_user: true, userID: user._id });
+                    if (req.session.react) {
+                        return res.render('auth', {
+                            user_id: user._id,
+                            clientUrl: 'http://localhost:8081'
+                        })
+                    } else {
+                        return res.status(200).json({ new_account: new_account.value, new_user: true, userID: user._id });
+                    }
                 }
             } catch (e) {
                 console.log(e)
