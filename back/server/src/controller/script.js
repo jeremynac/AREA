@@ -71,6 +71,10 @@ module.exports = function(app) {
 
     app.get('/delete', async(req, res) => {
             try {
+                let user = await User.findById(req.user._id).select('scripts')
+                let script_index = user.scripts.findIndex((s) => s == req.query.id)
+                user.scripts.splice(script_index, 1)
+                await user.save()
                 await Script.deleteOne({ _id: req.query.id })
                 return res.status(200).json({ deleted: true })
             } catch (e) {
