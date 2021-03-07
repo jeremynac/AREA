@@ -6,7 +6,6 @@ import 'package:area/api/GlobalNetwork.dart';
 import 'package:http/http.dart' as http;
 
 Future<bool> isAuth() async {
-  print("test1");
   final prefs = await SharedPreferences.getInstance();
   final cookie = prefs.getString('cookie');
   final userIdStorage = prefs.getString('user_id');
@@ -17,11 +16,6 @@ Future<bool> isAuth() async {
   final response = await http.get(urlArea + '/auth/isauth', headers: headers);
 
   Map<String, dynamic> isConnected = jsonDecode(response.body);
-  print("test2");
-  print(isConnected);
-  print("test3");
-  print(cookie);
-  print("test4");
   if (response.statusCode == 200 && isConnected['connected'] == true) {
     userID = isConnected['userID'];
     prefs.setString('user_id', userID);
@@ -41,10 +35,8 @@ void disconnect() async {
 }
 
 Future<bool> fetchLogin(String username, String password) async {
-  print("test2");
   headers['Content-Type'] = 'application/json; charset=UTF-8';
 
-  print(urlArea + '/auth/login');
   final response = await http.post(
     urlArea + '/auth/login',
     headers: headers,
@@ -53,10 +45,8 @@ Future<bool> fetchLogin(String username, String password) async {
       'password': password,
     }),
   );
-  print("test3");
   if (response.statusCode == 200) {
     updateCookie(response);
-    print("test4");
     return true;
   } else {
     return false;
@@ -101,7 +91,6 @@ Future<Map<String, dynamic>> getLoginServices() async {
     final response = await http.get(urlArea + '/public/services', headers: headers);
 
     Map<String, dynamic> services = jsonDecode(response.body);
-    print(services);
     if (response.statusCode == 200) {
       return services;
     } else {
@@ -109,7 +98,6 @@ Future<Map<String, dynamic>> getLoginServices() async {
       return services;
     }
   } catch (e) {
-    print(e);
     await Future.delayed(const Duration(seconds: 2), () {});
     return getLoginServices();
   }

@@ -58,7 +58,6 @@ class _MyAreas extends State<MyAreas> {
             future: getUserNotifications(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
-                print("Got notifications : " + snapshot.data['notifs'].toString());
                 return IconBadge(
                   icon: Icon(
                     Icons.notifications_outlined,

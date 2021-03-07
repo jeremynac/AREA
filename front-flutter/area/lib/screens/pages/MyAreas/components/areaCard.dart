@@ -38,7 +38,6 @@ class _AreaCardState extends State<AreaCard> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    //print("DISPLAY AREA PARAMS" + widget.data.toString());
     return Card(
       color: kPrimaryLightColor,
       shape: RoundedRectangleBorder(
@@ -170,24 +169,3 @@ class _AreaCardState extends State<AreaCard> {
     );
   }
 }
-
-/*
-{
-    "script": {
-        "activated": false,
-        "last_activation": 1614701129,
-        "_id": "603e6249e5b86200125eb7d1",
-        "name": "facebook menthionned",
-        "action": "6034ed97f6a933000952dcf4",
-        "reaction": "6034ca21e7864400074e00c1",
-        "action_parameters": {
-            "important": "false",
-            "word": "test"
-        },
-        "reaction_parameters": {
-            "to": "jeremynac@hotmail.fr"
-        },
-        "__v": 0
-    }
-}
-*/
