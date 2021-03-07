@@ -94,7 +94,7 @@ export default function MenuListComposition(props) {
                 {/* <ClickAwayListener onClickAway={handleClose}> */}
                   <div>
 
-                  <Parameters handleChange={props.handleChangeParams} params={props.item.parameters || []}/>
+                  <Parameters handleChange={props.handleChangeParams} params={props.item.parameters || []} param={props.params}/>
                   {/* <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}> */}
                     </div>
                   {/* </MenuList> */}

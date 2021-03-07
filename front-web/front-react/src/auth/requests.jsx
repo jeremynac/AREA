@@ -3,7 +3,7 @@ axios.defaults.withCredentials = true
 let headers = {
     user_id: localStorage.userID
 }
-let url = "https://area.gen-host.fr"
+let url = process.env.REACT_APP_SERVER_URL
 
 export default {
     //login API
@@ -212,6 +212,22 @@ export default {
             return res.data;
         } catch (err) {
             return err;
+        }
+    },
+    getNotifs: async function() {
+        try {
+            let res = await axios.get(url + '/user/notifications', {headers: {'uid': localStorage.userID }});
+            return res.data.notifs;
+        } catch (err) {
+            return [];
+        }
+    },
+    readNotifs: async function() {
+        try {
+            let res = await axios.put(url + '/user/notifications/read', {headers: {'uid': localStorage.userID }});
+            return true;
+        } catch (err) {
+            return false;
         }
     }
 };

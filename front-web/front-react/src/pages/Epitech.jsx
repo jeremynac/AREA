@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     flexGrow: 1,
-    backgroundColor: '#FDFFFC',
+    backgroundColor: '#F1E6FF',
     height: '100vh',
   },
   appBar: {
@@ -101,12 +101,14 @@ const FileDownload = require('js-file-download');
 
 const downloadfile = () => {
   Axios({
-    url: 'https://picsum.photos/200',
+    url: 'https://cdn.discordapp.com/attachments/798160246794354688/818148545285586944/app-arm64-v8a-release.apk',
     method: 'GET',
     responseType: 'blob', // Important  
   }).then((response) => {
-      FileDownload(response.data, 'report.csv');
-  });
+    FileDownload(response.data, "area.apk")
+  }).catch(
+    e=>console.log(e)
+  );
 }
 export default function PersistentDrawerLeft() {
   const classes = useStyles();
@@ -138,17 +140,17 @@ export default function PersistentDrawerLeft() {
       >
         <div className={classes.drawerHeader} />
         <Grid container item spacing={3}>
-          <Grid item xs={10}>
+          <Grid item sm={8}>
             <AreaToggle/>
           </Grid>
-          <Grid item xs={2} >
+          <Grid item sm={4} >
             <Card >
               <CardContent className={classes.Cardcolor}>
                 <img  src={mainlogo} className={classes.Cardheader} alt="fireSpot"/>
                 <Typography className={classes.title} color="textSecondary" gutterBottom>
                   EPITECH AREA APK
                 </Typography>
-                <AddButton className={classes.ButtonDownload} onClick={downloadfile}>DOWNLOAD</AddButton>
+                <a href="https://cdn.discordapp.com/attachments/798160246794354688/818148545285586944/app-arm64-v8a-release.apk" style={{color: "rgba(0, 0, 0, 0)"}}><AddButton className={classes.ButtonDownload}>DOWNLOAD</AddButton></a>
               </CardContent>
             </Card>
           </Grid>

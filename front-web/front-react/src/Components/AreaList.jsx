@@ -46,9 +46,9 @@ export default function AreaList(props) {
     setChecked(newChecked);
   };
 
-  function displayADDarea(on, errortext="ERROR") {
+  function displayADDarea(on, errortext="ERROR", color='red') {
     var elem = document.getElementById('error')
-    elem.style.color = 'red'
+    elem.style.color = color
     if (on) {
       elem.innerText = errortext
     }
@@ -69,8 +69,11 @@ export default function AreaList(props) {
         }
       } else {
         res = await API.createScript(name, action._id, reaction._id, a_params, r_params, activated)
-        if (res) {
-          displayADDarea(true, "Area submited")
+        if (res.status == 200) {
+          displayADDarea(true, "Area submited", 'black')
+        }
+        else {
+          displayADDarea(true, "Error in you submission")
         }
       } 
       console.log(res)
@@ -90,6 +93,7 @@ export default function AreaList(props) {
             for (i in actions) {
               if (actions[i]._id == res3.script.action) {
                 a = actions[i]
+
               }
             }
             for (i in reactions) {
@@ -99,9 +103,11 @@ export default function AreaList(props) {
             }
             if (a) {
               setaction(a)
+              seta_params(res3.script.action_parameters)
             }
             if (r) {
               setreaction(r)
+              setr_params(res3.script.reaction_parameters)
             }
             // setaction(actions.find(a => res.script.action == a._id))
             // console.log(action)
@@ -142,12 +148,12 @@ export default function AreaList(props) {
       }
     console.log("print 2")
     fetchAPI()
-      .then(r=>{
-        fetchScript()
-      })
-      .catch(
-        e=>{}
-      )
+      // .then(r=>{
+      //   fetchScript()
+      // })
+      // .catch(
+      //   e=>{}
+      // )
 }, []);
 
   const [open, setOpen] = React.useState(false);
@@ -186,8 +192,21 @@ export default function AreaList(props) {
           </PurpleSwitch>
           </CardActions>
           <CardActions>
-            <MenuListComposition title={'Action'} items={actions} item={action} handleChangeItem={(value)=>{setaction(value)}} handleChangeParams={(key, value)=> handleChangeParams(key, value, 1)}/>
-            <MenuListComposition title={'Reaction'} items={reactions} item={reaction} handleChangeItem={(value)=>{setreaction(value)}} handleChangeParams={(key, value)=> handleChangeParams(key, value, 0)}/>
+            <MenuListComposition
+
+              title={'Action'} 
+              items={actions} 
+              item={action}
+              handleChangeItem={(value)=>{setaction(value)}} 
+              handleChangeParams={(key, value)=> handleChangeParams(key, value, 1)}
+            />
+            <MenuListComposition 
+              title={'Reaction'} 
+              items={reactions}
+              item={reaction}
+              handleChangeItem={(value)=>{setreaction(value)}} 
+              handleChangeParams={(key, value)=> handleChangeParams(key, value, 0)}
+            />
           </CardActions>
           <AddButton className={classes.padding} onClick={()=>{submit() }} >SUBMIT</AddButton>
           <h3 id="error" ></h3>

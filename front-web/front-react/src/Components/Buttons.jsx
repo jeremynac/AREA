@@ -114,9 +114,9 @@ const LoginTextField = withStyles({
 const AddButton = withStyles((theme) => ({
   root: {
     color: theme.palette.getContrastText(purple[500]),
-    backgroundColor: "#0C6291",
+    backgroundColor: "#6F35A5",
     '&:hover': {
-      backgroundColor: "#0C6291",
+      backgroundColor: "#6F35A5",
     },
     borderRadius: "40px"
   },
@@ -124,12 +124,12 @@ const AddButton = withStyles((theme) => ({
 
 const PurpleSwitch = withStyles({
   switchBase: {
-    color: "#50409A",
+    color: "#78C4D4",
     '&$checked': {
-      color:  "#50409A",
+      color:  "#78C4D4",
     },
     '&$checked + $track': {
-      backgroundColor: "#50409A",
+      backgroundColor: "#78C4D4",
     },
   },
   checked: {},

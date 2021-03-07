@@ -4,7 +4,7 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Popover from '@material-ui/core/Popover';
 import PopupState, { bindTrigger, bindPopover } from 'material-ui-popup-state';
-import AreaToggle from './AreaList';
+import AreaToggle from './EditAreaList';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import {IconButton,Fab} from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';

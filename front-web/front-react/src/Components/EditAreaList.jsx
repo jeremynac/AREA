@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import {List,ListItem,ListItemText,Card, ListSubheader,IconButton, CardActions,Menu,MenuItem, TextField, Select,Grid} from '@material-ui/core';
+import {List,ListItem,ListItemText,Card, ListSubheader,IconButton, CardActions,Menu,MenuItem, TextField, Select,Grid, Button, Container} from '@material-ui/core';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import AddIcon from '@material-ui/icons/Add';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -42,6 +42,7 @@ export default function AreaList(props) {
   const [actions, setactions] = useState([])
   const [reactions, setreactions] = useState([])
   const history = useHistory();
+  const [loaded, setloaded] = useState(false)
 
   const [checked, setChecked] = React.useState(['wifi']);
   const handleToggle = (value) => () => {
@@ -80,62 +81,79 @@ export default function AreaList(props) {
 
   //const fetchScript() {}
 
+  const fetchScript = async (as, rs) => {
+    try {
+      let res3 = await API.getScript(props.id)
+        console.log(res3)
+        if (res3) {
+          console.log(as, rs)
+            // console.log(res.script.action == actions[0]._id)
+            let i = 0, a, r;
+            for (i in as) {
+              if (as[i]._id == res3.script.action) {
+                a = as[i]
+
+              }
+            }
+            for (i in rs) {
+              if (rs[i]._id == res3.script.reaction) {
+                r = rs[i]
+              }
+            }
+            if (a) {
+              setaction(a)
+              seta_params(res3.script.action_parameters)
+            }
+            if (r) {
+              setreaction(r)
+              setr_params(res3.script.reaction_parameters)
+            }
+            // setaction(actions.find(a => res.script.action == a._id))
+            // console.log(action)
+            // setreaction(reactions.find(r => res.script.reaction == r._id))
+            // reactions.find(r => res.script.reaction == r._id)
+            // console.log(reaction)
+            setname(res3.script.name)
+            setactivated(res3.script.activated)
+            setloaded(true)
+          }
+      } catch(e) {
+          console.log(e)
+      }
+  }
+
   useEffect(()=> {
     async function fetchAPI() {
-        console.log("Fetching Login...")
+        console.log("Fetching actions/reactions...")
+        let actions_temp, reactions_temp;
         try {
-        let res1 = await API.getActions()
-            console.log(res1)
-            if (res1) {
-                setactions(res1)
-                if (res1[0]) {
-                  setaction(res1[0])
+        API.getActions().then(
+          res=>{
+              if (res) {
+                setactions(res)
+                actions_temp = res
+                if (res[0]) {
+                  setaction(res[0])
                 }
-            }
-        let res2 = await API.getReactions()
-          console.log(res2)
-          if (res2) {
-              setreactions(res2)
-              if (res2[0]) {
-                setreaction(res2[0])
-              }
-          }
-        if (props.id) {
-          let res3 = await API.getScript(props.id)
-            console.log(res3)
-            if (res3) {
-              console.log(actions)
-                // console.log(res.script.action == actions[0]._id)
-                let i = 0, a, r;
-                for (i in actions) {
-                  if (actions[i]._id == res3.script.action) {
-                    a = actions[i]
+                API.getReactions().then(
+                  res=>{
+                    if (res) {
+                      setreactions(res)
+                      reactions_temp = res
+                      if (res[0]) {
+                        setreaction(res[0])
+                      }
+                    }
+                    fetchScript(actions_temp, reactions_temp)
                   }
-                }
-                for (i in reactions) {
-                  if (reactions[i]._id == res3.script.reaction) {
-                    r = reactions[i]
-                  }
-                }
-                if (a) {
-                  setaction(a)
-                }
-                if (r) {
-                  setreaction(r)
-                }
-                // setaction(actions.find(a => res.script.action == a._id))
-                // console.log(action)
-                // setreaction(reactions.find(r => res.script.reaction == r._id))
-                // reactions.find(r => res.script.reaction == r._id)
-                // console.log(reaction)
-                setname(res3.script.name)
-                setactivated(res3.script.activated)
+                ).catch()
               }
             }
-          } catch(e) {
-              console.log(e)
-          }
+          ).catch()
+        }  catch(e) {
+          console.log(e)
         }
+      }
     console.log("print 2")
     fetchAPI()
 }, []);
@@ -152,10 +170,10 @@ export default function AreaList(props) {
       r_params[key] = value
     }
   }
-
-  return (
-    <Card >
-        <ListSubheader>ADD AREA </ListSubheader>
+  if (loaded) {
+    return (
+    <Card>
+      <ListSubheader>ADD AREA </ListSubheader>
           <CardActions>
           <LoginTextField
               variant="outlined"
@@ -164,7 +182,9 @@ export default function AreaList(props) {
               label="Area name"
               name="name"
               autoComplete="Area"
-              autoFocus
+              fullWidth="true"
+              // autoFocus
+              size="large"
               onChange={(e)=>{setname(e.target.value)}} 
               value={name}
             />
@@ -175,11 +195,16 @@ export default function AreaList(props) {
           </PurpleSwitch>
           </CardActions>
           <CardActions>
-            <MenuListComposition title={'Action'} items={actions} item={action} handleChangeItem={(value)=>{setaction(value)}} handleChangeParams={(key, value)=> handleChangeParams(key, value, 1)}/>
-            <MenuListComposition title={'Reaction'} items={reactions} item={reaction} handleChangeItem={(value)=>{setreaction(value)}} handleChangeParams={(key, value)=> handleChangeParams(key, value, 0)}/>
+            <MenuListComposition title={'Action'} params={a_params} items={actions} item={action} handleChangeItem={(value)=>{setaction(value)}} handleChangeParams={(key, value)=> handleChangeParams(key, value, 1)}/>
+            <MenuListComposition title={'Reaction'} params={r_params} items={reactions} item={reaction} handleChangeItem={(value)=>{setreaction(value)}} handleChangeParams={(key, value)=> handleChangeParams(key, value, 0)}/>
           </CardActions>
           <AddButton className={classes.padding} onClick={()=>{submit()}} >SUBMIT</AddButton>
-    </Card>
-
-  );
+        </Card>
+        )
+  }
+  else {
+        return (
+            <h4>loading</h4>
+        )
+    }
 }

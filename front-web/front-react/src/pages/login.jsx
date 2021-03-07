@@ -64,11 +64,11 @@ export default function SignInSide(props) {
     var elem = document.getElementById('error')
     elem.style.color = 'red'
     if (on) {
-      elem.innerText = errortext
+      elem.innerText = "WRONG EMAIL OR PASSWORD"
     }
     else
     {
-      elem.innerText = "" 
+      elem.innerText = ''
     }
   }
   const signin = async () => {
@@ -129,7 +129,7 @@ useEffect(()  => {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-            <Popover id="error"><h3></h3></Popover>
+            <h3 id='error'></h3>
             <LoginTextField
               variant="outlined"
               margin="normal"

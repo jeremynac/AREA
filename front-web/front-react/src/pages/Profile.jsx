@@ -19,6 +19,10 @@ const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
+    backgroundColor: '#F1E6FF',
+  },
+  root2: {
+    display: 'flex',
   },
   appBar: {
     transition: theme.transitions.create(['margin', 'width'], {
@@ -324,7 +328,7 @@ export default function PersistentDrawerLeft() {
               spacing={2}
               style={{ minHeight: '100vh' }}>
           <Grid item xs={3} spacing={3}>
-              <Card  className={classes.root}>
+              <Card  className={classes.root2}>
                 <CardContent>
                   <Typography variant="h5" color="textSecondary" gutterBottom> Profile </Typography>
                   <Typography variant="body1" component="p">
@@ -336,7 +340,7 @@ export default function PersistentDrawerLeft() {
           <Grid item xs={3} spacing={3}>
             { myservices.map( (service) => (
               <li key={service.type}>
-                <Card className={classes.root} xs={4}>
+                <Card className={classes.root2} xs={4}>
                   <CardActions>
                     <GlobalButton service={service.service} />
                     {service.connected?<CheckCircleIcon style={{ color: green[500] }}/>:<div></div>}

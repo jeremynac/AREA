@@ -22,9 +22,6 @@ function App() {
         <Route exact path="/">
             < Login/>
           </Route>
-          <Route path="/homepage">
-            <HomePage />
-          </Route>
           <Route path="/register">
             <Register />
           </Route>

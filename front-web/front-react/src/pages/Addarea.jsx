@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     flexGrow: 1,
-    backgroundColor: '#313866',
+    backgroundColor: '#F1E6FF',
     height: '100vh',
   },
   appBar: {
@@ -130,8 +130,8 @@ export default function PersistentDrawerLeft() {
         })}
       >
         <div className={classes.drawerHeader} />
-        <Grid     justify="center"
- container item spacing={3}>
+        <Grid justify="center"
+          container item spacing={3}>
           <Grid item xs={7}>
             <AreaList/>
           </Grid>
