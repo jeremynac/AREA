@@ -4,7 +4,7 @@
         "type": "facebook",
         "account": true,
         "actions": [{ "$oid": "603cea1699eaca000863ccb1" }],
-        "reactions": [{ "$oid": "603d23329b4fe60009c08a91" }, { "$oid": "60018a136c7bd76663a84619" }],
+        "reactions": [{ "$oid": "603d23329b4fe60009c08a91" }],
         "parse_map": {
             "access_token": "access_token",
             "refresh_token": "refresh_token",
