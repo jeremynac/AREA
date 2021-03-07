@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -9,7 +9,7 @@ import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
+import {Button} from '@material-ui/core';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
@@ -24,7 +24,7 @@ import {useHistory} from "react-router-dom";
 import { purple } from '@material-ui/core/colors';
 import SettingsIcon from '@material-ui/icons/Settings';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
-
+import API from '../auth/requests';
 
 const drawerWidth = 240;
 
@@ -88,6 +88,9 @@ const useStyles = makeStyles((theme) => ({
   toolbarButtons: {
     marginLeft: 'auto',
   },
+  Padding: {
+    marginLeft: theme.spacing(2),
+  },
 }));
 
 //function ListItemLink(props) {
@@ -116,6 +119,7 @@ export default function PersistentDrawerLeft() {
   const handleProfileMenuOpen = (event) => {  setAnchorEl(event.currentTarget); };
 
   const navigateToEpitech = () => history.push('/Area');
+  const navigateToLogin = () => history.push('/');
   const navigateToProfile = () => history.push('/Profile');
   const navigateToAddArea = () => history.push('/Addarea');
 
@@ -135,6 +139,19 @@ export default function PersistentDrawerLeft() {
       <MenuItem onClick={navigateToProfile}>Profile</MenuItem>
     </Menu>
   );
+  useEffect(()  => {
+    async function CheckLogin() {
+      if (await API.isAuth() == false)
+        navigateToLogin()
+    }
+    CheckLogin()
+  }, []);
+
+
+  const disconnectFront = () => {
+    API.logout();
+    navigateToLogin();
+  }
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -167,6 +184,12 @@ export default function PersistentDrawerLeft() {
             >
               <AddCircleIcon style={{ fontSize: 40 }} />
             </IconButton>
+            <Button className={classes.Padding} variant="outlined" edge="end" aria-label="account of current user" aria-controls={menuId} aria-haspopup="true"
+              onClick={disconnectFront}
+              color="inherit"
+            >
+              Log Out
+            </Button>
           </div>
         </Toolbar>
       </AppBar>

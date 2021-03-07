@@ -133,9 +133,13 @@ module.exports = function(app) {
                     req.logIn(user, function(err) {
                         console.log(err)
                     })
-                    console.log("connected or added account", user)
+                    console.log("connected or added account", user, req)
                     res.headers = { test: 'test' }
-                    return res.status(200).json({ new_account: new_account.value, new_user: true, userID: user._id });
+                        // return res.status(200).json({ new_account: new_account.value, new_user: true, userID: user._id });
+                    return res.render("authenticated", {
+                        user_id: user._id,
+                        clientUrl: 'http://localhost:8080',
+                    });
                 }
             } catch (e) {
                 console.log(e)

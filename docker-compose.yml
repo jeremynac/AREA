@@ -16,12 +16,12 @@ services:
             PORT: 8081
             REACT_APP_SERVER_URL: https://area.gen-host.fr
         volumes:
-          - ./front-react/src/:/my-app/src
+          - ./front-web/front-react/src/:/app/src/
         ports:
             - "8081:8081"
         restart: on-failure
         networks:
-            - front_net          
+            - front_net
     server:
         container_name: back
         build: ./back/server
@@ -42,7 +42,7 @@ services:
         env_file:
             - back/server/.env
         volumes:
-          - .back/server/src:/app/src
+          - ./back/server/src:/app/src
         restart: on-failure
     server-deployed:
         container_name: back
@@ -64,7 +64,7 @@ services:
         env_file:
             - back/server/.env_deployed
         volumes:
-          - .back/server/src:/app/src
+          - ./back/server/src:/app/src
         restart: on-failure
     mongo:
         container_name: mongo
@@ -95,7 +95,7 @@ services:
         links:
             - mongo
         volumes:
-            - .back/db-seed:/db-seed
+            - ./back/db-seed:/db-seed
         command:
             /back/db-seed/import.sh
         depends_on:

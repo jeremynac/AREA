@@ -30,7 +30,7 @@ function Param(props) {
         return (
             <CardActions className={classes.padding}>
             {props.name}
-            <TextField className={classes.padding} onChange={handleChange} value={value} placeholder={props.name}/>
+            <LoginTextField fullWidth variant="outlined" className={classes.padding} onChange={handleChange} value={value} placeholder={props.name}/>
             </CardActions>
         )
       case 'Boolean':

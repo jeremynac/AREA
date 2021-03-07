@@ -1,20 +1,10 @@
 import React, {useState, useEffect} from 'react';
-import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import {List,ListItem,ListItemText,Card, ListSubheader,IconButton, CardActions,Menu,MenuItem, TextField, Select,Grid} from '@material-ui/core';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import AddIcon from '@material-ui/icons/Add';
-import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
+import {ListItem,Card, ListSubheader, CardActions} from '@material-ui/core';
 import {PurpleSwitch, AddButton} from './Buttons';
-import {SignInButton, LoginTextField} from './Buttons';
+import { LoginTextField} from './Buttons';
 import MenuListComposition from './MenuAction';
-import MenuListCompositionREACTION from './MenuReaction';
 import API from '../auth/requests';
-import {useHistory} from 'react-router-dom'
-
-
-const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -41,7 +31,6 @@ export default function AreaList(props) {
   const [activated, setactivated] = useState(true)
   const [actions, setactions] = useState([])
   const [reactions, setreactions] = useState([])
-  const history = useHistory();
 
   const [checked, setChecked] = React.useState(['wifi']);
   const handleToggle = (value) => () => {
@@ -57,19 +46,31 @@ export default function AreaList(props) {
     setChecked(newChecked);
   };
 
+  function displayADDarea(on, errortext="ERROR") {
+    var elem = document.getElementById('error')
+    elem.style.color = 'red'
+    if (on) {
+      elem.innerText = errortext
+    }
+    else
+    {
+      elem.innerText = "Area not Added" 
+    }
+  }
+
   const submit = async () => {
     console.log('test')
     let res;
     try {
       if (props.update) {
-        res = await API.updateScript(props.id, name, action._id, reaction._id, a_params, r_params, activated)  
+        res = await API.updateScript(props.id, name, action._id, reaction._id, a_params, r_params, activated)
         if (res) {
           props.update()
-        }    
+        }
       } else {
         res = await API.createScript(name, action._id, reaction._id, a_params, r_params, activated)
         if (res) {
-          history.push('/Area')
+          displayADDarea(true, "Area submited")
         }
       } 
       console.log(res)
@@ -77,6 +78,43 @@ export default function AreaList(props) {
       console.log(e)
     }
   }  
+
+  const fetchScript = async () => {
+    try {
+      let res3 = await API.getScript(props.id)
+        console.log(res3)
+        if (res3) {
+          console.log(actions)
+            // console.log(res.script.action == actions[0]._id)
+            let i = 0, a, r;
+            for (i in actions) {
+              if (actions[i]._id == res3.script.action) {
+                a = actions[i]
+              }
+            }
+            for (i in reactions) {
+              if (reactions[i]._id == res3.script.reaction) {
+                r = reactions[i]
+              }
+            }
+            if (a) {
+              setaction(a)
+            }
+            if (r) {
+              setreaction(r)
+            }
+            // setaction(actions.find(a => res.script.action == a._id))
+            // console.log(action)
+            // setreaction(reactions.find(r => res.script.reaction == r._id))
+            // reactions.find(r => res.script.reaction == r._id)
+            // console.log(reaction)
+            setname(res3.script.name)
+            setactivated(res3.script.activated)
+          }
+      } catch(e) {
+          console.log(e)
+      }
+  }
 
   useEffect(()=> {
     async function fetchAPI() {
@@ -98,44 +136,18 @@ export default function AreaList(props) {
                 setreaction(res2[0])
               }
           }
-        if (props.id) {
-          let res3 = await API.getScript(props.id)
-            console.log(res3)
-            if (res3) {
-              console.log(actions)
-                // console.log(res.script.action == actions[0]._id)
-                let i = 0, a, r;
-                for (i in actions) {
-                  if (actions[i]._id == res3.script.action) {
-                    a = actions[i]
-                  }
-                }
-                for (i in reactions) {
-                  if (reactions[i]._id == res3.script.reaction) {
-                    r = reactions[i]
-                  }
-                }
-                if (a) {
-                  setaction(a)
-                }
-                if (r) {
-                  setreaction(r)
-                }
-                // setaction(actions.find(a => res.script.action == a._id))
-                // console.log(action)
-                // setreaction(reactions.find(r => res.script.reaction == r._id))
-                // reactions.find(r => res.script.reaction == r._id)
-                // console.log(reaction)
-                setname(res3.script.name)
-                setactivated(res3.script.activated)
-              }
-            }
-          } catch(e) {
-              console.log(e)
-          }
+        }  catch(e) {
+          console.log(e)
         }
+      }
     console.log("print 2")
     fetchAPI()
+      .then(r=>{
+        fetchScript()
+      })
+      .catch(
+        e=>{}
+      )
 }, []);
 
   const [open, setOpen] = React.useState(false);
@@ -177,7 +189,9 @@ export default function AreaList(props) {
             <MenuListComposition title={'Action'} items={actions} item={action} handleChangeItem={(value)=>{setaction(value)}} handleChangeParams={(key, value)=> handleChangeParams(key, value, 1)}/>
             <MenuListComposition title={'Reaction'} items={reactions} item={reaction} handleChangeItem={(value)=>{setreaction(value)}} handleChangeParams={(key, value)=> handleChangeParams(key, value, 0)}/>
           </CardActions>
-          <AddButton className={classes.padding} onClick={()=>{submit()}} >SUBMIT</AddButton>
+          <AddButton className={classes.padding} onClick={()=>{submit() }} >SUBMIT</AddButton>
+          <h3 id="error" ></h3>
+
     </Card>
 
   );

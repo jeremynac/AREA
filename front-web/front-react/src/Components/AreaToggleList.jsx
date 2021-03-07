@@ -104,12 +104,10 @@ export default function AreaToggle() {
   const updateScripts = () => {
     refetchAPI()
   }
-
-
   return (
     <Card>
         <ListSubheader>AREA HUB </ListSubheader>
-            {myscripts.map((script) => (
+            {myscripts[0] ? myscripts.map((script) => (
                     <List key={script._id} className={classes.listSection}>
                         <ListItem>
                             <ListItemText>
@@ -128,7 +126,7 @@ export default function AreaToggle() {
                         <Divider/>
 
                 </List>
-            ))}
+            )) : ""}
     </Card>
   );
 }

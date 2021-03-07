@@ -12,7 +12,6 @@ import Area from './pages/Epitech';
 import Profile from './pages/Profile';
 import AddArea from './pages/Addarea';
 
-
 function App() {
   return (
     <div className="App">

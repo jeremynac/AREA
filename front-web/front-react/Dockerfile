@@ -1,6 +1,6 @@
 FROM node:14-alpine
 
-WORKDIR /front-react
+WORKDIR /app
 
 COPY package.json ./package.json
 

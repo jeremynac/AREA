@@ -130,20 +130,10 @@ export default function PersistentDrawerLeft() {
         })}
       >
         <div className={classes.drawerHeader} />
-        <Grid container item spacing={3}>
-          <Grid item xs={10}>
+        <Grid     justify="center"
+ container item spacing={3}>
+          <Grid item xs={7}>
             <AreaList/>
-          </Grid>
-          <Grid item xs={2} >
-            <Card >
-              <CardContent>
-                <img  src={mainlogo} className={classes.Cardheader} alt="fireSpot"/>
-                <Typography className={classes.title} color="textSecondary" gutterBottom>
-                  EPITECH AREA APK
-                </Typography>
-                <AddButton className={classes.ButtonDownload} onClick={downloadfile}>DOWNLOAD</AddButton>
-              </CardContent>
-            </Card>
           </Grid>
         </Grid>
       </main>

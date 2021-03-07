@@ -56,11 +56,27 @@ export default function SignInSide() {
   const navigateToHome = () => history.push('/');
   const navigateToProfile = () => history.push('/Profile');
 
+  function displayError(on, errortext="ERROR") {
+    var elem = document.getElementById('error')
+    elem.style.color = 'red'
+    if (on) {
+      elem.innerText = errortext
+    }
+    else
+    {
+      elem.innerText = "" 
+    }
+  }
+
+
   const register = async () => {
      console.log(username, password)
      let res = await API.register(username, password)
      if (res) {
       navigateToProfile()
+     }
+     else {
+      displayError(true, "EMAIL ALREADY TAKEN")
      }
    }
 
@@ -76,6 +92,7 @@ export default function SignInSide() {
           <Typography component="h1" variant="h5">
             Register
           </Typography>
+          <h3 id="error"></h3>
           {/* <form className={classes.form} noValidate> */}
             <LoginTextField
               variant="outlined"
