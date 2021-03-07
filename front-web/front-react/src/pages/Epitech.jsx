@@ -11,7 +11,7 @@ import { green, purple } from '@material-ui/core/colors';
 import mainlogo from "../Components/Area.png";
 import {useHistory} from "react-router-dom";
 import { createMuiTheme } from '@material-ui/core/styles';
-// import apk from '../apk/'
+// import apk from '../../public/apk/app-arm64-v8a-release.apk'
 
 
 const drawerWidth = 240;
@@ -151,7 +151,7 @@ export default function PersistentDrawerLeft() {
                 <Typography className={classes.title} color="textSecondary" gutterBottom>
                   EPITECH AREA APK
                 </Typography>
-                <a href="" style={{color: "rgba(0, 0, 0, 0)"}}><AddButton className={classes.ButtonDownload}>DOWNLOAD</AddButton></a>
+                <a href='../../public/apk/app-arm64-v8a-release.apk' download style={{color: "rgba(0, 0, 0, 0)"}}><AddButton className={classes.ButtonDownload}>DOWNLOAD</AddButton></a>
               </CardContent>
             </Card>
           </Grid>
