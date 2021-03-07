@@ -39,3 +39,26 @@ Future<bool> postUpdateUserInfo(String username) async {
     return false;
   }
 }
+
+Future<Map<String, dynamic>> getUserNotifications() async {
+  final response = await http.get(urlArea + '/user/notifications', headers: headers);
+
+  Map<String, dynamic> usernotifications = jsonDecode(response.body);
+  //print(userinfo);
+  if (response.statusCode == 200) {
+    return usernotifications;
+  } else {
+    usernotifications['error'] = true;
+    return usernotifications;
+  }
+}
+
+void putClearUserNotifications() async {
+  final response = await http.put(urlArea + '/user/notifications/read', headers: headers);
+
+  if (response.statusCode == 200) {
+    return;
+  } else {
+    return;
+  }
+}
