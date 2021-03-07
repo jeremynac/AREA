@@ -15,14 +15,21 @@ The services available are:
 - Discord
 - Deepapi
 
-# Installation
+# Local Installation 
 
 - web-client:<br/>
 ``` docker-compose up --build client_web```
+- server: <br/>
+```docker-compose up --build server mongo mongo-seed```
+
+# Production Installation 
+
+- web-client:<br/>
+``` docker-compose up --build client_web-deployed```
 - mobile_client:<br/>
 ```docker-compsoe up --build client_mobile```
 - server: <br/>
-```docker-compose up --build server mongo mongo-seed```
+```docker-compose up --build server-deployed mongo mongo-seed```
 
 # Tech used
 

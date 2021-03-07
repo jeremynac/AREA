@@ -98,6 +98,9 @@ export default {
     },
     logout: async function() {
         try {
+            let res = await axios.get(url + '/user/logout', {headers: {'uid': localStorage.userID }});
+        } catch {}
+        try {
             localStorage.setItem('userID', "");
             headers = {
                 user_id: ""

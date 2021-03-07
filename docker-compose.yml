@@ -4,43 +4,46 @@ services:
         container_name: flutter_area
         build: ./front-flutter
         volumes:
-            - ./front-flutter/build/:/app/build/app/outputs/flutter-apk/
-    client_web:
-        container_name: front
+            # - ./front-flutter/build/:/app/build/app/outputs/flutter-apk/
+            - apk-download:/app/build/app/outputs/flutter-apk/
+    client_web-deployed:
+        container_name: front_area-deployed
         build: ./front-web/front-react
         tty: true
-        #depends_on:
-        #    - client_mobile
+        depends_on:
+           - client_mobile
         #    - server
         environment:
             PORT: 8081
             REACT_APP_SERVER_URL: https://area.gen-host.fr
         volumes:
-          - ./front-web/front-react/src/:/app/src/
+            - ./front-web/front-react/src/:/app/src/
+            - apk-download:/app/public/apk/
         ports:
             - "8081:8081"
         restart: on-failure
         networks:
             - front_net
-    client_web_dev:
-        container_name: front
+    client_web:
+        container_name: front_area
         build: ./front-web/front-react
         tty: true
-        #depends_on:
-        #    - client_mobile
-        #    - server
+        depends_on:
+           - client_mobile
+           - server
         environment:
             PORT: 8081
             REACT_APP_SERVER_URL: http://localhost:8080
         volumes:
-          - ./front-web/front-react/src/:/app/src/
+            - ./front-web/front-react/src/:/app/src/
+            - apk-download:/app/public/apk/
         ports:
             - "8081:8081"
         restart: on-failure
         networks:
             - front_net
     server:
-        container_name: back
+        container_name: back_area
         build: ./back/server
         depends_on:
             - mongo
@@ -62,7 +65,7 @@ services:
           - ./back/server/src:/app/src
         restart: on-failure
     server-deployed:
-        container_name: back-deployed
+        container_name: back_area-deployed
         build: ./back/server
         depends_on:
             - mongo
@@ -125,3 +128,4 @@ networks:
 volumes:
     db-data:
     db-seed:
+    apk-download:
