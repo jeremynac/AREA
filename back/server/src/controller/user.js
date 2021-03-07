@@ -1,8 +1,10 @@
 const express = require('express')
 const passport = require('passport')
 const User = require('@schemas/schemaUser')
+const Notification = require('@schemas/schemaNotification')
 const Script = require('@schemas/schemaScript')
 const Services = require('@schemas/schemaService')
+
 
 function auth(req, res, next) {
     console.log("try")
@@ -86,6 +88,29 @@ module.exports = function(app) {
             console.log('test', req.query)
             await Account.deleteOne({ user: req.user._id, service: req.query.service_id })
             return res.status(200).json({ deleted: true })
+        } catch (e) {
+            console.log(e)
+            return res.status(500).json({ error: e })
+        }
+    })
+
+    app.get('/notifications', async(req, res) => {
+        try {
+            let user = await User.findById(req.user._id).select('notifications').populate('notifications')
+            return res.status(200).json({ notifs: user.notifications })
+        } catch (e) {
+            console.log(e)
+            return res.status(500).json({ error: e })
+        }
+    })
+
+    app.put('/notifications/read', async(req, res) => {
+        try {
+            let user = await User.findById(req.user._id).select('notifications')
+            await Notification.deleteMany({ _id: { $in: user.notifications } })
+            user.notifications = []
+            await user.save()
+            return res.status(200).json({ read: 'true' })
         } catch (e) {
             console.log(e)
             return res.status(500).json({ error: e })

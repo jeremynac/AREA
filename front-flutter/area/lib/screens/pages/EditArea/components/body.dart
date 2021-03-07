@@ -19,25 +19,20 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-  ScriptEditing scriptClass = ScriptEditing(
-      "", ActionCreation("0", {}), ReactionCreation("0", {}), false, "");
+  ScriptEditing scriptClass = ScriptEditing("", ActionCreation("0", {}), ReactionCreation("0", {}), false, "");
   bool unlocked1 = false;
   bool unlocked2 = false;
 
   void initScriptClass(Map<String, dynamic> data) async {
     if (data['script']['name'] == null) {
-      print("NULL DETECTED");
       errorLoadDialog(context);
     } else {
       scriptClass.name = data['script']['name'];
       scriptClass.activated = data['script']['activated'];
       scriptClass.identifier = widget.id;
-      scriptClass.action = ActionCreation(
-          data['script']['action'], data['script']['action_parameters']);
-      scriptClass.reaction = ReactionCreation(
-          data['script']['reaction'], data['script']['reaction_parameters']);
+      scriptClass.action = ActionCreation(data['script']['action'], data['script']['action_parameters']);
+      scriptClass.reaction = ReactionCreation(data['script']['reaction'], data['script']['reaction_parameters']);
     }
-    print("scriptClass init to : " + scriptClass.toJson().toString());
   }
 
   Future<int> computeInitialValue(Map<String, dynamic> data) async {
@@ -96,7 +91,6 @@ class _BodyState extends State<Body> {
 
   actionCallback(ActionCreation data) {
     if (unlocked1) {
-      print("action callback called");
       scriptClass.action = data;
     } else {
       unlocked1 = true;
@@ -105,7 +99,6 @@ class _BodyState extends State<Body> {
 
   reactionCallback(ReactionCreation data) {
     if (unlocked2) {
-      print("reaction callback called");
       scriptClass.reaction = data;
     } else {
       unlocked2 = true;
@@ -126,10 +119,8 @@ class _BodyState extends State<Body> {
     return FutureBuilder(
       future: getScriptById(widget.id),
       builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.done &&
-            snapshot.data != null) {
+        if (snapshot.connectionState == ConnectionState.done && snapshot.data != null) {
           initScriptClass(snapshot.data);
-          print("Got script to edit: " + snapshot.data.toString());
           return Container(
             child: ListView(
               children: <Widget>[
@@ -149,16 +140,12 @@ class _BodyState extends State<Body> {
                       child: FutureBuilder(
                         future: computeInitialValue(snapshot.data),
                         builder: (context, snapshot2) {
-                          if (snapshot2.connectionState ==
-                              ConnectionState.done) {
-                            print("INIT ACTION IS IS : " +
-                                snapshot2.data.toString());
+                          if (snapshot2.connectionState == ConnectionState.done) {
                             return ActionCard(
                               initDropdownvalue: snapshot2.data,
                               actionCallback: actionCallback,
                               initActionId: snapshot.data['script']['action'],
-                              initParameters: snapshot.data['script']
-                                  ['action_parameters'],
+                              initParameters: snapshot.data['script']['action_parameters'],
                             );
                           } else if (snapshot.hasError) {
                             throw snapshot.error;
@@ -176,17 +163,12 @@ class _BodyState extends State<Body> {
                       child: FutureBuilder(
                         future: computeInitialValue2(snapshot.data),
                         builder: (context, snapshot3) {
-                          if (snapshot3.connectionState ==
-                              ConnectionState.done) {
-                            print("INIT REACTION IS IS : " +
-                                snapshot3.data.toString());
+                          if (snapshot3.connectionState == ConnectionState.done) {
                             return ReactionCard(
                               initDropdownvalue: snapshot3.data,
                               reactionCallback: reactionCallback,
-                              initReactionId: snapshot.data['script']
-                                  ['reaction'],
-                              initParameters: snapshot.data['script']
-                                  ['reaction_parameters'],
+                              initReactionId: snapshot.data['script']['reaction'],
+                              initParameters: snapshot.data['script']['reaction_parameters'],
                             );
                           } else if (snapshot.hasError) {
                             throw snapshot.error;
@@ -202,22 +184,15 @@ class _BodyState extends State<Body> {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(29),
                         child: FlatButton(
-                          padding: EdgeInsets.symmetric(
-                              vertical: 20, horizontal: 40),
+                          padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
                           color: kPrimaryLightColor,
-                          shape: RoundedRectangleBorder(
-                              side: BorderSide(
-                                  color: kPrimaryColor,
-                                  width: 2,
-                                  style: BorderStyle.solid),
-                              borderRadius: BorderRadius.circular(50)),
+                          shape: RoundedRectangleBorder(side: BorderSide(color: kPrimaryColor, width: 2, style: BorderStyle.solid), borderRadius: BorderRadius.circular(50)),
                           onPressed: () async {
                             bool success = await putScriptUpdate(scriptClass);
                             if (!success)
                               errorSendAlertDialog(context);
                             else
-                              Navigator.of(context).pushNamedAndRemoveUntil(
-                                  '/app', (Route<dynamic> route) => false);
+                              Navigator.of(context).pushNamedAndRemoveUntil('/app', (Route<dynamic> route) => false);
                           },
                           child: Text(
                             "Edit",
@@ -240,57 +215,3 @@ class _BodyState extends State<Body> {
     );
   }
 }
-
-/*Container(
-      child: ListView(
-        children: <Widget>[
-          Column(
-            children: [
-              SizedBox(
-                height: size.height * 0.01,
-              ),
-              NameCard(
-                nameCallback: nameCallback,
-                activateCallback: activateCallback,
-              ),
-              SizedBox(
-                width: size.width * 0.9,
-                child: ActionCard(
-                  actionCallback: actionCallback,
-                ),
-              ),
-              SizedBox(
-                height: size.height * 0.01,
-              ),
-              SizedBox(
-                width: size.width * 0.9,
-                child: ReactionCard(
-                  reactionCallback: reactionCallback,
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.symmetric(vertical: 10),
-                width: size.width * 0.8,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(29),
-                  child: FlatButton(
-                    padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
-                    color: kPrimaryLightColor,
-                    shape: RoundedRectangleBorder(side: BorderSide(color: kPrimaryColor, width: 2, style: BorderStyle.solid), borderRadius: BorderRadius.circular(50)),
-                    onPressed: () async {
-                      bool success = await postScriptCreate(scriptClass);
-                      if (!success) errorSendAlertDialog(context);
-                      print(scriptClass.toJson());
-                    },
-                    child: Text(
-                      "Edit",
-                      style: TextStyle(color: Colors.black),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );*/

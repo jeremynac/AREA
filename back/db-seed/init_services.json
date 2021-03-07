@@ -3,8 +3,8 @@
         "name": "facebook",
         "type": "facebook",
         "account": true,
-        "actions": [{ "$oid": "5fff3620a0efdc70962fefa4" }, { "$oid": "60018a13cab6dd49d2ba5a95" }],
-        "reactions": [{ "$oid": "5fff3620c3a3e2f146ce9aa3" }, { "$oid": "60018a136c7bd76663a84619" }],
+        "actions": [{ "$oid": "603cea1699eaca000863ccb1" }],
+        "reactions": [{ "$oid": "603d23329b4fe60009c08a91" }, { "$oid": "60018a136c7bd76663a84619" }],
         "parse_map": {
             "access_token": "access_token",
             "refresh_token": "refresh_token",

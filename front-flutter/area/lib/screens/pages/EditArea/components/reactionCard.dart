@@ -92,6 +92,13 @@ class _ReactionCardState extends State<ReactionCard> {
                         ),
                     ],
                   ),
+                  Text(
+                    snapshot.data['reactions'][dropdownValue]['description'],
+                    style: TextStyle(
+                      fontFamily: 'Ubuntu',
+                      color: Colors.black,
+                    ),
+                  ),
                   DynamicForm(
                     data: snapshot.data['reactions'][dropdownValue]['parameters'],
                     callback: callback,

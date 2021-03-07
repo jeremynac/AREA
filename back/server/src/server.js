@@ -1,4 +1,3 @@
-//Définition des modules
 require('module-alias/register')
 require('dotenv').config()
 const express = require("express");
@@ -13,30 +12,22 @@ const { json } = require('body-parser');
 const schedule = require('node-schedule');
 const { scheduleActivation } = require('@activation/schedule');
 const User = require("@schemas/schemaUser");
-// const session = require('session')
-
-
-// CONNECT TO DB
+const { getAbout } = require("@activation/about")
+const path = require("path");
 
 app.use(bodyParser.urlencoded({ extended: true }))
-    //app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use(cookieparser('stuff', { maxAge: 500, SameSite: false, secure: true, httpOnly: false }))
 
-
-
-// Init REST API
-
 app.use(
     cors({
-        origin: "http://localhost:3000", //8080", // allow to server to accept request from different origin
+        origin: "http://localhost:8081",
         methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-        credentials: true, // allow session cookie from browser to pass through
+        credentials: true,
     })
 );
 
 app.set('trust proxy', true)
-    // Penser à enlever sameSite et secure atribute quand on passera en prod
 app.use(require('express-session')({
     secret: 'derpy',
     resave: false,
@@ -46,14 +37,9 @@ app.use(require('express-session')({
     }
 }));
 app.use(passport.initialize());
-app.use(passport.session()); // Required for persistent login sessions (optional, but recommended)
+app.use(passport.session());
 app.use(function(req, res, next) {
-    // res.setHeader('Access-Control-Allow-Origin', '*');
-    // res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type,Accept, Authortization');
-    // res.setHeader('Acces-Control-Allow-Methods','GET, POST, PATCH, DELETE');
-    // res.setHeader("Access-Control-Allow-Origin", "*");
-    // res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
-    res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000"); //8080");
+    res.setHeader("Access-Control-Allow-Origin", "http://localhost:8081");
 
     res.setHeader(
         "Access-Control-Allow-Methods",
@@ -86,6 +72,9 @@ app.set('trust proxy', true)
 
 app.use(express.urlencoded({ extended: true }));
 
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "/views"));
+
 // Controllers:
 
 const routerUser = express.Router();
@@ -102,6 +91,11 @@ require("@controller/auth")(routerAuth);
 
 app.use('/public', routerPublic);
 require('@controller/public')(routerPublic);
+
+app.get('/about.json', async(req, res) => {
+    let about = await getAbout(req)
+    return res.status(200).json(about)
+})
 
 app.use(async(req, res, next) => {
     console.log("hello", req.headers)
@@ -149,7 +143,7 @@ app.use((req, res) => {
 })
 
 app.listen(process.env.PORT, () => {
-    scheduleActivation('1h')
+    scheduleActivation(process.env.DELAY)
 })
 
 /*

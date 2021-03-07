@@ -45,14 +45,21 @@ module.exports = function(app) {
     })
 
     app.get('/isauth', async(req, res) => {
-        if (req.isAuthenticated()) {
-            return res.status(200).json({ connected: true })
-        } else {
+        try {
+            if (req.isAuthenticated()) {
+                return res.status(200).json({ connected: true, userID: req.user._id })
+            } else if (req.headers.uid) {
+                return res.status(200).json({ connected: true, userID: req.headers.uid })
+            } else {
+                return res.status(200).json({ connected: false })
+            }
+        } catch {
             return res.status(200).json({ connected: false })
         }
     })
     app.get('/fb-login/:user_id', (req, res, next) => {
         // console.log('test', req.params.user_id)
+        req.session.react = req.query.react
         passport.authenticate('facebook', {
             state: req.params.user_id,
             scope: ['user_friends', 'user_likes', 'user_posts', 'public_profile', 'pages_show_list', 'pages_manage_metadata', 'pages_read_engagement', 'pages_manage_posts']
@@ -74,7 +81,14 @@ module.exports = function(app) {
                         console.log(err)
                     })
                     console.log("connected or added account", user)
-                    return res.status(200).json({ new_account: new_account.value, new_user: true, userID: user._id });
+                    if (req.session.react) {
+                        return res.render('auth', {
+                            user_id: user._id,
+                            clientUrl: 'http://localhost:8081'
+                        })
+                    } else {
+                        return res.status(200).json({ new_account: new_account.value, new_user: true, userID: user._id });
+                    }
                 }
             } catch (e) {
                 console.log(e)
@@ -85,6 +99,7 @@ module.exports = function(app) {
 
     app.get('/go-login/:user_id', async(req, res) => {
         // console.log(req.params.user_id);
+        req.session.react = req.query.react
         passport.authenticate('google', {
             scope: [
                 'https://www.googleapis.com/auth/gmail.readonly',
@@ -133,13 +148,16 @@ module.exports = function(app) {
                     req.logIn(user, function(err) {
                         console.log(err)
                     })
-                    console.log("connected or added account", user, req)
+                    console.log("connected or added account", user, req.session)
                     res.headers = { test: 'test' }
-                        // return res.status(200).json({ new_account: new_account.value, new_user: true, userID: user._id });
-                    return res.render("authenticated", {
-                        user_id: user._id,
-                        clientUrl: 'http://localhost:8080',
-                    });
+                    if (req.session.react) {
+                        return res.render('auth', {
+                            user_id: user._id,
+                            clientUrl: 'http://localhost:8081'
+                        })
+                    } else {
+                        return res.status(200).json({ new_account: new_account.value, new_user: true, userID: user._id });
+                    }
                 }
             } catch (e) {
                 console.log(e)
@@ -326,6 +344,7 @@ module.exports = function(app) {
     app.get('/gh-login/:user_id', async(req, res) => {
         // console.log(req.params.user_id);
         console.log('test')
+        req.session.react = req.query.react
         passport.authenticate('github', {
             state: req.params.user_id
         })(req, res)
@@ -346,7 +365,14 @@ module.exports = function(app) {
                         console.log(err)
                     })
                     console.log("connected or added account", user)
-                    return res.status(200).json({ new_account: new_account.value, new_user: true, userID: user._id });
+                    if (req.session.react) {
+                        return res.render('auth', {
+                            user_id: user._id,
+                            clientUrl: 'http://localhost:8081'
+                        })
+                    } else {
+                        return res.status(200).json({ new_account: new_account.value, new_user: true, userID: user._id });
+                    }
                 }
             } catch (e) {
                 console.log(e)

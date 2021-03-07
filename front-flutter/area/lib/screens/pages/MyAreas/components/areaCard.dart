@@ -38,7 +38,6 @@ class _AreaCardState extends State<AreaCard> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    //print("DISPLAY AREA PARAMS" + widget.data.toString());
     return Card(
       color: kPrimaryLightColor,
       shape: RoundedRectangleBorder(
@@ -75,8 +74,7 @@ class _AreaCardState extends State<AreaCard> {
                   setState(() {
                     isSwitched = value;
                   });
-                  bool success = await updateScriptActivation(
-                      widget.data['_id'], isSwitched);
+                  bool success = await updateScriptActivation(widget.data['_id'], isSwitched);
                   if (!success) {
                     isSwitched = !isSwitched;
                     errorUpdateAlertDialog(context);
@@ -113,13 +111,7 @@ class _AreaCardState extends State<AreaCard> {
                     if (widget.data['action_parameters'] != null)
                       for (var i in widget.data['action_parameters'].keys)
                         Text(
-                          "- " +
-                              i +
-                              " : " +
-                              (widget.data['action_parameters'][i] is String
-                                  ? widget.data['action_parameters'][i]
-                                  : widget.data['action_parameters'][i]
-                                      .toString()),
+                          "- " + i + " : " + (widget.data['action_parameters'][i] is String ? widget.data['action_parameters'][i] : widget.data['action_parameters'][i].toString()),
                           style: TextStyle(
                             fontFamily: 'Ubuntu',
                             color: Colors.black,
@@ -139,13 +131,7 @@ class _AreaCardState extends State<AreaCard> {
                     if (widget.data['reaction_parameters'] != null)
                       for (var i in widget.data['reaction_parameters'].keys)
                         Text(
-                          "- " +
-                              i +
-                              " : " +
-                              (widget.data['reaction_parameters'][i] is String
-                                  ? widget.data['reaction_parameters'][i]
-                                  : widget.data['reaction_parameters'][i]
-                                      .toString()),
+                          "- " + i + " : " + (widget.data['reaction_parameters'][i] is String ? widget.data['reaction_parameters'][i] : widget.data['reaction_parameters'][i].toString()),
                           style: TextStyle(
                             fontFamily: 'Ubuntu',
                             color: Colors.black,
@@ -183,24 +169,3 @@ class _AreaCardState extends State<AreaCard> {
     );
   }
 }
-
-/*
-{
-    "script": {
-        "activated": false,
-        "last_activation": 1614701129,
-        "_id": "603e6249e5b86200125eb7d1",
-        "name": "facebook menthionned",
-        "action": "6034ed97f6a933000952dcf4",
-        "reaction": "6034ca21e7864400074e00c1",
-        "action_parameters": {
-            "important": "false",
-            "word": "test"
-        },
-        "reaction_parameters": {
-            "to": "jeremynac@hotmail.fr"
-        },
-        "__v": 0
-    }
-}
-*/

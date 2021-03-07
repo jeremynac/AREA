@@ -114,7 +114,7 @@ services:
         volumes:
             - ./back/db-seed:/db-seed
         command:
-            /back/db-seed/import.sh
+            /db-seed/import.sh
         depends_on:
             - mongo
         networks:

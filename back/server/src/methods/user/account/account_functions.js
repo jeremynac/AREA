@@ -5,6 +5,7 @@ const Account = require('@schemas/schemaAccount')
 var generator = require('generate-password');
 const { findUserByGoogle } = require('@services/google_functions')
 const { findUserByServiceAccount } = require('@service/service_functions')
+const { addNotif } = require('@user/user_functions')
 
 async function authCallback(err, user, new_account) {
     console.log('okok', new_account)
@@ -169,6 +170,9 @@ async function processAccount(user_id, service_type, args) {
             console.log('found', found)
             if (!found) { //check that no user already has an account with those credentials
                 success = await addAccountToUser(user_id, service_type, parsed_args);
+                if (success) {
+                    await addNotif("You are now authenticated to: " + service_type + '.', user_id)
+                }
                 return { user_id: null, new_account: true, success: success };
             } else {
                 return { user_id: found, new_account: false, success: false }

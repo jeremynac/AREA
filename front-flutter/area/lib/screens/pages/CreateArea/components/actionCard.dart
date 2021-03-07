@@ -64,8 +64,7 @@ class _ActionCardState extends State<ActionCard> {
                   )),
               clipBehavior: Clip.antiAlias,
               child: Padding(
-                padding: EdgeInsets.only(
-                    top: 6.0, left: 6.0, right: 6.0, bottom: 6.0),
+                padding: EdgeInsets.only(top: 6.0, left: 6.0, right: 6.0, bottom: 6.0),
                 child: Column(
                   children: [
                     Text(
@@ -94,25 +93,27 @@ class _ActionCardState extends State<ActionCard> {
                       onChanged: (int newValue) {
                         setState(() {
                           dropdownValue = newValue;
-                          selectedId =
-                              snapshot.data['actions'][newValue]['_id'];
-                          argumentList =
-                              snapshot.data['actions'][newValue]['parameters'];
+                          selectedId = snapshot.data['actions'][newValue]['_id'];
+                          argumentList = snapshot.data['actions'][newValue]['parameters'];
                         });
                       },
                       items: [
-                        for (var i = 0;
-                            i < snapshot.data['actions'].length;
-                            i++)
+                        for (var i = 0; i < snapshot.data['actions'].length; i++)
                           DropdownMenuItem<int>(
                             value: i,
                             child: Text(snapshot.data['actions'][i]['name']),
                           ),
                       ],
                     ),
+                    Text(
+                      snapshot.data['actions'][dropdownValue]['description'],
+                      style: TextStyle(
+                        fontFamily: 'Ubuntu',
+                        color: Colors.black,
+                      ),
+                    ),
                     DynamicForm(
-                      data: snapshot.data['actions'][dropdownValue]
-                          ['parameters'],
+                      data: snapshot.data['actions'][dropdownValue]['parameters'],
                       callback: callback,
                     ),
                   ],

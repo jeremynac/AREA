@@ -92,6 +92,13 @@ class _ActionCardState extends State<ActionCard> {
                         ),
                     ],
                   ),
+                  Text(
+                    snapshot.data['actions'][dropdownValue]['description'],
+                    style: TextStyle(
+                      fontFamily: 'Ubuntu',
+                      color: Colors.black,
+                    ),
+                  ),
                   DynamicForm(
                     data: snapshot.data['actions'][dropdownValue]['parameters'],
                     callback: callback,

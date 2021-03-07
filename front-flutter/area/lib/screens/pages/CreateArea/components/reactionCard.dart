@@ -64,8 +64,7 @@ class _ReactionCardState extends State<ReactionCard> {
                   )),
               clipBehavior: Clip.antiAlias,
               child: Padding(
-                padding: EdgeInsets.only(
-                    top: 6.0, left: 6.0, right: 6.0, bottom: 6.0),
+                padding: EdgeInsets.only(top: 6.0, left: 6.0, right: 6.0, bottom: 6.0),
                 child: Column(
                   children: [
                     Text(
@@ -94,26 +93,27 @@ class _ReactionCardState extends State<ReactionCard> {
                       onChanged: (int newValue) {
                         setState(() {
                           dropdownValue = newValue;
-                          selectedId =
-                              snapshot.data['reactions'][newValue]['_id'];
-                          argumentList = snapshot.data['reactions'][newValue]
-                              ['parameters'];
-                          print(argumentList);
+                          selectedId = snapshot.data['reactions'][newValue]['_id'];
+                          argumentList = snapshot.data['reactions'][newValue]['parameters'];
                         });
                       },
                       items: [
-                        for (var i = 0;
-                            i < snapshot.data['reactions'].length;
-                            i++)
+                        for (var i = 0; i < snapshot.data['reactions'].length; i++)
                           DropdownMenuItem<int>(
                             value: i,
                             child: Text(snapshot.data['reactions'][i]['name']),
                           ),
                       ],
                     ),
+                    Text(
+                      snapshot.data['reactions'][dropdownValue]['description'],
+                      style: TextStyle(
+                        fontFamily: 'Ubuntu',
+                        color: Colors.black,
+                      ),
+                    ),
                     DynamicForm(
-                      data: snapshot.data['reactions'][dropdownValue]
-                          ['parameters'],
+                      data: snapshot.data['reactions'][dropdownValue]['parameters'],
                       callback: callback,
                     ),
                   ],

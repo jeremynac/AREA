@@ -6,7 +6,6 @@ import 'package:area/api/GlobalNetwork.dart';
 import 'package:http/http.dart' as http;
 
 Future<bool> isAuth() async {
-  print("test1");
   final prefs = await SharedPreferences.getInstance();
   final cookie = prefs.getString('cookie');
   final userIdStorage = prefs.getString('user_id');
@@ -18,6 +17,8 @@ Future<bool> isAuth() async {
 
   Map<String, dynamic> isConnected = jsonDecode(response.body);
   if (response.statusCode == 200 && isConnected['connected'] == true) {
+    userID = isConnected['userID'];
+    prefs.setString('user_id', userID);
     headers['cookie'] = cookie;
     return true;
   } else {
@@ -34,10 +35,8 @@ void disconnect() async {
 }
 
 Future<bool> fetchLogin(String username, String password) async {
-  print("test2");
   headers['Content-Type'] = 'application/json; charset=UTF-8';
 
-  print(urlArea + '/auth/login');
   final response = await http.post(
     urlArea + '/auth/login',
     headers: headers,
@@ -46,10 +45,8 @@ Future<bool> fetchLogin(String username, String password) async {
       'password': password,
     }),
   );
-  print("test3");
   if (response.statusCode == 200) {
     updateCookie(response);
-    print("test4");
     return true;
   } else {
     return false;
@@ -79,11 +76,9 @@ void updateCookie(http.Response response) async {
   String rawCookie = response.headers['set-cookie'];
   if (rawCookie != null) {
     int index = rawCookie.indexOf(';');
-    headers['cookie'] =
-        (index == -1) ? rawCookie : rawCookie.substring(0, index);
+    headers['cookie'] = (index == -1) ? rawCookie : rawCookie.substring(0, index);
     final prefs = await SharedPreferences.getInstance();
-    prefs.setString(
-        'cookie', (index == -1) ? rawCookie : rawCookie.substring(0, index));
+    prefs.setString('cookie', (index == -1) ? rawCookie : rawCookie.substring(0, index));
 
     Map<String, dynamic> areas = jsonDecode(response.body);
     userID = areas['userID'];
@@ -92,15 +87,18 @@ void updateCookie(http.Response response) async {
 }
 
 Future<Map<String, dynamic>> getLoginServices() async {
-  final response =
-      await http.get(urlArea + '/public/services', headers: headers);
+  try {
+    final response = await http.get(urlArea + '/public/services', headers: headers);
 
-  Map<String, dynamic> services = jsonDecode(response.body);
-  print(services);
-  if (response.statusCode == 200) {
-    return services;
-  } else {
-    services['error'] = true;
-    return services;
+    Map<String, dynamic> services = jsonDecode(response.body);
+    if (response.statusCode == 200) {
+      return services;
+    } else {
+      services['error'] = true;
+      return services;
+    }
+  } catch (e) {
+    await Future.delayed(const Duration(seconds: 2), () {});
+    return getLoginServices();
   }
 }
