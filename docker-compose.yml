@@ -45,7 +45,7 @@ services:
           - ./back/server/src:/app/src
         restart: on-failure
     server-deployed:
-        container_name: back
+        container_name: back-deployed
         build: ./back/server
         depends_on:
             - mongo
