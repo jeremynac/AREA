@@ -37,6 +37,7 @@ dependencies:
   flappy_search_bar:
   shared_preferences:
   webview_flutter:
+  webview_cookie_manager:
 
 
   # The following adds the Cupertino Icons font to your application.

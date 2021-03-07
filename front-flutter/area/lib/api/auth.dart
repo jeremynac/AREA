@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:area/api/GlobalNetwork.dart';
 
@@ -92,15 +93,21 @@ void updateCookie(http.Response response) async {
 }
 
 Future<Map<String, dynamic>> getLoginServices() async {
-  final response =
-      await http.get(urlArea + '/public/services', headers: headers);
+  try {
+    final response =
+        await http.get(urlArea + '/public/services', headers: headers);
 
-  Map<String, dynamic> services = jsonDecode(response.body);
-  print(services);
-  if (response.statusCode == 200) {
-    return services;
-  } else {
-    services['error'] = true;
-    return services;
+    Map<String, dynamic> services = jsonDecode(response.body);
+    print(services);
+    if (response.statusCode == 200) {
+      return services;
+    } else {
+      services['error'] = true;
+      return services;
+    }
+  }catch (e) {
+    print(e);
+    await Future.delayed(const Duration(seconds: 2), (){});
+    return getLoginServices();
   }
 }
