@@ -49,4 +49,8 @@ Server:
 # Documentation
 You can find our documentation in:
 - [Docs server](./docs/back)
+- [Docs api, run on postman](https://documenter.getpostman.com/view/14427596/Tz5jg1SL)
 - [Docs mobile app](./docs/front_mobile)
+- [Docs front](./docs/front_web)
+- [Design Rules](./docs/The_design_rules.pdf)
+- [Git workflow](./docs/GitWorkflow.md)
