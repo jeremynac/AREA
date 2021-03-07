@@ -39,6 +39,5 @@ Server:
 - Mongodb
 - Passport.js
 
-#Documentation
-
-You can find our documentation:
+# Documentation
+You can find our documentation in /docs
