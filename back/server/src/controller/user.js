@@ -104,4 +104,17 @@ module.exports = function(app) {
         }
     })
 
+    app.put('/notifications/read', async(req, res) => {
+        try {
+            let user = await User.findById(req.user._id).select('notifications')
+            await Notification.deleteMany({ _id: { $in: user.notifications } })
+            user.notifications = []
+            await user.save()
+            return res.status(200).json({ read: 'true' })
+        } catch (e) {
+            console.log(e)
+            return res.status(500).json({ error: e })
+        }
+    })
+
 }
