@@ -25,3 +25,4 @@ jobs:
         name: flutter_area_apk
         path: ./front-flutter/build/*.apk
 
+
